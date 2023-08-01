@@ -1,14 +1,15 @@
 ---
 title: 'Data Handling'
 subtitle: 'Lecture 2:<br>Programming with Data'
-author: "Prof. Dr. Ulrich Matter"
+author: "Dr. Aurélien Sallin"
 output:   
   ioslides_presentation:
     css: ../../style/ioslides.css
     template: ../../style/nologo_template.html
     mathjax: "default"
+    widescreen: true
 logo: ../../img/logo.png
-bibliography: ../../references/datahandling.bib
+bibliography: ../../../datahandling2023/references/datahandling.bib
 ---
 
 
@@ -41,6 +42,12 @@ h2 {
   color: #02934a;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 </style>
 
@@ -50,40 +57,18 @@ h2 {
 ---
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
-include_graphics("../../img/nuvolos_help.png")
+#include_graphics("../../img/nuvolos_help.png")
 ```
 
 https://app.nuvolos.cloud/enroll/class/1PD9sApvyCI
 
 # Recap
 
-<!-- ## COVID-19: Protective measures for teaching activities -->
-
-<!-- 1. Admittance only for symptom-free persons.  -->
-<!-- 2. Observe hygiene and safety measures.  -->
-<!-- 3. Have an online backup solution ready.  -->
-<!-- 4. Mandatory wearing of masks – except for individuals when alone in a room.  -->
-<!-- 5. Attendance lists, if   wearing a mask is not possible for methodical/didactic reasons.  -->
-<!-- 6. Faculty without masks must keep a distance of 1.5 m at all times when teaching. -->
-
-<!-- ## COVID-19: Protective measures for teaching activities -->
-
-<!-- 1. Admittance only for symptom-free persons.  -->
-<!-- 2. Observe hygiene and safety measures.  -->
-<!-- 3. Have an online backup solution ready.  -->
-<!-- 4. Mandatory wearing of masks – except for individuals when alone in a room.  -->
-<!-- 5. Attendance lists, if   wearing a mask is not possible for methodical/didactic reasons.  -->
-<!-- 6. Faculty without masks must keep a distance of 1.5 m at all times when teaching. -->
-
-<!-- *Students must also wear a mask in the classrooms, and also while sitting!* -->
-
-
-
 ---
 
 
 ```{r echo=FALSE, fig.align='center', out.width="90%"}
-include_graphics("../../img/ds_matrix.png")
+#include_graphics("../../img/ds_matrix.png")
 ```
 
 
@@ -101,13 +86,13 @@ include_graphics("../../img/ds_matrix.png")
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
-include_graphics("../../img/numvec.png")
+#include_graphics("../../img/numvec.png")
 ```
 
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
-include_graphics("../../img/charvec.svg")
+#include_graphics("../../img/charvec.svg")
 ```
 
 
@@ -150,7 +135,7 @@ log(exp(10))
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="40%"}
-include_graphics("../../img/forloop_black.png")
+#include_graphics("../../img/forloop_black.png")
 ```
 
 ---
@@ -177,7 +162,7 @@ for (i in 1:n) {
 
 
 ```{r while, echo= FALSE, fig.align="center", out.width="60%"}
-include_graphics("../../img/while_loop_black_own.png")
+#include_graphics("../../img/while_loop_black_own.png")
 ```
 
 ## `while`-loop in R
@@ -264,15 +249,118 @@ install.packages("<PACKAGE NAME>")
 library(<PACKAGE NAME>)
 ```
 
+
 ## Functions in R
 
 - Write functions
 
 ```{r eval=FALSE, purl=FALSE}
 myfun <- function(){
+  # BODY
   
+  return()
 }
 ```
+
+
+## Functions in R
+
+- Example of a function: a simple power function
+
+```{r eval=FALSE, purl=FALSE}
+powerFunction <- function(base, exponent){
+  
+  results <- base ^ exponent
+  
+  return(results)
+}
+
+powerFunction(exponent = 2, base = 3)
+powerFunction(base = 2, exponent = 3)
+powerFunction(2, 3)
+powerFunction(c(2,4,3), 3)
+```
+
+
+## Going further with loops and functions: the "apply" family
+```{r echo=TRUE, eval=FALSE}
+numberOs <- 1
+
+cat("Loops are s")
+
+while (numberOs < 25) {
+  cat("o")
+  numberOs <- numberOs + 1
+}
+
+cat(" slow!")
+```
+
+```{r echo=FALSE, eval=TRUE, results='asis'}
+numberOs <- 1
+
+cat("Loops are s")
+
+while (numberOs < 25) {
+  cat("o")
+  numberOs <- numberOs + 1
+}
+
+cat(" slow!")
+```
+
+## Going further with loops and functions: the "apply" family
+
+`apply` applies a function to margins of an array or matrix. It loops over rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix. 
+
+```{r eval=FALSE, purl=FALSE}
+mymatrix <- matrix(c(1,2,3, 11,12,13, 1,10), 
+                   nrow = 2, 
+                   ncol = 4)
+print(mymatrix)
+```
+
+
+```{r eval=FALSE, purl=FALSE}
+# With a for loop
+for (i in 1:ncol(mymatrix)){
+  print(powerFunction(mymatrix[, i], 2))
+}
+
+# With apply
+apply(mymatrix, MARGIN = 2, powerFunction, exponent = 2)
+```
+
+
+## Going further with loops and functions: the "apply" family
+
+`lapply` applies a function over a list ("list-" apply). It loops over each element of a list to execute a function.
+```{r eval=FALSE, purl=FALSE}
+mylist <- list(1,2,5,6,90)
+
+# With a for loop
+for (i in mylist){
+  powerFunction(i, 2)
+}
+
+# With lapply
+lapply(mylist, powerFunction, exponent = 2)
+```
+
+
+
+# Recap
+
+
+## Loops
+
+| For loops  | apply | map  |
+|:-:|:-:|:-:|
+| <img src="../../../img/trabant.png" height="90"/> | <img src="../../../img/bmw2010.png" height="80"/> | <img src="../../../img/tesla.png" height="130"/>|
+| Slow | Fastest and reliable | Allows for better syntax and elegant code |
+| Long code | Short code, based on functions | Elegant integration into tidyverse |
+|:-:|:-:|:-:|
+| Exam relevant | Exam relevant | Not exam relevant |
 
 
 
@@ -300,6 +388,55 @@ $\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x
 ```
 
 
+
+
+# Tutorial: on slow and fast sloths
+
+
+
+## Tutorial: on slow and fast sloths
+We can use loops to simulate natural processes over time. Write a program that calculates the populations of two kinds of sloths over time. At the beginning of year 1, there are **1000 slow sloths** and **1 fast sloth**. This one fast sloth is a new mutation that comes with roller blades. Not surprisingly, being fast gives it an advantage, as it can better escape from predators. 
+
+|  |  |   
+|:-:|:-:|
+| <img src="../../../img/slowsloth.png" height="260"/> <br> A slow sloth | <img src="../../../img/fastsloth.png" height="260"/> <br> A fast sloth in its natural element|
+
+
+
+## Tutorial: on slow and fast sloths
+
+Each year, each sloth has one offspring. There are no further mutations, so slow sloths beget slow sloths, and fast sloths beget fast sloths. Also, each year 40% of all slow sloths die each year, while only 30% of the fast sloths do.
+
+So, at the beginning of year one there are 1000 slow sloths. Another 1000 slow sloths are born. But, 40% of these 2000 slow sloths die, leaving a total of 1200 at the end of year one. Meanwhile, in the same year, we begin with 1 fast sloth, 1 more is born, and 30% of these die, leaving 1.4.
+
+|Beginning of Year   |Slow Sloths   |Fast Sloths   |
+|---|---|---|
+|1   |1000   |1   |
+|2   |1200   |1.4  | 
+|3   |1440   |1.96   | 
+
+**Enter the first year in which the fast sloths outnumber the slow sloths.** 
+
+
+# A loop function
+
+## A loop function
+Be the function
+
+```{r}
+appendsums <- function(lst){
+    #Repeatedly append the sum of the current last three elements 
+    #of lst to lst. 
+}
+```
+
+Create a function that repeatedly appends the sum of the current last three elements of lst to lst. Your function should loop 25 times. To check if your function is correct, run:
+
+```{r, eval = FALSE}
+sum_three = list(0, 1, 2)
+appendsums(sum_three)
+sum_three[10] == 230
+```
 
 
 # Q&A

@@ -1,12 +1,12 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
 subtitle: 'Lecture 1 :<br>Introduction'
-author: "Prof. Dr. Ulrich Matter"
+author: "Dr. Aurélien Sallin"
 output:   
   ioslides_presentation:
     css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
-logo: ../../img/logo.png
+logo: ../../../datahandling2023/img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
 
@@ -17,114 +17,114 @@ options(width = 100)
 library(knitr)
 ```
 
-## Welcome to Data Handling 2022!
+## Welcome to Data Handling 2023!
 
 - Go to this page (or use the QR code): https://bit.ly/datahandling-2022
 - Use one row to respond to the questions in the column headers (see the first two rows for examples).
 
 ```{r , echo=FALSE, out.width = "35%", fig.align='center', purl=FALSE}
-include_graphics("../../img/bit.ly_datahandling-2022.png")
+# include_graphics("../../datahandling2023/img/bit.ly_datahandling-2022.png")
 ```
 
 
 ---
 
 ```{r blackbox, echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/cpu_blackbox_white.png")
+# include_graphics("../../../datahandling2023/img/cpu_blackbox_white.png")
+```
+"~/Documents/Data Handling 2023/datahandling2023/img"
+
+---
+
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds1.png")
 ```
 
 ---
 
 
 ```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds1.png")
+# include_graphics("../../../datahandling2023/img/ds2.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds3.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds4.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds5.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds6.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds7.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds8.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds9.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds10.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds11.png")
+```
+
+---
+
+```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
+# include_graphics("../../../datahandling2023/img/ds12.png")
 ```
 
 ---
 
 
 ```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds2.png")
+# include_graphics("../../../datahandling2023/img/ds13.png")
 ```
 
 ---
 
 ```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds3.png")
+# include_graphics("../../../datahandling2023/img/ds14.png")
 ```
 
 ---
 
 ```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds4.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds5.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds6.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds7.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds8.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds9.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds10.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds11.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds12.png")
-```
-
----
-
-
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds13.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/ds14.png")
-```
-
----
-
-```{r , echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/data_science_pipeline.png")
+include_graphics("../../../datahandling2023/img/data_science_pipeline.png")
 ```
 
 
@@ -149,14 +149,16 @@ David Donoho (2015). __50 years of Data Science__
 
 *"All in all, I have come to feel that my central interest is in data analysis, which I take to include, among other things: ..."*
 
+
 ## What's new about all this?
 
 *"All in all, I have come to feel that my central interest is in data analysis, which I take to include, among other things: procedures for analyzing data, techniques for interpreting the results of such procedures, ways of planning the gathering of data to make its analysis easier, more precise or more accurate, and all the machinery and results of (mathematical) statistics which apply to analyzing data."*
 
+
 ## What's new about all this?
 
 ```{r tukey1, echo=FALSE, out.width = "40%", fig.align='center', purl=FALSE}
-include_graphics("../../img/tukey.jpg")
+include_graphics("../../../datahandling2023/img/tukey.jpg")
 ```
 <center>
 John Tukey (_The Future of Data Analysis_, 1962!)
@@ -166,47 +168,43 @@ John Tukey (_The Future of Data Analysis_, 1962!)
 
 ## Technological change
 
-
 ```{r computers, echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
-include_graphics("../../img/computers.jpg")
+include_graphics("../../../datahandling2023/img/computers.jpg")
 ```
 
 
 ## Relevance for modern economic research
 
 ```{r css, echo=FALSE, out.width = "90%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/css.png")
+include_graphics("../../../datahandling2023/img/css.png")
 ```
 
 
 ## Relevance for modern economic research
 
 ```{r internet, echo=FALSE, out.width = "90%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/internet.png")
+include_graphics("../../../datahandling2023/img/internet.png")
 ```
 
 
 ## Relevance for modern economic research
 
 ```{r bigdata, echo=FALSE, out.width = "90%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/bigdata.png")
+include_graphics("../../../datahandling2023/img/bigdata.png")
 ```
 
 
 ## Relevance for modern economic research
 
 ```{r text, echo=FALSE, out.width = "90%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/text.png")
+include_graphics("../../../datahandling2023/img/text.png")
 ```
-
-
 
 
 ## Data science in economics skill set
 
-
 ```{r venn, echo=FALSE, out.width = "60%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/venn_diagramm.png")
+include_graphics("../../../datahandling2023/img/venn_diagramm.png")
 ```
 
 
@@ -218,43 +216,37 @@ include_graphics("../../img/venn_diagramm.png")
 
 ## Our Team - At Your Service
 
-
 |   |   |   |
 |:-:|:-:|:-:|
-| ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=2e198ce8-8565-43ec-b8c4-e6e1cfae6f87) | ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=d0452b11-ec1a-4445-9caf-d8d6771d2fc9)| ![](../../img/u_matter.jpg) | 
-|  Aurélien Sallin  | Michael Tüting | Ulrich Matter  |
+| ![](https://sew.unisg.ch/en/personenverzeichnis/7557216d-344d-45bf-9700-1dbae608dea5) | ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=d0452b11-ec1a-4445-9caf-d8d6771d2fc9)| ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=2e198ce8-8565-43ec-b8c4-e6e1cfae6f87) | 
+| Andrea Burro  | Matthias Rösti | Aurélien Sallin  |
 
 
-## Introduction: Ulrich Matter
+## Introduction: Aurélien Sallin
 
-- 2017-today: Assistant Professor of Economics, University of St.Gallen
-- 2021-today: Guest Lecturer (Applied Data Science), University of Lucerne
+- 2022-today: Expert in Health Care Research, SWICA Health Organization, Winterthur
+- 2022-today: Post-Doc researcher and lecturer, HSG
+- 2018-2022: PhD Economic and Finance, HSG
 
 Previously: 
 
-<img src="../../img/unibas.jpg" height="90"/>
-<img src="../../img/sbs_logo.png" height="90"/>
-<img src="../../img/berkman_logo.png" height="90"/>
+<img src="../../../datahandling2023/img/unibas.jpg" height="90"/>
+<img src="../../../datahandling2023/img/sbs_logo.png" height="90"/>
+<img src="../../../datahandling2023/img/berkman_logo.png" height="90"/>
 
 
-## Introduction: Ulrich Matter
+## Introduction: Aurélien Sallin
 
-*Research:*
+*Research @SWICA*
 
- - Can the personalization of Google search results lead to political     polarization?
- - Does YouTube's recommender algorithm lead to radicalization?
- - Do politicians vote in the interest of money donors when voters are distracted?
+ - Using Real-World Data from claims to assess effectiveness of health technological tools
+ - Using (Causal) Machine Learning to evaluate the effect of health policies on doctors' prescription behaviors
+ - Financing models for mandatory health care in Switzerland
 
+*Other Research in Economics of Education*
 
-## Introduction: Ulrich Matter
-
-*Teaching:*
-
- - Well, this course...
- - Big Data Analytics (Master)
- - Introduction to Web Mining (Master)
- - Economics in Practice (Master)
-
+ - Missclassification rates for gifted students
+ - Evaluation of Special Education programs
 
 
 # Course Structure
@@ -269,7 +261,7 @@ Previously:
 
 ## Course concept: special lectures
 
-- *27.10.2022: Research insights*
+- *27.10.2022: Industry Insights*
     - Ulrich Matter: Web Data
     - Aurélien Sallin: Text as Data
     - Michael Tüting: Images as Data
@@ -282,7 +274,7 @@ Previously:
 
 |   |   |   |
 |:-:|:-:|:-:|
-| ![](../../img/gum.jpg) | ![](../../img/helie.jpg)| 
+| ![](../../../datahandling2023/img/gum.jpg) | ![](../../../datahandling2023/img/helie.jpg)| 
 |  Dr. Matthias Gubler  | Dr. Helge Liebert | 
 |  Head of Economic Data Science, SNB
 Swiss National Bank | Economist, SNB | 
@@ -333,21 +325,21 @@ library(kableExtra)
 
 sched <- read_xlsx("../../../admin/2022/schedule.xlsx", col_types = "text")
 
-kable(sched[1:9, c(1,5)], format = "markdown")
+kable(sched[1:9, c(1, 5)], format = "markdown")
 ```
 
 
 ## Part II: Data gathering and preparation {.smaller}
 
 ```{r echo = FALSE}
-kable(sched[12:15, c(1,5)], format = "markdown") 
+kable(sched[12:15, c(1, 5)], format = "markdown")
 ```
 
 
 ## Part III: Analysis, visualisation, output {.smaller}
 
 ```{r echo = FALSE}
-kable(sched[16:nrow(sched), c(1,5)], format = "markdown") 
+kable(sched[16:nrow(sched), c(1, 5)], format = "markdown")
 ```
 
 
@@ -393,7 +385,7 @@ kable(sched[16:nrow(sched), c(1,5)], format = "markdown")
 
 ## And now this...
 
-![](../../img/ds_matrix.png)
+![](../../../datahandling2023/img/ds_matrix.png)
 
 
 
