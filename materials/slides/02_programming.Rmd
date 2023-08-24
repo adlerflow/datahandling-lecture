@@ -9,7 +9,7 @@ output:
     mathjax: "default"
     widescreen: true
 logo: ../../img/logo.png
-bibliography: ../../../datahandling2023/references/datahandling.bib
+bibliography: ../../references/datahandling.bib
 ---
 
 
@@ -18,6 +18,7 @@ bibliography: ../../../datahandling2023/references/datahandling.bib
 options(width = 100)
 library(knitr)
 ```
+
 
 
 <style>
@@ -48,8 +49,36 @@ h2 {
   margin-right: auto;
 }
 
+/*td is for cells, th for headers*/
+table.rmdtable {
+  width: 90%;
+  border-collapse: -moz-initial;
+  border-spacing: 2px;
+  border-bottom: 0px solid #797979;
+}
+
+table.rmdtable td, th {
+  font-size: 18px;
+  padding: 1em 0.5em;
+}
+
+table.rmdtable th {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  background: -webkit-linear-gradient(top, #02934a 40%, #02934a 80%) no-repeat;
+
+}
+
+table.rmdtable tr > td:first-child, table th {
+  font-weight: normal;
+}
+
+
 
 </style>
+  
+
 
 
 # Updates
@@ -57,7 +86,7 @@ h2 {
 ---
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
-#include_graphics("../../img/nuvolos_help.png")
+include_graphics("../../img/nuvolos_help.png")
 ```
 
 https://app.nuvolos.cloud/enroll/class/1PD9sApvyCI
@@ -68,7 +97,7 @@ https://app.nuvolos.cloud/enroll/class/1PD9sApvyCI
 
 
 ```{r echo=FALSE, fig.align='center', out.width="90%"}
-#include_graphics("../../img/ds_matrix.png")
+include_graphics("../../img/ds_matrix.png")
 ```
 
 
@@ -86,13 +115,13 @@ https://app.nuvolos.cloud/enroll/class/1PD9sApvyCI
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
-#include_graphics("../../img/numvec.png")
+include_graphics("../../img/numvec.png")
 ```
 
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
-#include_graphics("../../img/charvec.svg")
+include_graphics("../../img/charvec.svg")
 ```
 
 
@@ -135,7 +164,7 @@ log(exp(10))
 ----
 
 ```{r echo=FALSE, fig.align='center', out.width="40%"}
-#include_graphics("../../img/forloop_black.png")
+include_graphics("../../img/forloop_black.png")
 ```
 
 ---
@@ -162,7 +191,7 @@ for (i in 1:n) {
 
 
 ```{r while, echo= FALSE, fig.align="center", out.width="60%"}
-#include_graphics("../../img/while_loop_black_own.png")
+include_graphics("../../img/while_loop_black_own.png")
 ```
 
 ## `while`-loop in R
@@ -252,14 +281,30 @@ library(<PACKAGE NAME>)
 
 ## Functions in R
 
-- Write functions
+Functions have three elements:
 
-```{r eval=FALSE, purl=FALSE}
-myfun <- function(){
-  # BODY
+  1. formals(), the list of arguments that control how you call the function 
+  2. body(), the code inside the function
+  3. environment(), the data structure that determines how the function finds the values associated with the names (not the focus of this course)
   
-  return()
+  
+## Functions in R
+
+```{r eval=TRUE, purl=FALSE}
+myfun <- function(x, y){
+  
+  # BODY
+  z <- x + y
+  
+  # What the function returns
+  return(z)
 }
+```
+
+```{r eval=TRUE, purl=FALSE}
+formals(myfun)
+body(myfun)
+environment(myfun)
 ```
 
 
@@ -314,6 +359,7 @@ cat(" slow!")
 `apply` applies a function to margins of an array or matrix. It loops over rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix. 
 
 ```{r eval=FALSE, purl=FALSE}
+# Create an empty matrix with 2 rows and 4 columns
 mymatrix <- matrix(c(1,2,3, 11,12,13, 1,10), 
                    nrow = 2, 
                    ncol = 4)
@@ -322,7 +368,10 @@ print(mymatrix)
 
 
 ```{r eval=FALSE, purl=FALSE}
-# With a for loop
+
+# Compute the power function of each column of the matrix
+
+# With for-loops
 for (i in 1:ncol(mymatrix)){
   print(powerFunction(mymatrix[, i], 2))
 }
@@ -359,8 +408,7 @@ lapply(mylist, powerFunction, exponent = 2)
 | <img src="../../../img/trabant.png" height="90"/> | <img src="../../../img/bmw2010.png" height="80"/> | <img src="../../../img/tesla.png" height="130"/>|
 | Slow | Fastest and reliable | Allows for better syntax and elegant code |
 | Long code | Short code, based on functions | Elegant integration into tidyverse |
-|:-:|:-:|:-:|
-| Exam relevant | Exam relevant | Not exam relevant |
+| Exam relevant | Exam relevant | Not exam relevant  |
 
 
 
@@ -435,6 +483,8 @@ Create a function that repeatedly appends the sum of the current last three elem
 ```{r, eval = FALSE}
 sum_three = list(0, 1, 2)
 appendsums(sum_three)
+
+# Solution for testing:
 sum_three[10] == 230
 ```
 
