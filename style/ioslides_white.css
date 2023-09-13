@@ -1,18 +1,85 @@
 @charset "UTF-8";
+
 /* line 17, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -38,17 +105,24 @@ table {
 }
 
 /* line 28, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
+caption,
+th,
+td {
   font-weight: normal;
   vertical-align: middle;
 }
 
 /* line 30, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
+q,
+blockquote {
   quotes: none;
 }
+
 /* line 103, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
   content: "";
   content: none;
 }
@@ -60,11 +134,22 @@ a img {
 
 em {
   font-weight: bold;
-  color: #03e273;
+  color: #02934a;
 }
 
 /* line 116, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary {
   display: block;
 }
 
@@ -97,18 +182,20 @@ body {
   -o-transition: opacity 250ms ease-in 100ms;
   transition: opacity 250ms ease-in 100ms;
 }
+
 /* line 73, ../scss/_base.scss */
 body.loaded {
   opacity: 1 !important;
 }
 
 /* line 78, ../scss/_base.scss */
-input, button {
+input,
+button {
   vertical-align: middle;
 }
 
 /* line 82, ../scss/_base.scss */
-slides > slide[hidden] {
+slides>slide[hidden] {
   display: none !important;
 }
 
@@ -144,7 +231,7 @@ slides {
 }
 
 /* line 98, ../scss/_base.scss */
-slides > slide {
+slides>slide {
   display: block;
   position: absolute;
   overflow: hidden;
@@ -245,7 +332,7 @@ body {
 }
 
 /* line 62, ../scss/default.scss */
-slides > slide {
+slides>slide {
   display: none;
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 26px;
@@ -265,48 +352,56 @@ slides > slide {
   -o-transition: all 0.6s ease-in-out;
   transition: all 0.6s ease-in-out;
 }
+
 /* line 83, ../scss/default.scss */
-slides > slide.far-past {
+slides>slide.far-past {
   display: none;
 }
+
 /* line 90, ../scss/default.scss */
-slides > slide.past {
+slides>slide.past {
   display: block;
   opacity: 0;
 }
+
 /* line 97, ../scss/default.scss */
-slides > slide.current {
+slides>slide.current {
   display: block;
   opacity: 1;
 }
+
 /* line 103, ../scss/default.scss */
-slides > slide.current .auto-fadein {
+slides>slide.current .auto-fadein {
   opacity: 1;
 }
+
 /* line 107, ../scss/default.scss */
-slides > slide.current .gdbar {
+slides>slide.current .gdbar {
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
+
 /* line 112, ../scss/default.scss */
-slides > slide.next {
+slides>slide.next {
   display: block;
   opacity: 0;
   pointer-events: none;
 }
+
 /* line 120, ../scss/default.scss */
-slides > slide.far-next {
+slides>slide.far-next {
   display: none;
 }
+
 /* line 127, ../scss/default.scss */
-slides > slide.dark {
+slides>slide.dark {
   background: #02934a !important;
 }
 
 /* line 147, ../scss/default.scss */
-slides > slide:not(.nobackground):after {
+slides>slide:not(.nobackground):after {
   font-size: 12pt;
   content: attr(data-slide-num) "/" attr(data-total-slides);
   position: absolute;
@@ -314,8 +409,9 @@ slides > slide:not(.nobackground):after {
   right: 60px;
   line-height: 1.9;
 }
+
 /* line 158, ../scss/default.scss */
-slides > slide.title-slide:after {
+slides>slide.title-slide:after {
   content: '';
   position: absolute;
   bottom: 40px;
@@ -323,52 +419,63 @@ slides > slide.title-slide:after {
   width: 100%;
   height: 60px;
 }
+
 /* line 170, ../scss/default.scss */
-slides > slide.backdrop {
+slides>slide.backdrop {
   z-index: -10;
   display: block !important;
   background: black;
   background-color: white;
 }
+
 /* line 175, ../scss/default.scss */
-slides > slide.backdrop:after, slides > slide.backdrop:before {
+slides>slide.backdrop:after,
+slides>slide.backdrop:before {
   display: none;
 }
+
 /* line 180, ../scss/default.scss */
-slides > slide > hgroup + article {
+slides>slide>hgroup+article {
   margin-top: 45px;
 }
+
 /* line 184, ../scss/default.scss */
-slides > slide > hgroup + article.flexbox.vcenter, slides > slide > hgroup + article.flexbox.vleft, slides > slide > hgroup + article.flexbox.vright {
+slides>slide>hgroup+article.flexbox.vcenter,
+slides>slide>hgroup+article.flexbox.vleft,
+slides>slide>hgroup+article.flexbox.vright {
   height: 80%;
 }
+
 /* line 189, ../scss/default.scss */
-slides > slide > hgroup + article p {
+slides>slide>hgroup+article p {
   margin-bottom: 1em;
 }
+
 /* line 194, ../scss/default.scss */
-slides > slide > article:only-child {
+slides>slide>article:only-child {
   height: 100%;
 }
+
 /* line 197, ../scss/default.scss */
-slides > slide > article:only-child > iframe {
+slides>slide>article:only-child>iframe {
   height: 95%;
 }
 
 /* line 203, ../scss/default.scss */
-slides.layout-faux-widescreen > slide {
+slides.layout-faux-widescreen>slide {
   padding: 40px 160px;
 }
 
 /* line 212, ../scss/default.scss */
-slides.layout-widescreen > slide,
-slides.layout-faux-widescreen > slide {
+slides.layout-widescreen>slide,
+slides.layout-faux-widescreen>slide {
   margin-left: -550px;
   width: 1100px;
 }
+
 /* line 217, ../scss/default.scss */
-slides.layout-widescreen > slide.far-past,
-slides.layout-faux-widescreen > slide.far-past {
+slides.layout-widescreen>slide.far-past,
+slides.layout-faux-widescreen>slide.far-past {
   display: block;
   display: none;
   -webkit-transform: translate(-2260px);
@@ -382,28 +489,32 @@ slides.layout-faux-widescreen > slide.far-past {
   -o-transform: translate3d(-2260px, 0, 0);
   transform: translate3d(-2260px, 0, 0);
 }
+
 /* line 224, ../scss/default.scss */
-slides.layout-widescreen > slide.past,
-slides.layout-faux-widescreen > slide.past {
+slides.layout-widescreen>slide.past,
+slides.layout-faux-widescreen>slide.past {
   display: block;
   opacity: 0;
 }
+
 /* line 231, ../scss/default.scss */
-slides.layout-widescreen > slide.current,
-slides.layout-faux-widescreen > slide.current {
+slides.layout-widescreen>slide.current,
+slides.layout-faux-widescreen>slide.current {
   display: block;
   opacity: 1;
 }
+
 /* line 238, ../scss/default.scss */
-slides.layout-widescreen > slide.next,
-slides.layout-faux-widescreen > slide.next {
+slides.layout-widescreen>slide.next,
+slides.layout-faux-widescreen>slide.next {
   display: block;
   opacity: 0;
   pointer-events: none;
 }
+
 /* line 246, ../scss/default.scss */
-slides.layout-widescreen > slide.far-next,
-slides.layout-faux-widescreen > slide.far-next {
+slides.layout-widescreen>slide.far-next,
+slides.layout-faux-widescreen>slide.far-next {
   display: block;
   display: none;
   -webkit-transform: translate(2260px);
@@ -417,11 +528,13 @@ slides.layout-faux-widescreen > slide.far-next {
   -o-transform: translate3d(2260px, 0, 0);
   transform: translate3d(2260px, 0, 0);
 }
+
 /* line 253, ../scss/default.scss */
 slides.layout-widescreen #prev-slide-area,
 slides.layout-faux-widescreen #prev-slide-area {
   margin-left: -650px;
 }
+
 /* line 257, ../scss/default.scss */
 slides.layout-widescreen #next-slide-area,
 slides.layout-faux-widescreen #next-slide-area {
@@ -439,13 +552,16 @@ a {
   text-decoration: none;
   border-bottom: 1px solid #02934a;
 }
+
 /* line 271, ../scss/default.scss */
 a:hover {
   color: black !important;
 }
 
 /* line 276, ../scss/default.scss */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 600;
 }
 
@@ -467,7 +583,8 @@ h3 {
 }
 
 /* line 295, ../scss/default.scss */
-ol, ul {
+ol,
+ul {
   margin-left: 1.2em;
   margin-bottom: 1em;
   position: relative;
@@ -482,23 +599,27 @@ ol li,
 ul li {
   margin-bottom: 0.5em;
 }
+
 /* line 303, ../scss/default.scss */
 ul li ul {
   margin-left: 2em;
   margin-bottom: 0;
 }
+
 /* line 307, ../scss/default.scss */
 ul li ul li:before {
   content: '-';
   font-weight: 600;
 }
+
 /* line 314, ../scss/default.scss */
-ul > li:before {
+ul>li:before {
   content: '\00B7';
   margin-left: -1em;
   position: absolute;
   font-weight: 600;
 }
+
 /* line 321, ../scss/default.scss */
 ul ul,
 ol ul {
@@ -511,13 +632,14 @@ ol ol {
 }
 
 /* line 328, ../scss/default.scss */
-.highlight-code slide.current pre > * {
+.highlight-code slide.current pre>* {
   opacity: 0.25;
   -webkit-transition: opacity 0.5s ease-in;
   -moz-transition: opacity 0.5s ease-in;
   -o-transition: opacity 0.5s ease-in;
   transition: opacity 0.5s ease-in;
 }
+
 /* line 332, ../scss/default.scss */
 .highlight-code slide.current b {
   opacity: 1;
@@ -742,7 +864,8 @@ button:not(:disabled):active {
 }
 
 /* workaround for Safari 8 render bug with lists in columns */
-.columns-2 ul, .columns-2 ol {
+.columns-2 ul,
+.columns-2 ol {
   -webkit-transform: translate3d(0, 0, 0);
 }
 
@@ -754,15 +877,19 @@ table.rmdtable {
   border-spacing: 2px;
   border-bottom: 1px solid #797979;
 }
+
 /* line 479, ../scss/default.scss */
-table.rmdtable tr > td:first-child, table th {
+table.rmdtable tr>td:first-child,
+table th {
   font-weight: 600;
   color: #515151;
 }
+
 /* line 484, ../scss/default.scss */
 table.rmdtable tr:nth-child(odd) {
   background-color: white;
 }
+
 /* line 488, ../scss/default.scss */
 table.rmdtable th {
   color: black;
@@ -773,11 +900,14 @@ table.rmdtable th {
   background: -o-linear-gradient(top, #02934a 40%, #02934a 80%) no-repeat;
   background: linear-gradient(top, #02934a 40%, #02934a 80%) no-repeat;
 }
+
 /* line 494, ../scss/default.scss */
-table.rmdtable td, table th {
+table.rmdtable td,
+table th {
   font-size: 22px;
   padding: 1em 0.5em;
 }
+
 /* line 499, ../scss/default.scss */
 table.rmdtable td.highlight {
   color: #515151;
@@ -787,6 +917,7 @@ table.rmdtable td.highlight {
   background: -o-linear-gradient(top, #ffd14d 40%, #f6c000 80%) no-repeat;
   background: linear-gradient(top, #ffd14d 40%, #f6c000 80%) no-repeat;
 }
+
 /* line 504, ../scss/default.scss */
 table.rmdtable.rows {
   border-bottom: none;
@@ -798,12 +929,14 @@ q {
   font-size: 45px;
   line-height: 72px;
 }
+
 /* line 514, ../scss/default.scss */
 q:before {
   content: '\201C';
   position: absolute;
   margin-left: -0.5em;
 }
+
 /* line 519, ../scss/default.scss */
 q:after {
   content: '\201D';
@@ -827,48 +960,59 @@ slide.fill {
 
 /* Size variants */
 /* line 535, ../scss/default.scss */
-article.smaller p, article.smaller ul, article.smaller ol {
+article.smaller p,
+article.smaller ul,
+article.smaller ol {
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0;
 }
+
 /* line 541, ../scss/default.scss */
-article.smaller table td, article.smaller table th {
+article.smaller table td,
+article.smaller table th {
   font-size: 14px;
 }
+
 /* line 545, ../scss/default.scss */
 article.smaller pre {
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0;
 }
+
 /* line 550, ../scss/default.scss */
 article.smaller q {
   font-size: 40px;
   line-height: 48px;
 }
+
 /* line 554, ../scss/default.scss */
-article.smaller q:before, article.smaller q:after {
+article.smaller q:before,
+article.smaller q:after {
   font-size: 60px;
 }
 
 /* Builds */
 /* line 563, ../scss/default.scss */
-.build > * {
+.build>* {
   -webkit-transition: opacity 0.5s ease-in-out;
   -webkit-transition-delay: 0.2s;
   -moz-transition: opacity 0.5s ease-in-out 0.2s;
   -o-transition: opacity 0.5s ease-in-out 0.2s;
   transition: opacity 0.5s ease-in-out 0.2s;
 }
+
 /* line 567, ../scss/default.scss */
 .build .to-build {
   opacity: 0;
 }
+
 /* line 571, ../scss/default.scss */
 .build .build-fade {
   opacity: 0.3;
 }
+
 /* line 574, ../scss/default.scss */
 .build .build-fade:hover {
   opacity: 1.0;
@@ -878,6 +1022,7 @@ article.smaller q:before, article.smaller q:after {
 .popup .next .build .to-build {
   opacity: 1;
 }
+
 /* line 585, ../scss/default.scss */
 .popup .next .build .build-fade {
   opacity: 1;
@@ -979,8 +1124,9 @@ article.smaller q:before, article.smaller q:after {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
+
 /* line 640, ../scss/default.scss */
-.note > section {
+.note>section {
   background: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1003,6 +1149,7 @@ article.smaller q:before, article.smaller q:after {
   -o-transform: translate3d(690px, 80px, 0) scale(0.35);
   transform: translate3d(690px, 80px, 0) scale(0.35);
 }
+
 /* line 660, ../scss/default.scss */
 .with-notes.popup slides.layout-widescreen slide .note,
 .with-notes.popup slides.layout-faux-widescreen slide .note {
@@ -1012,6 +1159,7 @@ article.smaller q:before, article.smaller q:after {
   -o-transform: translate3d(300px, 800px, 0) scale(1.5);
   transform: translate3d(300px, 800px, 0) scale(1.5);
 }
+
 /* line 666, ../scss/default.scss */
 .with-notes.popup slide {
   overflow: visible;
@@ -1027,6 +1175,7 @@ article.smaller q:before, article.smaller q:after {
   -o-transform-origin: 0 0;
   transform-origin: 0 0;
 }
+
 /* line 673, ../scss/default.scss */
 .with-notes.popup slide:not(.backdrop) {
   -webkit-transform: scale(0.6) translate3d(0.5em, 0.5em, 0);
@@ -1038,6 +1187,7 @@ article.smaller q:before, article.smaller q:after {
   -moz-box-shadow: 0 0 10px #797979;
   box-shadow: 0 0 10px #797979;
 }
+
 /* line 678, ../scss/default.scss */
 .with-notes.popup slide.backdrop {
   background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, color-stop(0%, #b1dfff), color-stop(100%, #4387fd));
@@ -1046,6 +1196,7 @@ article.smaller q:before, article.smaller q:after {
   background-image: -o-radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
   background-image: radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
 }
+
 /* line 684, ../scss/default.scss */
 .with-notes.popup slide.next {
   -webkit-transform: translate3d(570px, 80px, 0) scale(0.35);
@@ -1055,10 +1206,12 @@ article.smaller q:before, article.smaller q:after {
   transform: translate3d(570px, 80px, 0) scale(0.35);
   opacity: 1 !important;
 }
+
 /* line 688, ../scss/default.scss */
 .with-notes.popup slide.next .note {
   display: none !important;
 }
+
 /* line 694, ../scss/default.scss */
 .with-notes.popup .note {
   width: 109%;
@@ -1078,8 +1231,9 @@ article.smaller q:before, article.smaller q:after {
   -o-transition: opacity 400ms ease-in-out;
   transition: opacity 400ms ease-in-out;
 }
+
 /* line 705, ../scss/default.scss */
-.with-notes.popup .note > section {
+.with-notes.popup .note>section {
   background: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1097,6 +1251,7 @@ article.smaller q:before, article.smaller q:after {
   overflow: auto;
   padding: 1em;
 }
+
 /* line 718, ../scss/default.scss */
 .with-notes .note {
   opacity: 1;
@@ -1240,16 +1395,19 @@ article.smaller q:before, article.smaller q:after {
 .segue {
   padding: 60px 120px;
 }
+
 /* line 812, ../scss/default.scss */
 .segue h2 {
   color: white;
   font-size: 40px;
 }
+
 /* line 816, ../scss/default.scss */
 .segue h3 {
   color: white;
   line-height: 2.8;
 }
+
 /* line 820, ../scss/default.scss */
 .segue hgroup {
   position: absolute;
@@ -1261,18 +1419,21 @@ article.smaller q:before, article.smaller q:after {
   background: #4387fd !important;
   color: white;
 }
+
 /* line 830, ../scss/default.scss */
 .thank-you-slide h2 {
   font-size: 60px;
   color: inherit;
 }
+
 /* line 835, ../scss/default.scss */
-.thank-you-slide article > p {
+.thank-you-slide article>p {
   margin-top: 2em;
   font-size: 20pt;
 }
+
 /* line 840, ../scss/default.scss */
-.thank-you-slide > p {
+.thank-you-slide>p {
   position: absolute;
   bottom: 80px;
   font-size: 24pt;
@@ -1324,6 +1485,7 @@ aside.gdbar.right {
   -o-transform: rotateZ(180deg);
   transform: rotateZ(180deg);
 }
+
 /* line 866, ../scss/default.scss */
 aside.gdbar.right img {
   -webkit-transform: rotateZ(180deg);
@@ -1332,12 +1494,14 @@ aside.gdbar.right img {
   -o-transform: rotateZ(180deg);
   transform: rotateZ(180deg);
 }
+
 /* line 871, ../scss/default.scss */
 aside.gdbar.bottom {
   top: -moz-initial;
   top: initial;
   bottom: 60px;
 }
+
 /* line 877, ../scss/default.scss */
 aside.gdbar img {
   width: 74px;
@@ -1349,13 +1513,14 @@ aside.gdbar img {
 
 /* custom title-slide */
 .title-slide {
- background-color: white;
+  background-color: white;
 }
 
 /* line 888, ../scss/default.scss */
 .title-slide hgroup {
   bottom: 100px;
 }
+
 /* line 891, ../scss/default.scss */
 .title-slide hgroup h1 {
   font-size: 35px;
@@ -1363,12 +1528,14 @@ aside.gdbar img {
   letter-spacing: -3px;
   color: #02934a;
 }
+
 /* line 898, ../scss/default.scss */
 .title-slide hgroup h2 {
   font-size: 28px;
   color: darkgrey;
   font-weight: inherit;
 }
+
 /* line 904, ../scss/default.scss */
 .title-slide hgroup p {
   font-size: 20px;
@@ -1381,6 +1548,7 @@ aside.gdbar img {
 .quote {
   color: #e6e6e6;
 }
+
 /* line 916, ../scss/default.scss */
 .quote .author {
   font-size: 24px;
@@ -1394,6 +1562,7 @@ aside.gdbar img {
   color: white;
   border-bottom: none;
 }
+
 /* line 929, ../scss/default.scss */
 [data-config-contact] span {
   width: 115px;
@@ -1404,6 +1573,7 @@ aside.gdbar img {
 .overview.popup .note {
   display: none !important;
 }
+
 /* line 944, ../scss/default.scss */
 .overview slides slide {
   display: block;
@@ -1413,25 +1583,34 @@ aside.gdbar img {
   background: black;
   background-color: white;
 }
+
 /* line 945, ../scss/default.scss */
 .overview slides slide.backdrop {
   display: none !important;
 }
+
 /* line 960, ../scss/default.scss */
-.overview slides slide.far-past, .overview slides slide.past, .overview slides slide.next, .overview slides slide.far-next, .overview slides slide.far-past {
+.overview slides slide.far-past,
+.overview slides slide.past,
+.overview slides slide.next,
+.overview slides slide.far-next,
+.overview slides slide.far-past {
   opacity: 0.5;
   display: block;
 }
+
 /* line 965, ../scss/default.scss */
 .overview slides slide.current {
   opacity: 1;
 }
+
 /* line 971, ../scss/default.scss */
 .overview .slide-area {
   display: none;
 }
 
 @media print {
+
   /* line 978, ../scss/default.scss */
   slides slide {
     display: block !important;
@@ -1457,35 +1636,47 @@ aside.gdbar img {
     opacity: 1 !important;
     color: #555;
   }
+
   /* line 998, ../scss/default.scss */
-  slides slide.far-past, slides slide.past, slides slide.next, slides slide.far-next, slides slide.far-past, slides slide.current {
+  slides slide.far-past,
+  slides slide.past,
+  slides slide.next,
+  slides slide.far-next,
+  slides slide.far-past,
+  slides slide.current {
     opacity: 1 !important;
     display: block !important;
   }
+
   /* line 1004, ../scss/default.scss */
-  slides slide .build > * {
+  slides slide .build>* {
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
     transition: none;
   }
+
   /* line 1009, ../scss/default.scss */
   slides slide .build .to-build,
   slides slide .build .build-fade {
     opacity: 1;
   }
+
   /* line 1014, ../scss/default.scss */
   slides slide .auto-fadein {
     opacity: 1 !important;
   }
+
   /* line 1018, ../scss/default.scss */
   slides slide.backdrop {
     display: none !important;
   }
+
   /* line 1022, ../scss/default.scss */
   slides slide table.rows {
     border-right: 0;
   }
+
   /* line 1027, ../scss/default.scss */
   slides slide[hidden] {
     display: none !important;
@@ -1506,7 +1697,8 @@ aside.gdbar img {
   }
 
   /* line 1044, ../scss/default.scss */
-  pre, code {
+  pre,
+  code {
     font-family: monospace !important;
   }
 }
@@ -1516,26 +1708,31 @@ label {
   display: block;
   margin-bottom: 4px;
 }
-label, input {
+
+label,
+input {
   font-size: 16px;
   color: #333;
 }
+
 input {
   width: 220px;
 }
+
 .jslider {
   margin-top: 8px;
 }
 
 /* Additions for DT package */
 
-.dataTables_info, .dataTables_paginate {
+.dataTables_info,
+.dataTables_paginate {
   font-size: 14px;
 }
 
 
 /* hide slide numbers */
-slides > slide:not(.nobackground):after {
+slides>slide:not(.nobackground):after {
   content: '';
 }
 

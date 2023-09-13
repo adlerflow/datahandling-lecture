@@ -1,11 +1,13 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
-subtitle: 'Lecture 1 :<br>Introduction'
 author: "Dr. Aurélien Sallin"
-output:   
+subtitle: Lecture 1 :<br>Introduction
+output:
+  beamer_presentation: default
   ioslides_presentation:
     css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
+    widescreen: yes
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
@@ -17,13 +19,14 @@ options(width = 100)
 library(knitr)
 ```
 
+
 ## Welcome to Data Handling 2023!
 
-- Go to this page (or use the QR code): https://bit.ly/datahandling-2022
+- Go to this page (or use the QR code): https://tinyurl.com/data-handling2023
 - Use one row to respond to the questions in the column headers (see the first two rows for examples).
 
 ```{r , echo=FALSE, out.width = "35%", fig.align='center', purl=FALSE}
-include_graphics("../../img/bit.ly_datahandling-2022.png")
+include_graphics("../../img/tinyurl-data-handling2023.png")
 ```
 
 
@@ -32,7 +35,6 @@ include_graphics("../../img/bit.ly_datahandling-2022.png")
 ```{r blackbox, echo=FALSE, out.width = "90%", fig.align='center', purl=FALSE}
 include_graphics("../../img/cpu_blackbox_white.png")
 ```
-"~/Documents/Data Handling 2023/datahandling2023/img"
 
 ---
 
@@ -208,6 +210,20 @@ include_graphics("../../img/venn_diagramm.png")
 ```
 
 
+## Data science as a life skill
+
+```{r sexy, echo=FALSE, out.width = "80%", fig.align='center',  purl=FALSE}
+include_graphics("../../img/datascientistsexy.png")
+```
+
+
+## Data science as a life skill
+
+"More than anything, what data scientists do is *make discoveries while swimming in data.* ...  As they make discoveries, they communicate what they’ve learned and suggest its implications for new business directions. Often they are *creative in displaying information visually and making the patterns they find clear and compelling*... 
+
+They advise executives and product managers on the implications of the data for *products, processes, and decisions*.
+
+What kind of person does all this? *Think of him or her as a hybrid of data hacker, analyst, communicator, and trusted adviser. The combination is extremely powerful — and rare.*"
 
 
 
@@ -216,10 +232,11 @@ include_graphics("../../img/venn_diagramm.png")
 
 ## Our Team - At Your Service
 
-|   |   |   |
-|:-:|:-:|:-:|
-| ![](https://sew.unisg.ch/en/personenverzeichnis/7557216d-344d-45bf-9700-1dbae608dea5) | ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=d0452b11-ec1a-4445-9caf-d8d6771d2fc9)| ![](https://tools.unisg.ch/handlers/Public/PortraitStreamer.ashx?HSGEntitiyId=2e198ce8-8565-43ec-b8c4-e6e1cfae6f87) | 
-| Andrea Burro  | Matthias Rösti | Aurélien Sallin  |
+|                      |                             |                             |
+|----------------------|-----------------------------|-----------------------------|
+| <img src="../../img/matthiasroesti.jpg" height="150"> | <img src="../../img/andreaburro.jpg" height="150"> | <img src="../../img/aureliensallin.jpg" height="150"> |
+| Matthias Rösti       | <strong>Andrea Burro</strong> | <strong>Aurélien Sallin</strong> |
+
 
 
 ## Introduction: Aurélien Sallin
@@ -228,20 +245,24 @@ include_graphics("../../img/venn_diagramm.png")
 - 2022-today: Post-Doc researcher and lecturer, HSG
 - 2018-2022: PhD Economic and Finance, HSG
 
+<br>
+
 Previously: 
 
-<img src="../../img/unibas.jpg" height="90"/>
-<img src="../../img/sbs_logo.png" height="90"/>
-<img src="../../img/berkman_logo.png" height="90"/>
+<img src="../../img/swica-logo-png.png" height="90"/>
+<img src="../../img/unifr.png" height="90"/>
+<img src="../../img/gsp.png" height="90"/>
 
 
 ## Introduction: Aurélien Sallin
 
-*Research @SWICA*
+*Research at SWICA*
 
  - Using Real-World Data from claims to assess effectiveness of health technological tools
  - Using (Causal) Machine Learning to evaluate the effect of health policies on doctors' prescription behaviors
  - Financing models for mandatory health care in Switzerland
+
+<br>
 
 *Other Research in Economics of Education*
 
@@ -259,27 +280,16 @@ Previously:
     - Illustration concepts
     - Illustration of 'hands-on' approaches
 
+
 ## Course concept: special lectures
 
-- *27.10.2022: Industry Insights*
-    - Ulrich Matter: Web Data
-    - Aurélien Sallin: Text as Data
-    - Michael Tüting: Images as Data
+- *30.11.2023: Industry Insights*
+    - Matteo Courthoud, PhD: Senior Economist at Zalando
 
+<br>
 
-
-## 24/11/2022: Guest lecture: Economic Data Science, SNB
-
-
-
-|   |   |   |
-|:-:|:-:|:-:|
-| ![](../../img/gum.jpg) | ![](../../img/helie.jpg)| 
-|  Dr. Matthias Gubler  | Dr. Helge Liebert | 
-|  Head of Economic Data Science, SNB
-Swiss National Bank | Economist, SNB | 
-
-
+- *14.12.2023: Federal Administration Insights*
+    - Florian Chatagny, PhD: Head of Data Science Team, Federal Finance Administration
 
 
 
@@ -292,6 +302,18 @@ Swiss National Bank | Economist, SNB |
   - *First Exercises (set up R/RStudio) is available on StudyNet/Canvas today*
 
 
+## The Elefant in the Room
+
+```{r elefantintheroom, echo=FALSE, out.width = "40%", fig.align='center',  purl=FALSE}
+include_graphics("../../img/ElefantInTheRoom.png")
+```
+
+<br>
+
+```r
+# the symbolic representation of Artificial Intelligence as being the 
+# "elefant in the room", comic cartoon style - Variations (Strong) 
+```
 
 
 ## Course concept
@@ -361,11 +383,15 @@ kable(sched[16:nrow(sched), c(1, 5)], format = "markdown")
 
 [Wickham, Hadley and Garred Grolemund (2017). *R for Data Science*, 1st Edition. Sebastopol, CA: O’Reilly.](http://r4ds.had.co.nz/)
 
+[Baumer, Kaplan and Norton (2023). *Modern Data Science with R*, 2nd Edition. ](https://mdsr-book.github.io/mdsr3e/)
+
 
 ## Further resources
 
 - [Stackoverflow](https://stackoverflow.com/questions)
 - [Get inspired in the R blogsphere](https://www.r-bloggers.com)
+- ChatGPT
+
 
 
 ## Exam information
@@ -378,8 +404,8 @@ kable(sched[16:nrow(sched), c(1, 5)], format = "markdown")
 ## Exam information II
 - We will release samples of  multiple choice questions via Quizzes on Canvas/Studynet (exact same format and style of exam questions).
 - Exchange students who need to take the exam before the central exam block:
-    - Date, time place, : *22.12.2022, 16:15-18:00, room 01-013*.
-    - Questions: *michael.tueting@unisg.ch*
+    - Date, time place, : *21.12.2023, 16:15-18:00, room tbd*.
+    - Questions: *matthias.roesti@unisg.ch*
 
     
 
