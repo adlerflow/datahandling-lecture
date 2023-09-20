@@ -4,10 +4,10 @@ subtitle: 'Lecture 2:<br>Programming with Data'
 author: "Dr. Aurélien Sallin"
 output:   
   ioslides_presentation:
-    css: ../../style/ioslides.css
+    css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
     mathjax: "default"
-    widescreen: true
+    widescreen: TRUE
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
@@ -17,14 +17,24 @@ bibliography: ../../references/datahandling.bib
 ```{r set-options, echo=FALSE, cache=FALSE, warning=FALSE}
 options(width = 100)
 library(knitr)
+knitr::opts_chunk$set(class.source = "chunkstyle")
 ```
+
+```{css, echo=FALSE}
+.chunkstyle {
+  background-color: lightgrey;
+}
+```
+
 
 
 
 <style>
 pre {
   font-size: 21px;
+  color: black;
 }
+
 slides>slide.title-slide {
     background-image: url('../../../img/programming_cover.jpg');
     background-size: 100% 100%;
@@ -76,20 +86,10 @@ table.rmdtable tr > td:first-child, table th {
 
 
 
+
 </style>
   
 
-
-
-# Updates
-
----
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-include_graphics("../../img/nuvolos_help.png")
-```
-
-https://app.nuvolos.cloud/enroll/class/1PD9sApvyCI
 
 # Recap
 
@@ -130,10 +130,9 @@ include_graphics("../../img/charvec.svg")
 <h4>Math operators</h4>
 
 
-----
+## Math operators: basic arithmetic
+```{r math operators, eval = FALSE}
 
-
-```{r}
 # basic arithmetic
 2+2
 sum_result <- 2+2
@@ -142,13 +141,24 @@ sum_result -2
 4*5
 20/5
 
+# Modulo (remainder)
+5 %% 3 
+
+# Integral division
+5 %/% 3
+```
+
+
+
+## Math operators: other operators
+
+```{r other operators, eval=FALSE}
 # other common math operators and functions
 4^2
 sqrt(4^2)
 log(2)
 exp(10)
 log(exp(10))
-
 
 ```
 
@@ -157,25 +167,28 @@ log(exp(10))
 
 <h4>Loops</h4>
 
+
+for-loop
 ---
 
-<h4>for-loop</h4>
-
-----
 
 ```{r echo=FALSE, fig.align='center', out.width="40%"}
 include_graphics("../../img/forloop_black.png")
 ```
 
----
+
+## for-loop
 
 ```{r eval=FALSE}
 # number of iterations
+
 n <- 100
+
 # start loop
 for (i in 1:n) {
 
      # BODY
+  
 }
 
 ```
@@ -185,24 +198,26 @@ for (i in 1:n) {
 
 <h4>while-loop</h4>
 
+
+
+while-loop
 ----
-
-
-
 
 ```{r while, echo= FALSE, fig.align="center", out.width="60%"}
 include_graphics("../../img/while_loop_black_own.png")
 ```
 
-## `while`-loop in R
+## while-loop 
 
 ```{r eval=FALSE}
 # initiate variable for logical statement
 x <- 1
+
 # start loop
 while (x == 1) {
 
      # BODY
+  
 }
 
 ```
@@ -212,6 +227,8 @@ while (x == 1) {
 
 <h4>Logical statements</h4>
 
+
+Logical statements
 ----
 
 ```{r eval=FALSE}
@@ -223,15 +240,15 @@ while (x == 1) {
 6<=6
 ```
 
+
+
 ---
 
 <h4>Control statements</h4>
 
+
+Control statements 
 ----
-
-
-
-## Control statements in R
 
 ```{r}
 
@@ -251,7 +268,8 @@ if (condition) {
 
 <h4>Functions</h4>
 
-----
+---
+
 
 ---
 
@@ -283,9 +301,9 @@ library(<PACKAGE NAME>)
 
 Functions have three elements:
 
-  1. formals(), the list of arguments that control how you call the function 
-  2. body(), the code inside the function
-  3. environment(), the data structure that determines how the function finds the values associated with the names (not the focus of this course)
+  1. *formals()*, the list of arguments that control how you call the function 
+  2. *body()*, the code inside the function
+  3. *environment()*, the data structure that determines how the function finds the values associated with the names (not the focus of this course)
   
   
 ## Functions in R
@@ -299,11 +317,14 @@ myfun <- function(x, y){
   # What the function returns
   return(z)
 }
+
 ```
 
-```{r eval=TRUE, purl=FALSE}
+```{r}
 formals(myfun)
+
 body(myfun)
+
 environment(myfun)
 ```
 
@@ -327,38 +348,13 @@ powerFunction(c(2,4,3), 3)
 ```
 
 
-## Going further with loops and functions: the "apply" family
-```{r echo=TRUE, eval=FALSE}
-numberOs <- 1
+# Advanced: writing better code with the "apply" family
 
-cat("Loops are s")
-
-while (numberOs < 25) {
-  cat("o")
-  numberOs <- numberOs + 1
-}
-
-cat(" slow!")
-```
-
-```{r echo=FALSE, eval=TRUE, results='asis'}
-numberOs <- 1
-
-cat("Loops are s")
-
-while (numberOs < 25) {
-  cat("o")
-  numberOs <- numberOs + 1
-}
-
-cat(" slow!")
-```
-
-## Going further with loops and functions: the "apply" family
+## Writing better code: the "apply" family
 
 `apply` applies a function to margins of an array or matrix. It loops over rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix. 
 
-```{r eval=FALSE, purl=FALSE}
+```{r eval=TRUE, purl=FALSE}
 # Create an empty matrix with 2 rows and 4 columns
 mymatrix <- matrix(c(1,2,3, 11,12,13, 1,10), 
                    nrow = 2, 
@@ -366,8 +362,9 @@ mymatrix <- matrix(c(1,2,3, 11,12,13, 1,10),
 print(mymatrix)
 ```
 
+## Writing better code: the "apply" family
 
-```{r eval=FALSE, purl=FALSE}
+```{r eval=FALSE, purl=FALSE, results='asis'}
 
 # Compute the power function of each column of the matrix
 
@@ -381,7 +378,7 @@ apply(mymatrix, MARGIN = 2, powerFunction, exponent = 2)
 ```
 
 
-## Going further with loops and functions: the "apply" family
+## Writing better code: the "apply" family
 
 `lapply` applies a function over a list ("list-" apply). It loops over each element of a list to execute a function.
 ```{r eval=FALSE, purl=FALSE}
@@ -403,18 +400,18 @@ lapply(mylist, powerFunction, exponent = 2)
 
 ## Loops
 
-| For loops  | apply | map  |
+| for-loops  | apply | map  |
 |:-:|:-:|:-:|
-| <img src="../../../img/trabant.png" height="90"/> | <img src="../../../img/bmw2010.png" height="80"/> | <img src="../../../img/tesla.png" height="130"/>|
-| Slow | Fastest and reliable | Allows for better syntax and elegant code |
+| Gets messy fast | Elegant and readable | Allows for better syntax and elegant code |
 | Long code | Short code, based on functions | Elegant integration into tidyverse |
 | Exam relevant | Exam relevant | Not exam relevant  |
 
 
 
-# Tutorial: A Function to Compute the Mean
+# Tutorial 1: A Function to Compute the Mean
 
 
+Tutorial 1: A Function to Compute the Mean
 ---
 
 <center>
@@ -423,9 +420,8 @@ lapply(mylist, powerFunction, exponent = 2)
 $\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}$.
 </center>
 
----
 
-## Preparation
+## Tutorial 1: A Function to Compute the Mean
 
 ```{r}
 #####################################
@@ -433,25 +429,44 @@ $\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x
 # Computes the mean, given a 
 # numeric vector.
 
+meaN <- function(x){
+  
+}
+
 ```
 
 
+```{r mean solution, eval=FALSE, include=FALSE}
+
+meaN <- function(x){
+  
+  mean <- (sum(x)/length(x))
+  
+  return(mean)
+  
+}
+
+meaN(c(1,2,3))
+
+vector <- c(1,3,5,3,2)
+meaN(vector)
+
+```
 
 
-# Tutorial: on slow and fast sloths
+# Tutorial 2: on slow and fast sloths
 
 
-
-## Tutorial: on slow and fast sloths
-We can use loops to simulate natural processes over time. Write a program that calculates the populations of two kinds of sloths over time. At the beginning of year 1, there are **1000 slow sloths** and **1 fast sloth**. This one fast sloth is a new mutation that comes with roller blades. Not surprisingly, being fast gives it an advantage, as it can better escape from predators. 
+## Tutorial 2: on slow and fast sloths
+We can use loops to simulate natural processes over time. Write a program that calculates the populations of two kinds of sloths over time. At the beginning of year 1, there are **1000 slow sloths** and **1 fast sloth**. This one fast sloth is a new mutation that is genetically able to use roller blades. Not surprisingly, being fast gives it an advantage, as it can better escape from predators. 
 
 |  |  |   
 |:-:|:-:|
-| <img src="../../../img/slowsloth.png" height="260"/> <br> A slow sloth | <img src="../../../img/fastsloth.png" height="260"/> <br> A fast sloth in its natural element|
+| <img src="../../img/slowsloth.png" height="260"/> <br> A slow sloth | <img src="../../img/fastsloth.png" height="260"/> <br> A fast sloth in its natural element|
 
 
 
-## Tutorial: on slow and fast sloths
+## Tutorial 2: on slow and fast sloths
 
 Each year, each sloth has one offspring. There are no further mutations, so slow sloths beget slow sloths, and fast sloths beget fast sloths. Also, each year 40% of all slow sloths die each year, while only 30% of the fast sloths do.
 
@@ -466,27 +481,83 @@ So, at the beginning of year one there are 1000 slow sloths. Another 1000 slow s
 **Enter the first year in which the fast sloths outnumber the slow sloths.** 
 
 
-# A loop function
+```{r sloth solution, eval=FALSE, include=FALSE}
+i <- 1
+Nslow <- 1000
+Nfast <- 1
 
-## A loop function
+while(Nslow > Nfast){
+  Nslow <- (Nslow *2)*0.6 
+  Nfast <- (Nfast *2)*0.7 
+  
+  i <- i + 1
+}
+
+print(i)
+
+
+# Check
+Nslow <- 1000
+Nfast <- 1
+for (i in 1:48){
+  Nslow <- c(Nslow, (Nslow[i] *2)*0.6)
+  Nfast <- c(Nfast, (Nfast[i] *2)*0.7)
+  
+  print(i) 
+}
+
+Nslow[44:48]
+Nfast[44:48]
+
+```
+
+
+# Tutorial 3: A loop function
+
+## Tutorial 3: A loop function
+
 Be the function
 
 ```{r}
 appendsums <- function(lst){
+  
     #Repeatedly append the sum of the current last three elements 
     #of lst to lst. 
 }
 ```
 
-Create a function that repeatedly appends the sum of the current last three elements of lst to lst. Your function should loop 25 times. To check if your function is correct, run:
+Create a function that repeatedly appends the sum of the current last three elements of the vector lst to lst. Hint: use the `append` and `tail` functions. Your function should loop 25 times. To check if your function is correct, run:
 
 ```{r, eval = FALSE}
-sum_three = list(0, 1, 2)
+sum_three = c(0, 1, 2)
 appendsums(sum_three)
 
 # Solution for testing:
-sum_three[10] == 230
+sum_three[10] == 125
 ```
+
+
+```{r loop solution, eval=FALSE, include=FALSE}
+appendsums <- function(lst){
+  
+  i <- 1
+  
+  for (i in 1:25){
+    lst <- append(lst, sum(tail(lst, 3)))
+    i <- i + 1
+  }
+  
+  lst
+}
+
+sum_three = c(0, 1, 2)
+sum_three <- appendsums(sum_three)
+
+# Solution for testing:
+sum_three[10] 
+
+```
+
 
 
 # Q&A

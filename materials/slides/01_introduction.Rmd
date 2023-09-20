@@ -1,13 +1,12 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
+subtitle: 'Lecture 1 :<br>Introduction'
 author: "Dr. Aurélien Sallin"
-subtitle: Lecture 1 :<br>Introduction
-output:
-  beamer_presentation: default
+output:   
   ioslides_presentation:
     css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
-    widescreen: yes
+    widescreen: TRUE
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---

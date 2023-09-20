@@ -1,7 +1,7 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
 subtitle: 'Lecture 2:<br>Programming with Data'
-author: "Prof. Dr. Ulrich Matter"
+author: "Prof. Dr. Ulrich Matter, updated by Dr. Aurélien Sallin"
 output:
   html_document:
     highlight: tango
@@ -33,7 +33,7 @@ library(knitr)
  3. Type/copy-paste the following
  
 ```{bash eval=FALSE}
-git clone https://github.com/umatter/datahandling-lecture.git
+git clone https://github.com/ASallin/datahandling-lecture2023.git
 ```
  
  4. Hit enter
@@ -331,6 +331,73 @@ myfun <- function(){
   
 }
 ```
+
+Functions have three elements:
+
+  1. *formals()*, the list of arguments that control how you call the function 
+  2. *body()*, the code inside the function
+  3. *environment()*, the data structure that determines how the function finds the values associated with the names (not the focus of this course)
+  
+For instance, 
+```{r eval=TRUE, purl=FALSE}
+myfun <- function(x, y){
+  
+  # BODY
+  z <- x + y
+  
+  # What the function returns
+  return(z)
+}
+```
+
+```{r}
+formals(myfun)
+
+body(myfun)
+
+environment(myfun)
+```
+
+
+# Advanced: the "apply" family
+In R, loops are generally avoided in favor of faster functions from the "base" R family of functions: the `apply()`, `lapply()`, `sapply()`, `tapply()`, `mapply()` and `aggregate()`. These functions are not faster than for-loops, but are more readable and more concise than larger loops. 
+
+`apply` applies a function to margins of an array or matrix. It loops over rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix. 
+
+```{r eval=TRUE, purl=FALSE}
+# Create an empty matrix with 2 rows and 4 columns
+mymatrix <- matrix(c(1,2,3, 11,12,13, 1,10), 
+                   nrow = 2, 
+                   ncol = 4)
+print(mymatrix)
+```
+
+```{r eval=FALSE, purl=FALSE, results='asis'}
+# With for-loops
+for (i in 1:ncol(mymatrix)){
+  print(mean(mymatrix[, i], 2))
+}
+
+# With apply
+apply(mymatrix, MARGIN = 2, mean)
+```
+
+
+`lapply` applies a function over a list ("list-" apply). It loops over each element of a list to execute a function.
+```{r eval=FALSE, purl=FALSE}
+mylist <- list(1,2,5,6,90)
+
+# With a for loop
+for (i in mylist){
+  mean(i)
+}
+
+# With lapply
+lapply(mylist, mean)
+```
+
+
+
 
 
 # Tutorial: A Function to Compute the Mean

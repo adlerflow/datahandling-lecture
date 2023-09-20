@@ -1,5 +1,61 @@
 @charset "UTF-8";
 
+/* Color and style for output from code */
+pre,
+code {
+  font-family: monospace !important;
+  color: #5a5c5a93 !important;
+}
+
+/*Prettyprint options for R output */
+.prettyprint {
+  background-color: rgba(255, 255, 255, 0.616);
+}
+
+.prettyprint .str,
+.prettyprint .atv {
+  /* a markup attribute value */
+  color: #f70aff;
+}
+
+.prettyprint .kwd,
+.prettyprint .tag {
+  /* a markup tag name */
+  color: #0066cc;
+}
+
+.prettyprint .com {
+  /* a comment */
+  color: #0f7f00;
+  font-style: italic;
+}
+
+.prettyprint .lit {
+  /* a literal value */
+  color: #00287f;
+}
+
+.prettyprint .pun,
+.prettyprint .opn,
+.prettyprint .clo {
+  /* an operator */
+  color: #252525;
+}
+
+.prettyprint .typ,
+.prettyprint .atn,
+.prettyprint .dec,
+.prettyprint .var {
+  /* a declaration; a variable name */
+  color: #d94d3a;
+}
+
+.prettyprint .pln {
+  color: #c94f1f;
+}
+
+
+
 /* line 17, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html,
 body,
@@ -171,7 +227,7 @@ body {
   min-height: 740px;
   width: 100%;
   overflow: hidden;
-  color: #fff;
+  color: #f011ad;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
@@ -631,6 +687,7 @@ ol ol {
   margin-top: .5em;
 }
 
+
 /* line 328, ../scss/default.scss */
 .highlight-code slide.current pre>* {
   opacity: 0.25;
@@ -647,6 +704,7 @@ ol ol {
 
 /* line 337, ../scss/default.scss */
 pre {
+  color: rgb(38, 148, 5);
   font-family: 'Source Code Pro', 'Courier New', monospace;
   font-size: 18px;
   line-height: 24px;
@@ -666,14 +724,9 @@ pre {
   font-size: small;
 }
 
-.prettyprint {
-  background-color: white;
-}
-
 /* line 351, ../scss/default.scss */
 pre[data-lang]:after {
   content: attr(data-lang);
-  background-color: white;
   right: 0;
   top: 0;
   position: absolute;
@@ -691,6 +744,7 @@ pre[data-lang="go"] {
 /* display html chunks with smaller font */
 pre[data-lang="html"] {
   font-size: 10pt !important;
+  color: black !important;
 }
 
 /* line 368, ../scss/default.scss */
@@ -1026,55 +1080,6 @@ article.smaller q:after {
 /* line 585, ../scss/default.scss */
 .popup .next .build .build-fade {
   opacity: 1;
-}
-
-/* Pretty print */
-/* line 593, ../scss/default.scss */
-.prettyprint .str,
-.prettyprint .atv {
-  /* a markup attribute value */
-  color: #8dff0a;
-}
-
-/* line 597, ../scss/default.scss */
-.prettyprint .kwd,
-.prettyprint .tag {
-  /* a markup tag name */
-  color: #0066cc;
-}
-
-/* line 600, ../scss/default.scss */
-.prettyprint .com {
-  /* a comment */
-  color: #db20ce;
-  font-style: italic;
-}
-
-/* line 604, ../scss/default.scss */
-.prettyprint .lit {
-  /* a literal value */
-  color: #7f0000;
-}
-
-/* line 609, ../scss/default.scss */
-.prettyprint .pun,
-.prettyprint .opn,
-.prettyprint .clo {
-  color: #a3a1a1;
-}
-
-/* line 615, ../scss/default.scss */
-.prettyprint .typ,
-.prettyprint .atn,
-.prettyprint .dec,
-.prettyprint .var {
-  /* a declaration; a variable name */
-  color: #d94d3a;
-}
-
-/* line 618, ../scss/default.scss */
-.prettyprint .pln {
-  color: #ffffff;
 }
 
 /* line 622, ../scss/default.scss */
@@ -1700,6 +1705,7 @@ aside.gdbar img {
   pre,
   code {
     font-family: monospace !important;
+    color: #0f7f00 !important;
   }
 }
 
