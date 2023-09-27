@@ -240,7 +240,7 @@ What kind of person does all this? *Think of him or her as a hybrid of data hack
 
 ## Introduction: Aurélien Sallin
 
-- 2022-today: Expert in Health Care Research, SWICA Health Organization, Winterthur
+- 2022-today: Expert in Health Care Research and Member of Management, \p SWICA Health Organization, Winterthur
 - 2022-today: Post-Doc researcher and lecturer, HSG
 - 2018-2022: PhD Economic and Finance, HSG
 
@@ -248,7 +248,7 @@ What kind of person does all this? *Think of him or her as a hybrid of data hack
 
 Previously: 
 
-<img src="../../img/swica-logo-png.png" height="90"/>
+<img src="../../img/logo.png" height="90"/>
 <img src="../../img/unifr.png" height="90"/>
 <img src="../../img/gsp.png" height="90"/>
 

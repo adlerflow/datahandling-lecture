@@ -7,6 +7,7 @@ output:
     css: ../../style/ioslides.css
     template: ../../style/nologo_template.html
     mathjax: "default"
+    widescreen: TRUE
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
@@ -34,10 +35,9 @@ library(knitr)
  
  
 ```{r scratch, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE}
-include_graphics("../../img/scratch_logo.png")
+include_graphics("../../img/fastsloth.png")
 ```
 
-https://scratch.mit.edu/
 
 # Data Processing
 
