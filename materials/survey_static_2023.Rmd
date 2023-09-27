@@ -146,12 +146,12 @@ library(shiny)
 
 # fix vars
 #  API key needed here
-KEY <- readLines("../../admin/2021/keys/datahandling_survey_static.txt") # key UM
-
+# KEY <- readLines("../../admin/2021/keys/datahandling_survey_static.txt") # key UM
+KEY <- "AIzaSyASzCqktyaJwksvy9Oi3i50gHKuiAFOP5g"
 
 # Download survey data
 # Download data
-URL <- 'https://docs.google.com/spreadsheets/d/1FlXVRsp1Ov7kOiFumrSoLOg73R2eCFut6U5p9vF6DG8/edit?usp=sharing'
+URL <- 'https://docs.google.com/spreadsheets/d/1qahagst7Jn0zScJL_Utt2WeOOPcjZkPihS2VM0V1oUc/edit#gid=0'
 student_data <- gsheet2tbl(URL)
 
 
@@ -305,11 +305,13 @@ renderPlot({
     
      # Find major counts
      df <- student_data %>% 
+       select(degree, computer_literacy) %>% 
           group_by(degree) %>% 
           summarise(mean_ability = mean(as.numeric(computer_literacy), na.rm = T))
     
     # Bar plot
      student_data %>% 
+       select(username, degree, computer_literacy, hometown) %>% 
           na.omit() %>% 
           left_join(df) %>% 
           ggplot(aes(x = degree, y = computer_literacy),) +

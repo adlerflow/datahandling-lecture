@@ -1,12 +1,12 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
-subtitle: 'Lecture 1 :<br>Introduction'
 author: "Dr. Aurélien Sallin"
-output:   
+subtitle: Lecture 1 :<br>Introduction
+output:
   ioslides_presentation:
     css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
-    widescreen: TRUE
+    widescreen: yes
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
@@ -240,7 +240,7 @@ What kind of person does all this? *Think of him or her as a hybrid of data hack
 
 ## Introduction: Aurélien Sallin
 
-- 2022-today: Expert in Health Care Research and Member of Management, \p SWICA Health Organization, Winterthur
+- 2022-today: Expert in Health Care Research and Member of Management,  SWICA Health Organization, Winterthur
 - 2022-today: Post-Doc researcher and lecturer, HSG
 - 2018-2022: PhD Economic and Finance, HSG
 

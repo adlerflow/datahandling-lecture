@@ -7,7 +7,7 @@ output:
     css: ../../style/ioslides_white.css
     template: ../../style/nologo_template.html
     mathjax: "default"
-    widescreen: TRUE
+    widescreen: yes
 logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
@@ -103,32 +103,30 @@ include_graphics("../../img/ds_matrix.png")
 
 # Basic Programming Concepts
 
----
+## 
 
-<h4>Values and Variables</h4>
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Values and variables</p>
 
----
+## 
 
-<h4>Vectors</h4>
-
-
-----
-
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Vectors</p>
+  
+## Vectors
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
 include_graphics("../../img/numvec.png")
 ```
 
-----
-
+## Vectors
 ```{r echo=FALSE, fig.align='center', out.width="10%"}
 include_graphics("../../img/charvec.svg")
 ```
 
+## 
 
----
-
-<h4>Math operators</h4>
-
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Math operators</p>
 
 ## Math operators: basic arithmetic
 ```{r math operators, eval = FALSE}
@@ -163,14 +161,13 @@ log(exp(10))
 ```
 
 
-----
+## 
 
-<h4>Loops</h4>
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Loops</p>
 
 
-for-loop
----
-
+## for-loop
 
 ```{r echo=FALSE, fig.align='center', out.width="40%"}
 include_graphics("../../img/forloop_black.png")
@@ -194,21 +191,13 @@ for (i in 1:n) {
 ```
 
 
----
-
-<h4>while-loop</h4>
-
-
-
-while-loop
-----
+## while-loop
 
 ```{r while, echo= FALSE, fig.align="center", out.width="60%"}
 include_graphics("../../img/while_loop_black_own.png")
 ```
 
 ## while-loop 
-
 ```{r eval=FALSE}
 # initiate variable for logical statement
 x <- 1
@@ -223,14 +212,13 @@ while (x == 1) {
 ```
 
 
----
+## 
 
-<h4>Logical statements</h4>
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Logical statements</p>
 
 
-Logical statements
-----
-
+## Logical statements
 ```{r eval=FALSE}
 2+2 == 4 # is equal to
 3+3 == 7
@@ -240,18 +228,14 @@ Logical statements
 6<=6
 ```
 
+## 
+
+<p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
+  transform: translate(-50%, -50%);">Control statements</p>
 
 
----
-
-<h4>Control statements</h4>
-
-
-Control statements 
-----
-
+## Control statements 
 ```{r}
-
 condition <- TRUE
 
 if (condition) {
@@ -259,35 +243,23 @@ if (condition) {
 } else {
      print("This is false!")
 }
-
-
 ```
 
 
----
+## Functions
 
-<h4>Functions</h4>
-
----
+<p style="text-align: center;font-size: 25pt;">$f:X \rightarrow Y$</p>
 
 
----
+## Functions
 
-<h4>$f:X \rightarrow Y$</h4>
+<p style="text-align: center;font-size: 25pt;">$2\times X = Y$</p>
 
-----
-
-
----
-
-<h4>$2\times X = Y$</h4>
-
-----
 
 
 ## Functions in R
 
-- load existing functions
+Load existing functions:
 
 ```{r eval=FALSE, purl=FALSE}
 # install a package
@@ -331,7 +303,7 @@ environment(myfun)
 
 ## Functions in R
 
-- Example of a function: a simple power function
+Example of a function: a simple power function
 
 ```{r eval=FALSE, purl=FALSE}
 powerFunction <- function(base, exponent){
