@@ -372,11 +372,11 @@ lapply(mylist, powerFunction, exponent = 2)
 
 ## Loops
 
-| for-loops  | apply | map  |
+| for-loops  | apply | map (from `purrr`)  |
 |:-:|:-:|:-:|
 | Gets messy fast | Elegant and readable | Allows for better syntax and elegant code |
 | Long code | Short code, based on functions | Elegant integration into tidyverse |
-| Exam relevant | Exam relevant | Not exam relevant  |
+| Exam relevant | **Not** Exam relevant | Not exam relevant  |
 
 
 

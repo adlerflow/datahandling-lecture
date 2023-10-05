@@ -25,8 +25,11 @@ options(width = 100)
 library(knitr)
 ```
 
+<br>
 
-# Fetch Lecture Materials from GitHub
+# Fetch Lecture Materials from GitHub 
+
+**(optional, for those who want to download the materials directly)**
 
  1. Open Nuvolos/RStudio
  2. Move to the Terminal window
@@ -38,14 +41,19 @@ git clone https://github.com/ASallin/datahandling-lecture2023.git
  
  4. Hit enter
 
-
+<br>
 
 # Basic Programming Concepts
 
-## Values, vectors, variables
+<br>
+
+## Values, vectors, lists, variables
 
 - Values: a quantity of information, that is, in the simplest case, a letter (`"a"`, "character"), integer (`2`), fraction (`1.5`)
+     - There are four main types of values in R: characters (`"a"`), integers (`2L`), numeric (or doubles, `2.3`), and logical (or booleans, `TRUE`).
+     - To know which type of value a particular value is, we use the function `class()` 
 - Vector: a simple R object containing one or a collection of values (of the same data type)
+- List: a R object containing one or a collection of values or other objects
 - Variables: abstract storage location with a name. With `<-` we can assign a value to a variable.
 
 ## Values and variables
@@ -54,6 +62,11 @@ git clone https://github.com/ASallin/datahandling-lecture2023.git
 # assign values to variables
 a <- "Hello"
 print(a)
+class(a)
+
+b <- FALSE
+print(b)
+class(b)
 
 # re-use variables
 savings_t0 <- 2500
@@ -63,6 +76,7 @@ savings_t1
 
 ```
 
+<br>
 
 ## Vectors
 
@@ -80,14 +94,30 @@ some_numbers
 other_numbers <- 1:10
 other_numbers
 
-
+# merge vectors together
+some_other_numbers <- c(some_numbers, other_numbers)
 ```
+
+## Vectors indexation
+```{r}
+# Access the first value of a vector
+some_numbers[1]
+
+# Access the second and third value of a vector
+some_numbers[c(2,3)]
+
+# Remove the second value from a vector
+some_numbers[-2]
+```
+
+
+<br>
 
 ## Vectorization in R
 
  - Basic R functions (like math operators) are vectorized (execute the core function on each of the elements of a vector).
  - Advantages: fast, clean code, optimal for writing analytics scripts.
- - Note: "In R, everything is a vector"!
+ - Note: **"In R, everything is a vector"!**
  
 ```{r}
 some_numbers + 1
@@ -95,6 +125,36 @@ some_numbers > 3
 some_numbers * 5
 ```
 
+<br>
+
+## Matrices R 
+Matrices are vectors bound together, either as column vectors or as row vectors. To bind row vectors together, we use `rbind` and to bind column vectors together we use `cbind`.
+
+```{r}
+v1 <- c(1,2,3)
+v2 <- c(3,4,5)
+
+mat1 <- rbind(v1, v2)
+mat2 <- cbind(v1, v2)
+
+mat1
+mat2
+```
+
+To index matrices in r, we use square brackets. The first position in the square bracket is the row, and the second position is the column. The comma must be written.
+
+```{r}
+# First column 
+mat1[, 1]
+
+# First row
+mat1[1,]
+
+# Element in second column, second row
+mat1[2,2]
+```
+
+<br>
 
 ## Math operators in R
 
@@ -146,6 +206,7 @@ To look up the most common math operators in R and get more details about how to
 
 in the R console and hit enter.
 
+<br>
 
 ## Loops
 - Repeatedly execute a sequence of commands.
@@ -154,13 +215,13 @@ in the R console and hit enter.
      - 'for-loop': number of iterations typically known.
      - 'while-loop: number of iterations typically not known.
 
-## for-loop
+### for-loop
 
 ```{r echo=FALSE, fig.align='center', out.width="40%"}
 include_graphics("../../img/forloop.png")
 ```
 
-## `for`-loop in R
+### `for`-loop in R
 
 ```{r eval=FALSE}
 # number of iterations
@@ -173,7 +234,7 @@ for (i in 1:n) {
 
 ```
 
-## `for`-loop in R
+### `for`-loop in R
 
 ```{r}
 # vector to be summed up
@@ -189,7 +250,7 @@ for (i in 1:n) {
 
 ```
 
-## Nested `for`-loops
+### Nested `for`-loops (not covered in course)
 
 ```{r}
 # matrix to be summed up
@@ -198,7 +259,7 @@ numbers_matrix
 
 ```
 
-## Nested `for`-loops
+### Nested `for`-loops (not covered in course)
 
 ```{r eval=FALSE}
 # number of iterations for outer loop
@@ -218,8 +279,7 @@ for (j in 1:m) {
 
 ```
 
-
-
+<br>
 
 ## while-loop
 
@@ -227,7 +287,7 @@ for (j in 1:m) {
 include_graphics("../../img/while_loop_own.png")
 ```
 
-## `while`-loop in R
+### `while`-loop in R
 
 ```{r eval=FALSE}
 # initiate variable for logical statement
@@ -240,7 +300,7 @@ while (x == 1) {
 
 ```
 
-## `while`-loop in R
+### `while`-loop in R
 
 ```{r}
 # initiate starting value
@@ -252,6 +312,7 @@ while (total <= 20) {
 
 ```
 
+<br>
 
 ## Booleans and logical statements
 ```{r eval=FALSE}
@@ -263,6 +324,7 @@ while (total <= 20) {
 6<=6
 ```
 
+<br>
 
 ## Control statements
 
@@ -299,7 +361,7 @@ if (condition) {
 ```
 
 
-
+<br>
 
 
 ## R functions
@@ -358,6 +420,7 @@ body(myfun)
 environment(myfun)
 ```
 
+<br>
 
 # Advanced: the "apply" family
 In R, loops are generally avoided in favor of faster functions from the "base" R family of functions: the `apply()`, `lapply()`, `sapply()`, `tapply()`, `mapply()` and `aggregate()`. These functions are not faster than for-loops, but are more readable and more concise than larger loops. 
