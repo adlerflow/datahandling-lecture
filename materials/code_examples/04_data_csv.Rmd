@@ -1,0 +1,173 @@
+---
+title: 'Data Handling: Import, Cleaning and Visualisation'
+subtitle: "Exercise to lecture 4"
+author: "Dr. Aurélien Sallin"
+output:
+  html_document:
+    highlight: tango
+    theme: cerulean
+    mathjax: "http://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+  pdf_document:
+    pandoc_args:
+    - --filter
+    - ../../code/math.py
+header-includes:
+- \usepackage[T1]{fontenc}
+- \usepackage{hyperref}
+css: ../../style/notes_hsg.css
+bibliography: ../../references/datahandling.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Working with a data frame
+
+```{r data creation, include = FALSE}
+# Data Creation (to be executed by the instructor)
+set.seed(123) # For reproducibility
+
+firms <- c("FirmA", "FirmB", "FirmC", "FirmD", "FirmE")
+years <- 2018:2022
+
+# Generate sample data
+data <- expand.grid(Firm = firms, Year = years)
+data$Revenue <- sample(1000:5000, nrow(data), replace = TRUE)
+data$Profit <- data$Revenue * runif(nrow(data), 0.1, 0.5)
+data$Category <- factor(sample(c("Tech", "Health", "Finance"), nrow(data), replace = TRUE))
+
+# Write data to .txt with ":" as separator
+write.table(data, "financial_data.txt", sep = ":", row.names = FALSE)
+```
+
+
+## Import data
+Have a look at the file `financial_data.txt` using your favorite text editor. What do you notice? Import the table using the `read.csv()` function in your environment. What does this parser do? Explore the data.frame. What is its structure? What is its dimension?
+
+```{r warning=FALSE}
+financial_data <- read.csv("financial_data.txt", sep = ":")
+financial_data
+```
+
+
+```{r}
+class(financial_data)
+dim(financial_data)
+
+str(financial_data)
+names(financial_data)
+dimnames(financial_data)
+```
+
+<br>
+
+## Variable creation
+
+Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame, which we'll learn later in the course. Use the `$` index.]
+
+```{r}
+financial_data$costs <- financial_data$Revenue - financial_data$Profit
+```
+
+<br>
+
+## Factor variable
+
+Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
+
+```{r}
+financial_data$Category <- as.factor(financial_data$Category)
+
+levels(financial_data$Category)
+```
+
+<br>
+
+## Nests 
+Split your data using the factor variable into three data frames contained in a list. Compute the mean profit for each data frame.
+
+```{r}
+list_financial_data <- split(financial_data, financial_data$Category)
+
+for (i in 1:length(list_financial_data)){
+  print(mean(list_financial_data[[i]]$Profit))
+}
+
+# Or, using lapply
+lapply(list_financial_data, function(x) mean(x$Profit))
+```
+
+
+<br>
+
+Or, advanced (*and not exam relevant :-)*)
+```{r message=FALSE, warning=FALSE}
+# Or (advanced!) with a nested tibble and map 
+library(tidyr)
+library(dplyr)
+library(purrr)
+
+tibble_financial_data <- financial_data |>
+  group_by(Category) |>
+  nest()
+
+map(tibble_financial_data$data, ~mean(.$Profit))
+
+```
+
+
+
+
+
+
+<!-- 2. Creating the Array: -->
+<!-- Create a 3-dimensional array to store this data. The dimensions should represent: -->
+
+<!-- Rows: Months (12 months) -->
+<!-- Columns: Cities (3 cities) -->
+<!-- Layers: Years (1 year for this exercise) -->
+<!-- 3. Data Analysis: -->
+<!-- a) Compute the average temperature for each city over the year. -->
+
+<!-- b) Determine which city had the highest average temperature in July. -->
+
+<!-- c) Find out the month when New York had the lowest temperature. -->
+
+<!-- d) Compute the overall average temperature for all cities for the year. -->
+
+<!-- ```{r} -->
+<!-- # Monthly average temperatures (in Fahrenheit) for the year 2022 -->
+
+<!-- St_Gallen <- c(2, 2, 5, 12, 15, 22, 23, 25, 18, 15, 8, 2) -->
+<!-- Lausanne <- c(58, 60, 61, 65, 68, 72, 75, 76, 74, 70, 64, 59) -->
+<!-- Basel <- c(27, 30, 38, 50, 60, 68, 73, 71, 64, 53, 42, 31) -->
+
+
+<!-- # 2. Creating the Array -->
+<!-- data_combined <- c(St_Gallen, Lausanne, Basel) -->
+<!-- city_array <- array(data_combined, dim = c(12, 3, 1), dimnames = list(months = 1:12, cities = c("New York", "Los Angeles", "Basel"), year = 2022)) -->
+
+<!-- # 3. Data Analysis -->
+<!-- # a) Average temperature for each city -->
+<!-- avg_temps <- apply(city_array, 2, mean) -->
+<!-- print(avg_temps) -->
+
+<!-- # b) City with highest temperature in July -->
+<!-- july_temps <- city_array[7, , 1] -->
+<!-- max_city <- names(which.max(july_temps)) -->
+<!-- cat("City with highest avg temperature in July:", max_city, "\n") -->
+
+<!-- # c) Month when New York had the lowest temperature -->
+<!-- ny_temps <- city_array[, 1, 1] -->
+<!-- min_month <- which.min(ny_temps) -->
+<!-- cat("Month when New York had the lowest temperature:", min_month, "\n") -->
+
+<!-- # d) Overall average temperature -->
+<!-- overall_avg <- mean(city_array) -->
+<!-- cat("Overall average temperature for all cities:", overall_avg, "\n") -->
+
+<!-- ``` -->
+
+

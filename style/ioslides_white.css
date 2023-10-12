@@ -1,10 +1,16 @@
 @charset "UTF-8";
 
 /* Color and style for output from code */
-pre,
 code {
-  font-family: monospace !important;
-  color: #5a5c5a93 !important;
+  font-family: 'Courier New', monospace !important;
+  color: #2a382b93 !important;
+  font-weight: bold !important;
+}
+
+/* Color and style for inline code */
+pre {
+  font-family: 'Courier New', monospace !important;
+  color: #1e291f93 !important;
 }
 
 /*Prettyprint options for R output */
