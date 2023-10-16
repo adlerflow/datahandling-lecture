@@ -403,8 +403,6 @@ Binary  | Hexadecimal | Decimal | Character
 
 
 ## Character encodings: why should we care?
-
-## Character encodings: why should we care?
  
  - In practice, Data Science means handling digital data of all formats and shapes.
     - Diverse sources.

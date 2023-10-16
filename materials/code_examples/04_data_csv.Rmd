@@ -1,6 +1,6 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
-subtitle: "Exercise to lecture 4"
+subtitle: "Exercise to lecture 4: csv and arrays"
 author: "Dr. Aurélien Sallin"
 output:
   html_document:
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Working with a data frame
 
-```{r data creation, include = FALSE}
+```{r data creation, include = FALSE, eval= FALSE}
 # Data Creation (to be executed by the instructor)
 set.seed(123) # For reproducibility
 
@@ -44,15 +44,22 @@ write.table(data, "financial_data.txt", sep = ":", row.names = FALSE)
 
 
 ## Import data
-Have a look at the file `financial_data.txt` using your favorite text editor. What do you notice? Import the table using the `read.csv()` function in your environment. What does this parser do? Explore the data.frame. What is its structure? What is its dimension?
+Have a look at the file `financial_data.txt` using your favorite text editor. What do you notice? 
 
+Import the table using the `read.csv()` function in your environment. Make sure you have the right path to access the .txt document. What does this parser do? Explore the data.frame. What is its structure? What are its dimensions?
+
+
+### Partial solution:
 ```{r warning=FALSE}
+# Set correct path!
+
+# Import
 financial_data <- read.csv("financial_data.txt", sep = ":")
 financial_data
 ```
 
 
-```{r}
+```{r, echo = FALSE, eval=FALSE}
 class(financial_data)
 dim(financial_data)
 
@@ -65,9 +72,9 @@ dimnames(financial_data)
 
 ## Variable creation
 
-Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame, which we'll learn later in the course. Use the `$` index.]
+Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame, which we'll learn later in the course. Here, use the `$` index.]
 
-```{r}
+```{r, eval = TRUE, echo = FALSE}
 financial_data$costs <- financial_data$Revenue - financial_data$Profit
 ```
 
@@ -77,7 +84,7 @@ financial_data$costs <- financial_data$Revenue - financial_data$Profit
 
 Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
 
-```{r}
+```{r, eval = FALSE, echo = FALSE}
 financial_data$Category <- as.factor(financial_data$Category)
 
 levels(financial_data$Category)
@@ -86,9 +93,9 @@ levels(financial_data$Category)
 <br>
 
 ## Nests 
-Split your data using the factor variable into three data frames contained in a list. Compute the mean profit for each data frame.
+Split your data using the factor variable into three data frames that are contained in a list. Compute the mean profit for each data frame. Hint: use the function `split`.
 
-```{r}
+```{r, eval = FALSE, echo = FALSE}
 list_financial_data <- split(financial_data, financial_data$Category)
 
 for (i in 1:length(list_financial_data)){
@@ -102,7 +109,10 @@ lapply(list_financial_data, function(x) mean(x$Profit))
 
 <br>
 
-Or, advanced (*and not exam relevant :-)*)
+## Advanced: map (not exam relevant)
+
+Do the same as the exercise above using the `map` function. Install the packages `tidyr`, `dplyr`, and `purrr`.
+
 ```{r message=FALSE, warning=FALSE}
 # Or (advanced!) with a nested tibble and map 
 library(tidyr)
@@ -118,40 +128,93 @@ map(tibble_financial_data$data, ~mean(.$Profit))
 ```
 
 
+<!-- <br> -->
 
+<!-- <br> -->
 
+<!-- # An exercise on arrays -->
 
+<!-- ## Using the code below, create an array containing three cities and temperatures -->
 
-<!-- 2. Creating the Array: -->
-<!-- Create a 3-dimensional array to store this data. The dimensions should represent: -->
-
-<!-- Rows: Months (12 months) -->
-<!-- Columns: Cities (3 cities) -->
-<!-- Layers: Years (1 year for this exercise) -->
-<!-- 3. Data Analysis: -->
-<!-- a) Compute the average temperature for each city over the year. -->
-
-<!-- b) Determine which city had the highest average temperature in July. -->
-
-<!-- c) Find out the month when New York had the lowest temperature. -->
-
-<!-- d) Compute the overall average temperature for all cities for the year. -->
+<!-- Make sure you understand each line of code. This is exam relevant. Note: the function `rnorm(x)` randomly draws `x` values from a normal distribution with mean 0 and sd 1. We use it here to add some "random" variation in our simulated temperatures.  -->
 
 <!-- ```{r} -->
-<!-- # Monthly average temperatures (in Fahrenheit) for the year 2022 -->
+<!-- # Monthly average temperatures for the years 2021 and 2022 (fake data!) -->
 
-<!-- St_Gallen <- c(2, 2, 5, 12, 15, 22, 23, 25, 18, 15, 8, 2) -->
-<!-- Lausanne <- c(58, 60, 61, 65, 68, 72, 75, 76, 74, 70, 64, 59) -->
-<!-- Basel <- c(27, 30, 38, 50, 60, 68, 73, 71, 64, 53, 42, 31) -->
+<!-- St_Gallen <- c(2, 2, 5, 10, 13, 21, 22, 25, 18, 14, 6, 2) -->
+<!-- Lausanne  <- c(5, 6, 6, 13, 16, 23, 24, 25, 19, 16, 8, 3) -->
+<!-- Basel     <- c(2, 3, 3, 10, 15, 22, 22, 24, 19, 16, 8, 3) -->
+
+<!-- # Creating the Array -->
+<!-- data_cities <- c(St_Gallen, Lausanne, Basel,  -->
+<!--                  St_Gallen + 0.25*rnorm(12), Lausanne + 0.35*rnorm(12), Basel + 0.2*rnorm(12)) -->
+
+<!-- city_array <- array(data_cities,  -->
+<!--                     dim = c(12, 3, 2),  -->
+<!--                     dimnames = list(months = 1:12,  -->
+<!--                                     cities = c("St_Gallen", "Lausanne", "Basel"),  -->
+<!--                                     year = c(2021, 2022)) -->
+<!--                     ) -->
+<!-- ``` -->
 
 
-<!-- # 2. Creating the Array -->
-<!-- data_combined <- c(St_Gallen, Lausanne, Basel) -->
-<!-- city_array <- array(data_combined, dim = c(12, 3, 1), dimnames = list(months = 1:12, cities = c("New York", "Los Angeles", "Basel"), year = 2022)) -->
+<!-- ## Answer the following questions: -->
 
-<!-- # 3. Data Analysis -->
-<!-- # a) Average temperature for each city -->
-<!-- avg_temps <- apply(city_array, 2, mean) -->
+<!--   1. Compute the average temperature for each city for each year  -->
+
+<!--   2. Compute the average temperature for each city across years. -->
+
+<!--   3. Determine which city had the highest average temperature in July 2022. -->
+
+<!--   3. Find out the month when St. Gallen had the lowest temperature. -->
+
+<!--   4. Compute the overall average temperature for all cities for the year. -->
+
+
+<!-- ```{r} -->
+<!-- # Average temperature for each city in 2021 and 2022 -->
+<!-- # St. Gallen -->
+<!-- for (i in 1:2) print(mean(city_array[, 1, i])) -->
+
+<!-- # Lausanne -->
+<!-- for (i in 1:2) print(mean(city_array[, 2, i])) -->
+
+<!-- # Basel -->
+<!-- for (i in 1:2) print(mean(city_array[, 3, i])) -->
+
+<!-- # Alternatives -->
+<!-- for (i in 1:3){ -->
+<!--   for (j in 1:2){ -->
+<!--     print(mean(city_array[, i, j])) -->
+<!--   } -->
+<!-- } -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- # Compute the average temperature for each city across years. -->
+
+<!-- # St. Gallen -->
+<!-- mean(city_array[, 1, ]) -->
+
+<!-- # Lausanne -->
+<!-- mean(city_array[, 2, ]) -->
+
+<!-- # Basel -->
+<!-- mean(city_array[, 3, ]) -->
+
+
+<!-- # Or (not exam relevant) -->
+<!-- apply(city_array, MARGIN = 2, mean) -->
+
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # Determine which city had the highest average temperature in July 2022. -->
+
+<!-- ``` -->
+
+
 <!-- print(avg_temps) -->
 
 <!-- # b) City with highest temperature in July -->

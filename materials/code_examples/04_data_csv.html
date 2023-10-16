@@ -430,7 +430,7 @@ pre code {
 
 <h1 class="title toc-ignore">Data Handling: Import, Cleaning and
 Visualisation</h1>
-<h3 class="subtitle">Exercise to lecture 4</h3>
+<h3 class="subtitle">Exercise to lecture 4: csv and arrays</h3>
 <h4 class="author">Dr. Aurélien Sallin</h4>
 
 </div>
@@ -441,12 +441,18 @@ Visualisation</h1>
 <div id="import-data" class="section level2">
 <h2>Import data</h2>
 <p>Have a look at the file <code>financial_data.txt</code> using your
-favorite text editor. What do you notice? Import the table using the
-<code>read.csv()</code> function in your environment. What does this
-parser do? Explore the data.frame. What is its structure? What is its
-dimension?</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>financial_data</span></code></pre></div>
+favorite text editor. What do you notice?</p>
+<p>Import the table using the <code>read.csv()</code> function in your
+environment. Make sure you have the right path to access the .txt
+document. What does this parser do? Explore the data.frame. What is its
+structure? What are its dimensions?</p>
+<div id="partial-solution" class="section level3">
+<h3>Partial solution:</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set correct path!</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>financial_data</span></code></pre></div>
 <pre><code>##     Firm Year Revenue    Profit Category
 ## 1  FirmA 2018    3462 1327.3730     Tech
 ## 2  FirmB 2018    3510 1114.8687  Finance
@@ -473,34 +479,14 @@ dimension?</p>
 ## 23 FirmC 2022    2016  577.3521  Finance
 ## 24 FirmD 2022    4720  974.1563   Health
 ## 25 FirmE 2022    3012 1334.7108   Health</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(financial_data)</span></code></pre></div>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(financial_data)</span></code></pre></div>
-<pre><code>## [1] 25  5</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(financial_data)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    25 obs. of  5 variables:
-##  $ Firm    : chr  &quot;FirmA&quot; &quot;FirmB&quot; &quot;FirmC&quot; &quot;FirmD&quot; ...
-##  $ Year    : int  2018 2018 2018 2018 2018 2019 2019 2019 2019 2019 ...
-##  $ Revenue : int  3462 3510 3226 1525 1194 3985 2841 2141 4370 2252 ...
-##  $ Profit  : num  1327 1115 1089 329 190 ...
-##  $ Category: chr  &quot;Tech&quot; &quot;Finance&quot; &quot;Tech&quot; &quot;Finance&quot; ...</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(financial_data)</span></code></pre></div>
-<pre><code>## [1] &quot;Firm&quot;     &quot;Year&quot;     &quot;Revenue&quot;  &quot;Profit&quot;   &quot;Category&quot;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(financial_data)</span></code></pre></div>
-<pre><code>## [[1]]
-##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot;
-## [16] &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot; &quot;22&quot; &quot;23&quot; &quot;24&quot; &quot;25&quot;
-## 
-## [[2]]
-## [1] &quot;Firm&quot;     &quot;Year&quot;     &quot;Revenue&quot;  &quot;Profit&quot;   &quot;Category&quot;</code></pre>
 <p><br></p>
+</div>
 </div>
 <div id="variable-creation" class="section level2">
 <h2>Variable creation</h2>
 <p>Create a new variable “costs”, which is the revenue - profit. [There
 are many ways to create a variable in a data frame, which we’ll learn
-later in the course. Use the <code>$</code> index.]</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>costs <span class="ot">&lt;-</span> financial_data<span class="sc">$</span>Revenue <span class="sc">-</span> financial_data<span class="sc">$</span>Profit</span></code></pre></div>
+later in the course. Here, use the <code>$</code> index.]</p>
 <p><br></p>
 </div>
 <div id="factor-variable" class="section level2">
@@ -508,46 +494,30 @@ later in the course. Use the <code>$</code> index.]</p>
 <p>Which variable is (should be) a factor? Recode this variable as a
 factor. What are the levels? Should we have the variable
 <code>Firm</code> as a factor?</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>Category <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(financial_data<span class="sc">$</span>Category)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(financial_data<span class="sc">$</span>Category)</span></code></pre></div>
-<pre><code>## [1] &quot;Finance&quot; &quot;Health&quot;  &quot;Tech&quot;</code></pre>
 <p><br></p>
 </div>
 <div id="nests" class="section level2">
 <h2>Nests</h2>
-<p>Split your data using the factor variable into three data frames
-contained in a list. Compute the mean profit for each data frame.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>list_financial_data <span class="ot">&lt;-</span> <span class="fu">split</span>(financial_data, financial_data<span class="sc">$</span>Category)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list_financial_data)){</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">mean</span>(list_financial_data[[i]]<span class="sc">$</span>Profit))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] 538.9418
-## [1] 882.3213
-## [1] 963.7105</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, using lapply</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(list_financial_data, <span class="cf">function</span>(x) <span class="fu">mean</span>(x<span class="sc">$</span>Profit))</span></code></pre></div>
-<pre><code>## $Finance
-## [1] 538.9418
-## 
-## $Health
-## [1] 882.3213
-## 
-## $Tech
-## [1] 963.7105</code></pre>
+<p>Split your data using the factor variable into three data frames that
+are contained in a list. Compute the mean profit for each data frame.
+Hint: use the function <code>split</code>.</p>
 <p><br></p>
-<p>Or, advanced (<em>and not exam relevant :-)</em>)</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or (advanced!) with a nested tibble and map </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>tibble_financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">|&gt;</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">|&gt;</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(tibble_financial_data<span class="sc">$</span>data, <span class="sc">~</span><span class="fu">mean</span>(.<span class="sc">$</span>Profit))</span></code></pre></div>
+</div>
+<div id="advanced-map-not-exam-relevant" class="section level2">
+<h2>Advanced: map (not exam relevant)</h2>
+<p>Do the same as the exercise above using the <code>map</code>
+function. Install the packages <code>tidyr</code>, <code>dplyr</code>,
+and <code>purrr</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or (advanced!) with a nested tibble and map </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tibble_financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(tibble_financial_data<span class="sc">$</span>data, <span class="sc">~</span><span class="fu">mean</span>(.<span class="sc">$</span>Profit))</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 963.7105
 ## 
@@ -556,27 +526,61 @@ contained in a list. Compute the mean profit for each data frame.</p>
 ## 
 ## [[3]]
 ## [1] 882.3213</code></pre>
-<!-- 2. Creating the Array: -->
-<!-- Create a 3-dimensional array to store this data. The dimensions should represent: -->
-<!-- Rows: Months (12 months) -->
-<!-- Columns: Cities (3 cities) -->
-<!-- Layers: Years (1 year for this exercise) -->
-<!-- 3. Data Analysis: -->
-<!-- a) Compute the average temperature for each city over the year. -->
-<!-- b) Determine which city had the highest average temperature in July. -->
-<!-- c) Find out the month when New York had the lowest temperature. -->
-<!-- d) Compute the overall average temperature for all cities for the year. -->
+<!-- <br> -->
+<!-- <br> -->
+<!-- # An exercise on arrays -->
+<!-- ## Using the code below, create an array containing three cities and temperatures -->
+<!-- Make sure you understand each line of code. This is exam relevant. Note: the function `rnorm(x)` randomly draws `x` values from a normal distribution with mean 0 and sd 1. We use it here to add some "random" variation in our simulated temperatures.  -->
 <!-- ```{r} -->
-<!-- # Monthly average temperatures (in Fahrenheit) for the year 2022 -->
-<!-- St_Gallen <- c(2, 2, 5, 12, 15, 22, 23, 25, 18, 15, 8, 2) -->
-<!-- Lausanne <- c(58, 60, 61, 65, 68, 72, 75, 76, 74, 70, 64, 59) -->
-<!-- Basel <- c(27, 30, 38, 50, 60, 68, 73, 71, 64, 53, 42, 31) -->
-<!-- # 2. Creating the Array -->
-<!-- data_combined <- c(St_Gallen, Lausanne, Basel) -->
-<!-- city_array <- array(data_combined, dim = c(12, 3, 1), dimnames = list(months = 1:12, cities = c("New York", "Los Angeles", "Basel"), year = 2022)) -->
-<!-- # 3. Data Analysis -->
-<!-- # a) Average temperature for each city -->
-<!-- avg_temps <- apply(city_array, 2, mean) -->
+<!-- # Monthly average temperatures for the years 2021 and 2022 (fake data!) -->
+<!-- St_Gallen <- c(2, 2, 5, 10, 13, 21, 22, 25, 18, 14, 6, 2) -->
+<!-- Lausanne  <- c(5, 6, 6, 13, 16, 23, 24, 25, 19, 16, 8, 3) -->
+<!-- Basel     <- c(2, 3, 3, 10, 15, 22, 22, 24, 19, 16, 8, 3) -->
+<!-- # Creating the Array -->
+<!-- data_cities <- c(St_Gallen, Lausanne, Basel,  -->
+<!--                  St_Gallen + 0.25*rnorm(12), Lausanne + 0.35*rnorm(12), Basel + 0.2*rnorm(12)) -->
+<!-- city_array <- array(data_cities,  -->
+<!--                     dim = c(12, 3, 2),  -->
+<!--                     dimnames = list(months = 1:12,  -->
+<!--                                     cities = c("St_Gallen", "Lausanne", "Basel"),  -->
+<!--                                     year = c(2021, 2022)) -->
+<!--                     ) -->
+<!-- ``` -->
+<!-- ## Answer the following questions: -->
+<!--   1. Compute the average temperature for each city for each year  -->
+<!--   2. Compute the average temperature for each city across years. -->
+<!--   3. Determine which city had the highest average temperature in July 2022. -->
+<!--   3. Find out the month when St. Gallen had the lowest temperature. -->
+<!--   4. Compute the overall average temperature for all cities for the year. -->
+<!-- ```{r} -->
+<!-- # Average temperature for each city in 2021 and 2022 -->
+<!-- # St. Gallen -->
+<!-- for (i in 1:2) print(mean(city_array[, 1, i])) -->
+<!-- # Lausanne -->
+<!-- for (i in 1:2) print(mean(city_array[, 2, i])) -->
+<!-- # Basel -->
+<!-- for (i in 1:2) print(mean(city_array[, 3, i])) -->
+<!-- # Alternatives -->
+<!-- for (i in 1:3){ -->
+<!--   for (j in 1:2){ -->
+<!--     print(mean(city_array[, i, j])) -->
+<!--   } -->
+<!-- } -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Compute the average temperature for each city across years. -->
+<!-- # St. Gallen -->
+<!-- mean(city_array[, 1, ]) -->
+<!-- # Lausanne -->
+<!-- mean(city_array[, 2, ]) -->
+<!-- # Basel -->
+<!-- mean(city_array[, 3, ]) -->
+<!-- # Or (not exam relevant) -->
+<!-- apply(city_array, MARGIN = 2, mean) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Determine which city had the highest average temperature in July 2022. -->
+<!-- ``` -->
 <!-- print(avg_temps) -->
 <!-- # b) City with highest temperature in July -->
 <!-- july_temps <- city_array[7, , 1] -->
