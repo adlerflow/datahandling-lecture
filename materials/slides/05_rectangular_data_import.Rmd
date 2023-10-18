@@ -22,15 +22,17 @@ knitr::opts_chunk$set(class.source = "chunkstyle")
 .chunkstyle {
   background-color: lightgrey;
 }
+
+<style>
+  .center-vertically {
+    display: flex;
+    align-items: center;
+  }
+  .center-vertically img {
+    margin-right: 10px;  /* Adjust as needed */
+  }
+</style>
 ```
-
-
-# Updates
-
-## Updates
-- Exercises/Practical case for lecture 4: available online.
-- Discuss the solutions on the forum in Canvas.
-- These exercises are exam-relevant.
 
 
 
@@ -75,7 +77,7 @@ erratum
 
 ## Warm-up
 
-```{r df, echo=FALSE, out.width = "40%", fig.align='left',  purl=FALSE}
+```{r df, echo=FALSE, out.width = "50%", fig.align='center',  purl=FALSE}
 include_graphics("../../img/warmup_dalle.png")
 ```
 
@@ -200,7 +202,7 @@ as.numeric(fruits)
 # Working with rectangular data in R
 
 
-# Loading/Importing Rectangular Data
+# Accessing Rectangular Data
 
 ## Loading built-in datasets
 
@@ -208,6 +210,8 @@ In order to load such datasets, simply use the `data()`-function:
 
 ```{r eval=TRUE}
 data(swiss)
+
+data(mtcars)
 ```
 
 ## Inspect the data after loading
@@ -220,7 +224,64 @@ str(swiss)
 head(swiss)
 ```
 
+## Work with data.frames
 
+*Select columns *
+
+```{r eval = FALSE}
+swiss$Fertility # use the $-operator
+```
+
+```{r eval = FALSE}
+swiss[,1] # use brackets [] and the column number/index 
+```
+
+```{r eval = FALSE}
+swiss[, "Fertility"] # use the name of the column
+```
+
+<br>
+
+*Select rows*
+```{r eval = FALSE}
+swiss[1,] 
+```
+
+
+## Data.frames vs tibbles
+
+<br>
+
+<img align="right" width="300" height="300" src="../../img/tidyverse.png">
+
+- data frames: base `R`
+- tibbles: `tidyverse`
+
+
+## Data.frames vs tibbles
+
+```{r tidyverse, echo=FALSE, out.width = "60%", fig.align='center',  purl=FALSE}
+include_graphics("../../img/tidyverse_website.png")
+```
+
+
+## Data.frames vs tibbles
+
+Similar! 
+
+- Used in the tidyverse and ggplot2 packages. 
+- Same information as a data frame.
+- Slight differences in the manipulation and representation of data.
+- See [**Tibble vs. DataFrame**](https://jtr13.github.io/cc21fall1/tibble-vs.-dataframe.html#tibble-vs.-dataframe") for more details.
+
+
+## Data.frames vs tibbles
+
+```{r eval=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+as_tibble(swiss)
+```
 
 # Importing Rectangular Data from Text-Files
 
@@ -357,17 +418,7 @@ swiss
   - What about `c("12:00", "midnight", "noon")`?
   - And now `c("12:00", "14:30", "20:01")`?
   
-## Parsing CSV-columns
   
-  *Let's test it!*
-
-```{r}
-read_csv('A,B
-12:00, 12:00
-14:30, midnight
-20:01, noon')
-```
-
 ## Parsing CSV-columns
 
 *Let's test it!*
@@ -485,7 +536,7 @@ hasta
 - `readr` provides a function that does just that: `guess_encoding()`
 
 ```{r}
-guess_encoding(FILE)
+readr::guess_encoding(FILE)
 ```
 
 
@@ -502,6 +553,104 @@ iconv(hasta, from = "ISO-8859-2", to = "UTF-8")
 ```{r}
 iconv(hasta, from = "ISO-8859-1", to = "UTF-8")
 ```
+
+
+# Tutorial: a first data pipeline
+
+
+## Organize your data pipeline!
+
+- One R script to gather/import data.
+- The beginning of your data pipeline!
+
+<center>
+*Do not overlook this step!!!*
+</center>
+
+
+
+## A Template/Blueprint
+
+Tell your future self what this script is all about 🤓🔮💻
+
+```{r}
+#######################################################################
+# Data Handling Course: Example Script for Data Gathering and Import
+#
+# Imports data from ...
+# Input: import c to data sources (data comes in ... format)
+# Output: cleaned data as CSV
+# 
+# A. Sallin, St. Gallen, 2023
+#######################################################################
+
+```
+
+
+## Script sections
+
+- Recall: programming tasks can often be split into smaller tasks.
+- Use *sections* to implement task-by-task and keep order.
+- In RStudio: Use `----------` to indicate the beginning of sections.
+  - CTRL + SHIFT + R
+- Start with a 'meta'-section.
+
+## Script sections
+
+
+```{r eval=FALSE}
+#######################################################################
+# Data Handling Course: Example Script for Data Gathering and Import
+#
+# Imports data from ...
+# Input: import c to data sources (data comes in ... format)
+# Output: cleaned data as CSV
+# 
+# A. Sallin, St. Gallen, 2023
+#######################################################################
+
+
+# SET UP --------------
+# load packages
+library(tidyverse)
+
+# set fix variables
+INPUT_PATH <- "/rawdata"
+OUTPUT_FILE <- "/final_data/datafile.csv"
+
+```
+
+
+## Script sections
+
+Finally we add sections with the actual code (in the case of a data import script, maybe one section per data source)
+
+```{r eval=FALSE}
+#######################################################################
+# Data Handling Course: Example Script for Data Gathering and Import
+#
+# Imports data from ...
+# Input: import c to data sources (data comes in ... format)
+# Output: cleaned data as CSV
+# 
+# A. Sallin, St. Gallen, 2023
+#######################################################################
+
+
+# SET UP --------------
+# load packages
+library(tidyverse)
+
+# set fix variables
+INPUT_PATH <- "/rawdata"
+OUTPUT_FILE <- "/final_data/datafile.csv"
+
+
+# IMPORT RAW DATA FROM CSVs -------------
+```
+
+
+# Let's code!
 
 
 

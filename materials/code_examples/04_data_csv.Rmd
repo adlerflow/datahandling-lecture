@@ -7,39 +7,40 @@ output:
     highlight: tango
     theme: cerulean
     mathjax: "http://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"
-  pdf_document:
-    pandoc_args:
-    - --filter
-    - ../../code/math.py
 header-includes:
-- \usepackage[T1]{fontenc}
-- \usepackage{hyperref}
+  -\usepackage[T1]{fontenc}
+  -\usepackage{hyperref}
 css: ../../style/notes_hsg.css
-bibliography: ../../references/datahandling.bib
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# knitr::opts_chunk$set(echo = FALSE)
+# knitr::opts_chunk$set(results = "hide")
 ```
 
 
 # Working with a data frame
 
-```{r data creation, include = FALSE, eval= FALSE}
+```{r data creation, include = FALSE, eval= TRUE}
+library(readr)
+
 # Data Creation (to be executed by the instructor)
-set.seed(123) # For reproducibility
+set.seed(1234) # For reproducibility
 
 firms <- c("FirmA", "FirmB", "FirmC", "FirmD", "FirmE")
-years <- 2018:2022
+years <- 2017:2022
 
 # Generate sample data
 data <- expand.grid(Firm = firms, Year = years)
 data$Revenue <- sample(1000:5000, nrow(data), replace = TRUE)
 data$Profit <- data$Revenue * runif(nrow(data), 0.1, 0.5)
 data$Category <- factor(sample(c("Tech", "Health", "Finance"), nrow(data), replace = TRUE))
+data$Revenue[10] <- "1933\xF6"
+Encoding(data$Revenue) <- "latin1"
 
 # Write data to .txt with ":" as separator
-write.table(data, "financial_data.txt", sep = ":", row.names = FALSE)
+write.table(data, "financial_data.txt", row.names = FALSE, sep = ":",  fileEncoding = "latin1")
+
 ```
 
 
@@ -48,14 +49,46 @@ Have a look at the file `financial_data.txt` using your favorite text editor. Wh
 
 Import the table using the `read.csv()` function in your environment. Make sure you have the right path to access the .txt document. What does this parser do? Explore the data.frame. What is its structure? What are its dimensions?
 
+Compute the summary statistics for each variable using the `summary()` command. What does this command give you? What do you notice? Make the necessary changes.
 
-### Partial solution:
-```{r warning=FALSE}
+
+```{r eval = TRUE}
 # Set correct path!
 
-# Import
-financial_data <- read.csv("financial_data.txt", sep = ":")
+financial_data <- read.csv("financial_data.txt")
 financial_data
+```
+
+```{r warning=FALSE}
+# Import
+iconv("\xF6", from = "ISO-8859-2", to = "UTF-8")
+iconv("\xF6", from = "ISO-8859-1", to = "UTF-8")
+iconv("\xF6", from = "ISO-8859-9", to = "UTF-8")
+
+financial_data <- read.csv("financial_data.txt", fileEncoding = "ISO-8859-2")
+financial_data
+```
+
+```{r}
+financial_data <- read.csv("financial_data.txt", fileEncoding = "latin1", sep = ":")
+
+LINE <- readLines("financial_data.txt")
+head(read_lines_raw("financial_data.txt"))
+```
+
+```{r}
+head(financial_data, 10)
+summary(financial_data)
+
+# Shift to numeric
+financial_data[10, "Revenue"]
+financial_data[10, "Revenue"] <- 1933
+
+financial_data[, "Revenue"] <- as.numeric(financial_data[, "Revenue"])
+
+# Check summary again
+summary(financial_data)
+
 ```
 
 
@@ -72,7 +105,7 @@ dimnames(financial_data)
 
 ## Variable creation
 
-Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame, which we'll learn later in the course. Here, use the `$` index.]
+Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame. Here, use the `$` index.]
 
 ```{r, eval = TRUE, echo = FALSE}
 financial_data$costs <- financial_data$Revenue - financial_data$Profit
@@ -84,7 +117,7 @@ financial_data$costs <- financial_data$Revenue - financial_data$Profit
 
 Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 financial_data$Category <- as.factor(financial_data$Category)
 
 levels(financial_data$Category)
@@ -95,7 +128,7 @@ levels(financial_data$Category)
 ## Nests 
 Split your data using the factor variable into three data frames that are contained in a list. Compute the mean profit for each data frame. Hint: use the function `split`.
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 list_financial_data <- split(financial_data, financial_data$Category)
 
 for (i in 1:length(list_financial_data)){
