@@ -517,7 +517,7 @@ tab
 First few steps in a text analysis/natural language processing (NLP) pipeline:
 
  1. Data acquisition: text data are collected from disparate sources. Examples are webpage scrapping, numerization of old administrative records, collection of tweets through an API, etc. 
- 2.Text cleaning. 
+ 2. Text cleaning. 
  3. Text preprocessing require the analyst to prepare the text in such a way that text information can be read by a statistical software. At this step, text information is "transformed" into a matrix. 
  4. Feature engineering is the process of using domain knowledge to extract features (characteristics, properties, attributes) from raw data.
 

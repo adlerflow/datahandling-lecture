@@ -21,9 +21,7 @@ css: ../../style/notes_hsg.css
 
 # Working with a data frame
 
-```{r data creation, include = FALSE, eval= TRUE}
-library(readr)
-
+```{r data creation, include = FALSE, eval= FALSE}
 # Data Creation (to be executed by the instructor)
 set.seed(1234) # For reproducibility
 
@@ -43,63 +41,123 @@ write.table(data, "financial_data.txt", row.names = FALSE, sep = ":",  fileEncod
 
 ```
 
+## Set your script
+
+Set your `R` Script.
+
+```{r eval = TRUE, echo = TRUE}
+#######################################################################
+# Data Handling Course: Example Script for Data Gathering and Import
+#
+# Imports data from ...
+# Input: import c to data sources (data comes in ... format)
+# Output: cleaned data as CSV
+# 
+# A. Sallin, St. Gallen, 2023
+#######################################################################
+
+# SET UP --------------
+# load packages
+library(readr)
+
+
+# SET PATH ------------------
+# If not in NUVOLOS, set correct path!
+# financial_data <- read.csv("Path/to/my/file/financial_data.txt")
+
+
+```
+
+
 
 ## Import data
 Have a look at the file `financial_data.txt` using your favorite text editor. What do you notice? 
 
 Import the table using the `read.csv()` function in your environment. Make sure you have the right path to access the .txt document. What does this parser do? Explore the data.frame. What is its structure? What are its dimensions?
 
-Compute the summary statistics for each variable using the `summary()` command. What does this command give you? What do you notice? Make the necessary changes.
+```{r eval = FALSE, error=FALSE}
 
+# IMPORT RAW DATA FROM CSVs -------------
 
-```{r eval = TRUE}
-# Set correct path!
+# From simply opening the .txt data from the "Files" Panel on the left side
+# in RStudio, we can see that the file has a structure with ":" separated
+# value, has 5 columns and should have 30 rows. 
 
+# However, when importing the file with "read_csv" or "read.csv", we notice
+# that the output is not correct: R does not understand that the value separator
+# is a ":" and not a comma. For this reason, the file is not correctly read. 
 financial_data <- read.csv("financial_data.txt")
-financial_data
+# financial_data <- read_csv("financial_data.txt")
+
+# To indicate that the value separator is actually a ":", we need to tell R 
+# to use ":" as a separator.  This can be done using the option "sep = ":"" with 
+# read.csv().
+# With read_csv() and the readr package, we need to use the function read_delim()
+# instead.
+financial_data <- read.csv("financial_data.txt", sep = ":")
+# financial_data <- read_delim("financial_data.txt", delim = ":")
+
 ```
 
-```{r warning=FALSE}
-# Import
-iconv("\xF6", from = "ISO-8859-2", to = "UTF-8")
+```{r warning=FALSE, eval = TRUE}
+# When using read.csv(), we notice the following warning:
+# "Error in type.convert.default(data[[i]], as.is = as.is[i], dec = dec,  : 
+# invalid multibyte string at '<f6>'"
+# This means there is an encoding problem in the file. A visual exploration shows
+# us that the encoding problem is in row 10, col 3.
+
+# We have the character \xF6. This could be any encoding. In this case, I am guessing
+# the encoding by trying different things. The function "string::stri_enc_detect()", upon
+# which "guess_encoding()" is built, does not help me much. 
+# I did a Google search and realized it is likely to be Latin-1, which is "ISO-8859-1" and 
+# ISO-8859- family
+stringi::stri_enc_detect("\xF6")
 iconv("\xF6", from = "ISO-8859-1", to = "UTF-8")
-iconv("\xF6", from = "ISO-8859-9", to = "UTF-8")
+iconv("\xF6", from = "ISO-8859-2", to = "UTF-8")
+iconv("\xF6", from = "ISO-8859-2", to = "UTF-8")
 
-financial_data <- read.csv("financial_data.txt", fileEncoding = "ISO-8859-2")
-financial_data
+# This seems to be OK. Therefore, I can specify Latin-1 in my encoding.
+financial_data <- read.csv("financial_data.txt", 
+                           sep = ":",
+                           fileEncoding = "ISO-8859-1")
 ```
 
-```{r}
-financial_data <- read.csv("financial_data.txt", fileEncoding = "latin1", sep = ":")
 
-LINE <- readLines("financial_data.txt")
-head(read_lines_raw("financial_data.txt"))
-```
 
-```{r}
+
+```{r eval = TRUE, echo = TRUE}
+# The data looks now like what I expect... except for the variable "Revenue", which
+# is a character. I remove the special ö character from the encoding issue and 
+# coerce 
 head(financial_data, 10)
-summary(financial_data)
+str(financial_data)
 
-# Shift to numeric
+financial_data[10, 3] <- 1933
+
+# Coerce to numeric
+financial_data$Revenue <- as.numeric(financial_data$Revenue)
+
+# Another way of writing the column selection
 financial_data[10, "Revenue"]
 financial_data[10, "Revenue"] <- 1933
 
 financial_data[, "Revenue"] <- as.numeric(financial_data[, "Revenue"])
 
+# The data is now ready. You are ready to compute the rest of the exercise.
+# END - for now
+```
+
+
+<br>
+
+## Summary statistics of your data
+Compute the summary statistics for each variable using the `summary()` command. What does this command give you? What do you notice? Make the necessary changes.
+
+```{r eval = TRUE, echo = FALSE}
 # Check summary again
 summary(financial_data)
-
 ```
 
-
-```{r, echo = FALSE, eval=FALSE}
-class(financial_data)
-dim(financial_data)
-
-str(financial_data)
-names(financial_data)
-dimnames(financial_data)
-```
 
 <br>
 
@@ -117,7 +175,7 @@ financial_data$costs <- financial_data$Revenue - financial_data$Profit
 
 Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
 
-```{r, eval = FALSE, echo = TRUE}
+```{r, eval = FALSE, echo = FALSE}
 financial_data$Category <- as.factor(financial_data$Category)
 
 levels(financial_data$Category)
@@ -125,17 +183,20 @@ levels(financial_data$Category)
 
 <br>
 
-## Nests 
-Split your data using the factor variable into three data frames that are contained in a list. Compute the mean profit for each data frame. Hint: use the function `split`.
+## Nests - more difficult question... but still exam relevant 👻
+Split your data using the factor variable into three data frames that are contained in a list. Compute the mean profit for each data frame. 
 
-```{r, eval = FALSE, echo = TRUE}
+- Hint: use the function `split`. 
+- Hint: use a `for-loop` over each list element to compute the mean
+
+```{r, eval = FALSE, echo = FALSE}
 list_financial_data <- split(financial_data, financial_data$Category)
 
 for (i in 1:length(list_financial_data)){
   print(mean(list_financial_data[[i]]$Profit))
 }
 
-# Or, using lapply
+# Or, using lapply (not exam relevant)
 lapply(list_financial_data, function(x) mean(x$Profit))
 ```
 
@@ -146,7 +207,7 @@ lapply(list_financial_data, function(x) mean(x$Profit))
 
 Do the same as the exercise above using the `map` function. Install the packages `tidyr`, `dplyr`, and `purrr`.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo = FALSE, eval = FALSE}
 # Or (advanced!) with a nested tibble and map 
 library(tidyr)
 library(dplyr)

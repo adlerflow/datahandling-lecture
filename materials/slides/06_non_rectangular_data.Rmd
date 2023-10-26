@@ -12,9 +12,10 @@ logo: ../../img/logo.png
 bibliography: ../../references/datahandling.bib
 ---
 
-```{r set-options, echo=FALSE, cache=FALSE, warning=FALSE}
+```{r set-options, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
 options(width = 100)
 library(knitr)
+library(dplyr)
 ```
 
 
@@ -27,6 +28,10 @@ pre {
 
 # Updates
 
+## Updates
+
+- Exam for exchange students: 21.12.2023 at 16:15 in room 10-013.
+- Don't forget the exercise from lecture 5 💣
 
 
 # Recap
@@ -36,38 +41,113 @@ pre {
 *Rectangular data*
 
 - Rectangular data refers to a data structure where information is organized into *rows* and *columns*.
-  - Each row represents an observation or instance of the data.
-  - Each column represents a variable or feature of the data.
+  - CSV (typical for rectangular/table-like data) and variants of CSV (tab-delimited, fix length etc.)
+  - Excel spreadsheets (`.xls`)
+  - Formats specific to statistical software (SPSS: `.sav`, STATA: `.dat`, etc.)
+  - Built-in R datasets
+  - Binary formats
 
 <br>
 
-*Non-rectangular data*
-- Hierarchical data (xml, html, json)
-- Time series data
-- Unstructed text data
-- Images/Pictures data 
 
+## Warm-up
+
+```{r df, echo=FALSE, out.width = "50%", fig.align='center',  purl=FALSE}
+include_graphics("../../img/warmup_dalle.png")
+```
+
+
+## Coercion of boolean values
+
+This question checks your understanding of the coercion of boolean values.
+
+What is the output of the following code?
+```{r echo = TRUE, eval = FALSE}
+my_vector <- c(1, 0, 3, -1)
+as.numeric(my_vector > 0)
+```
+
+- `c("TRUE", "FALSE", "TRUE", "FALSE")`
+- `c(TRUE, FALSE, TRUE, FALSE)`
+- `c(1,0,1,0)`
+- `c(0,1,0,1)`
+
+
+## Data frames operations
+
+Be the data frame
+
+```{r echo = TRUE}
+dataCHframe <- data.frame(
+  "City" = c("St.Gallen", "Lausanne", "Zürich"),
+  "PartyLeft" = c(35, 45, 55),
+  "PartyRight" = c(40, 35, 30)
+)
+```
+
+Which of these statements are TRUE?
+
+- `dataCHframe$PartyCenter <- c(25, 20, 15)` creates a new variable called "PartyCenter"
+- `dim(dataCHframe[, dataCHframe$PartyLeft > 40])` returns the same as `dim(dataCHframe[, c(2,3)])`
+- `dim(dataCHframe[dataCHframe$PartyLeft > 40 | dataCHframe$PartyLeft < 40, ])` returns `c(3,3)`
+- `dataCHframe` is a list consisting of one named character vector and two named integer vectors.
+
+
+## Working with csv files
+
+You want to import a file using `read_delim()`. Describe what `read_delim()` does under the hood. What should be added to this command in order for it to work?
+
+<!-- 1. recognize the separator and EOL -->
+<!-- 2. use `guess_parser` to understand what data *type* hides behind each data structure -->
+<!-- 3.  -->
+
+
+## Tibbles
+
+Be the code
+
+```{r}
+df <- data.frame(a = c(1,2,3,4),
+                 b = c("au", "de", "ch", "li"))
+```
+
+Are these statements TRUE or FALSE?
+
+- `mean(df$a) == 2.5`
+- `typeof(as.matrix(df)[,1])` is `numeric` (or `double`)
+
+
+## 
+
+Statement for illustrative purposes (just for you to see it once, not that I expect you to learn this)
+
+- `as_tibble(df)[1:2,1]` contains the same information as `df[1:2, 1]` but the formatting is different. 
+
+```{r}
+as_tibble(df)[1:2,1]
+df[1:2, 1]
+```
+
+
+
+# Web Data, Complex Data Structures
 
 ## Data
 
 *Rectangular data*
 
-- CSV (typical for rectangular/table-like data) and variants of CSV (tab-delimited, fix length etc.)
-- Excel spreadsheets (`.xls`)
-- Formats specific to statistical software (SPSS: `.sav`, STATA: `.dat`, etc.)
-- Built-in R datasets
-- Binary formats
-
 <br>
 
 *Non-rectangular data*
-- XML and JSON (useful for complex/high-dimensional data sets)
-- HTML (a markup language to define the structure and layout of webpages)
-- Time series
-- Text and images
+
+- Hierarchical data (xml, html, json)
+  - <span style="color: gray">XML and JSON (useful for complex/high-dimensional data sets)</span>.
+  - <span style="color: gray">HTML (a markup language to define the structure and layout of webpages)</span>.
+- Time series data
+- Unstructed text data
+- Images/Pictures data 
 
 
-# Web Data, Complex Data Structures
 
 ## A rectangular data set
 
@@ -136,112 +216,131 @@ David  Debbie  Dianne    12  female
 
 # Deciphering XML
 
-## Revisiting COVID-19 data
 
+## Revisiting Air quality data (exercise sheet 2)
+
+```{}
+unique_id,indicator_id,name,measure,measure_info,geo_type_name,
+  geo_join_id,geo_place_name,time_period,start_date,data_value
+216498,386,Ozone (O3),Mean,ppb,CD,
+  313,Coney Island (CD13),Summer 2013,2013-06-01T00:00:00,34.64
+216499,386,Ozone (O3),Mean,ppb,CD,
+  313,Coney Island (CD13),Summer 2014,2014-06-01T00:00:00,33.22
+219969,386,Ozone (O3),Mean,ppb,Borough,
+  1,Bronx,Summer 2013,2013-06-01T00:00:00,31.25
 ```
-dateRep,day,month,year,cases,deaths,countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,Cumulative_number_for_14_days_of_COVID-19_cases_per_100000
-14/10/2020,14,10,2020,66,0,Afghanistan,AF,AFG,38041757,Asia,1.94523087
-13/10/2020,13,10,2020,129,3,Afghanistan,AF,AFG,38041757,Asia,1.81116766
-12/10/2020,12,10,2020,96,4,Afghanistan,AF,AFG,38041757,Asia,1.50361089
-```
 
-## Revisiting COVID-19 data (in XML!)
+<!-- ``` -->
+<!-- dateRep,day,month,year,cases,deaths,countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,Cumulative_number_for_14_days_of_COVID-19_cases_per_100000 -->
+<!-- 14/10/2020,14,10,2020,66,0,Afghanistan,AF,AFG,38041757,Asia,1.94523087 -->
+<!-- 13/10/2020,13,10,2020,129,3,Afghanistan,AF,AFG,38041757,Asia,1.81116766 -->
+<!-- 12/10/2020,12,10,2020,96,4,Afghanistan,AF,AFG,38041757,Asia,1.50361089 -->
+<!-- ``` -->
 
 
-```
-<records>
-<record>
-<dateRep>14/10/2020</dateRep>
-<day>14</day>
-<month>10</month>
-<year>2020</year>
-<cases>66</cases>
-<deaths>0</deaths>
-<countriesAndTerritories>Afghanistan</countriesAndTerritories>
-<geoId>AF</geoId>
-<countryterritoryCode>AFG</countryterritoryCode>
-<popData2019>38041757</popData2019>
-<continentExp>Asia</continentExp>
-<Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>1.94523087</Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>
-</record>
-<record>
-<dateRep>13/10/2020</dateRep>
+<!-- ## Revisiting Air quality data (in xml) -->
 
-...
-</records>
-```
+<!-- ```{xml} -->
+<!-- <row> -->
+<!-- <unique_id>216498</unique_id> -->
+<!-- <indicator_id>386</indicator_id> -->
+<!-- <name>Ozone (O3)</name> -->
+<!-- <measure>Mean</measure> -->
+<!-- <measure_info>ppb</measure_info> -->
+<!-- <geo_type_name>CD</geo_type_name> -->
+<!-- <geo_join_id>313</geo_join_id -->
+<!-- ><geo_place_name>Coney Island (CD13)</geo_place_name> -->
+<!-- <time_period>Summer 2013</time_period> -->
+<!-- <start_date>2013-06-01T00:00:00</start_date> -->
+<!-- <data_value>34.64</data_value> -->
+<!-- </row> -->
+
+<!-- <unique_id>216499</unique_id> -->
+<!-- <indicator_id>386</indicator_id> -->
+<!-- ... -->
+
+<!-- <\row> -->
+<!-- ``` -->
+
+
+
+<!-- ``` -->
+<!-- <records> -->
+<!-- <record> -->
+<!-- <dateRep>14/10/2020</dateRep> -->
+<!-- <day>14</day> -->
+<!-- <month>10</month> -->
+<!-- <year>2020</year> -->
+<!-- <cases>66</cases> -->
+<!-- <deaths>0</deaths> -->
+<!-- <countriesAndTerritories>Afghanistan</countriesAndTerritories> -->
+<!-- <geoId>AF</geoId> -->
+<!-- <countryterritoryCode>AFG</countryterritoryCode> -->
+<!-- <popData2019>38041757</popData2019> -->
+<!-- <continentExp>Asia</continentExp> -->
+<!-- <Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>1.94523087</Cumulative_number_for_14_days_of_COVID-19_cases_per_100000> -->
+<!-- </record> -->
+<!-- <record> -->
+<!-- <dateRep>13/10/2020</dateRep> -->
+
+<!-- ... -->
+<!-- </records> -->
+<!-- ``` -->
 
 
 
 ## Revisiting COVID-19 (in XML!)
-
-
-```
-<records>
-<record>
-<dateRep>14/10/2020</dateRep>
-<day>14</day>
-<month>10</month>
-<year>2020</year>
-<cases>66</cases>
-<deaths>0</deaths>
-<countriesAndTerritories>Afghanistan</countriesAndTerritories>
-<geoId>AF</geoId>
-<countryterritoryCode>AFG</countryterritoryCode>
-<popData2019>38041757</popData2019>
-<continentExp>Asia</continentExp>
-<Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>1.94523087</Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>
-</record>
-<record>
-<dateRep>13/10/2020</dateRep>
-
-...
-</records>
-```
 
 <center>
 *What features does the format have? What is it's logic/syntax?*
 </center>
 
 
-## XML syntax
-
-
 ```{xml}
-<records>
-<record>
-<dateRep>14/10/2020</dateRep>
-<day>14</day>
-<month>10</month>
-<year>2020</year>
-<cases>66</cases>
-<deaths>0</deaths>
-<countriesAndTerritories>Afghanistan</countriesAndTerritories>
-<geoId>AF</geoId>
-<countryterritoryCode>AFG</countryterritoryCode>
-<popData2019>38041757</popData2019>
-<continentExp>Asia</continentExp>
-<Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>1.94523087</Cumulative_number_for_14_days_of_COVID-19_cases_per_100000>
-</record>
-<record>
-<dateRep>13/10/2020</dateRep>
+<row>
+<unique_id>216498</unique_id>
+<indicator_id>386</indicator_id>
+<name>Ozone (O3)</name>
+<measure>Mean</measure>
+<measure_info>ppb</measure_info>
+<geo_type_name>CD</geo_type_name>
+<geo_join_id>313</geo_join_id
+><geo_place_name>Coney Island (CD13)</geo_place_name>
+<time_period>Summer 2013</time_period>
+<start_date>2013-06-01T00:00:00</start_date>
+<data_value>34.64</data_value>
+</row>
 
+<unique_id>216499</unique_id>
+<indicator_id>386</indicator_id>
 ...
-</records>
-```
 
+<\row>
+```
 
 
 
 ## XML syntax
 
-The actual content we know from the csv-type example above is nested between the '`records`'-tags:
+The actual content we know from the csv-type example above is nested between the '`row`'-tags:
 
 ```{xml}
-  <records>
+  <row>
 ...
-  </records>
+  </row>
 ```
+
+
+## XML as a tree structure
+
+```{xml}
+<root>
+  <child>
+    <subchild>.....</subchild>
+  </child>
+</root>
+```
+
 
 
 ## XML syntax: Temperature Data example
@@ -264,9 +363,9 @@ There are two principal ways to link variable names to values.
 
 ## XML syntax
 
-
 1. Define opening and closing XML-tags with the variable name and surround the value with them, such as in `<filename>ISCCPMonthly_avg.nc</filename>`.
 2. Encapsulate the values within one tag by defining tag-attributes such as in `<case date="16-JAN-1994" temperature="9.200012" />`. 
+
 
 ## XML syntax
 
@@ -277,6 +376,7 @@ Attributes-based:
     <case date="16-MAR-1994" temperature="7.5" />
     <case date="16-APR-1994" temperature="8.100006" />
 ```
+
 
 ## XML syntax
 
@@ -304,13 +404,99 @@ Tag-based:
 ```
 
 
-
-
 ## Insights: CSV vs. XML
 
  - Represent much more *complex (multi-dimensional)* data in XML-files than what is possible in CSVs.
  - Self-explanatory syntax: *machine-readable and human-readable*. 
  - Tags are part of the syntax, give both structure and name variables.
+
+
+## XML in R
+
+```{}
+<?xml version="1.0" encoding="UTF-8"?>
+ <customers>
+  <person>
+    <name>Michael Scott</name>
+     <orders>
+     <product> x </product>
+     <product> y </product>
+     </orders>
+  </person>
+  <person>
+    <name>Dwight Schrutte</name>
+     <orders>
+     <product> a </product>
+     <product> x </product>
+     </orders>
+  </person>
+ </customers>
+```
+
+
+## XML in R
+
+```{r eval=FALSE}
+# load packages
+library(xml2)
+
+# parse XML, represent XML document as R object
+xml_doc <- read_xml("customers.xml")
+xml_doc
+```
+
+
+```{r echo=FALSE, warning=FALSE}
+# load packages
+library(xml2)
+
+# parse XML, represent XML document as R object
+xml_doc <- read_xml("../../data/customers.xml")
+xml_doc
+```
+
+- Note: in the exercises, you used the library `XML` instead of `xml2`. Those are equivalent, but `xml2` is updated and faster.
+
+
+## XML in R: tree-structure
+
+'customers' is the root-node, 'persons' are its children:
+
+```{r}
+# navigate downwards
+persons <- xml_children(xml_doc) 
+persons
+
+```
+
+
+## XML in R: tree-structure
+
+Navigate sidewards and upwards
+
+```{r}
+# navigate sidewards
+persons[1]
+xml_siblings(persons[[1]])
+
+# navigate upwards
+xml_parents(persons)
+```
+
+
+
+## XML in R: tree-structure
+
+Extract specific parts of the data:
+
+```{r}
+# find data via XPath
+customer_names <- xml_find_all(xml_doc, xpath = ".//name")
+customer_names
+
+# extract the data as text
+xml_text(customer_names)
+```
 
 
 
@@ -410,7 +596,6 @@ Tag-based:
     "type": "male"
   }
 }
-
 ```
 
 
@@ -447,6 +632,54 @@ include_graphics("../../img/hierarch_data_dark.jpg")
 ```
 
 
+## JSON in R
+
+
+```{r eval=FALSE}
+# load packages
+library(jsonlite)
+
+# parse the JSON-document shown in the example above
+json_doc <- fromJSON("data/person.json")
+
+# look at the structure of the document
+str(json_doc)
+
+```
+
+```{r echo=FALSE, message=FALSE }
+# load packages
+library(jsonlite)
+
+# parse the JSON-document shown in the example above
+json_doc <- fromJSON("../../data/person.json")
+
+# look at the structure of the document
+str(json_doc)
+
+```
+
+
+## JSON in R
+
+The nesting structure is represented as a *nested list*:
+
+```{r}
+
+# navigate the nested lists, extract data
+# extract the address part
+json_doc$address
+# extract the gender (type)
+json_doc$gender$type
+
+
+```
+
+
+
+
+
+
 
 
 # HTML: Websites
@@ -459,15 +692,6 @@ include_graphics("../../img/hierarch_data_dark.jpg")
 ```{r echo=FALSE, fig.align="center", out.width="60%"}
 include_graphics("../../img/website_screen.jpg")
 ```
-
-
-## HTML documents contain data!
-
-
-```{r echo=FALSE, fig.align="center", out.width="70%"}
-include_graphics("../../img/website_data.png")
-```
-
 
 
 
@@ -516,182 +740,101 @@ include_graphics("../../img/1_SwissGDP.png")
 ```
 
 
+## Tutorial (advanced): Importing data from a HTML table 
+
+-> Exercise session this afternoon!
 
 
-# Text as Data
 
-## Handling text data for analysis
+# Text as Data and Image Data
 
-
-```{r nlppipeline, echo=FALSE, out.width = "95%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/nlp_pipeline_dark.jpg")
-```
-
-## Data structure: text corpus
-
-
-```{r corpus, echo=FALSE, out.width = "35%", fig.align='center',  purl=FALSE}
-include_graphics("../../img/text_corpus_dark.jpg")
-```
-
-
-## Working with text data in R: Quanteda
-
-
-```{r packages, echo=FALSE}
-# Install/load packages
-pacman::p_load(
-    tidytext,
-    quanteda,
-    readtext,
-    stringr,
-    quanteda.textstats,
-    quanteda.textplots
-)
-```
-
-
-# Image Data
-
-
-## Basic data structures
-
- - *Raster images*: a matrix of pixels, as well as the color of each pixel.
- - *Vector-based images*: text files that store the coordinates of points on a surface and how these dots are connected (or not) by lines.
-
-## Raster images
-
-```{r rgb, echo=FALSE, out.width = "75%", fig.align='center', purl=FALSE}
-include_graphics("../../img/rgb_structure.jpg")
-```
-
-## Raster and vector images in R
-
-
-## Use cases in economic research and beyond
+## Text as Data and Image Data
 
  - Extract text from historical documents (scan, use OCR)
  - Use machine learning to label text (too costly to do manually)
  - Extract information from maps
 
+## Text as Data
+
+Text is unstructured data. Text analysis and feature extraction is the basis for new
+genAI models!
+
+-> check the code example on Canvas.
+
+
+## Image Data
+
+- Check the code example on Canvas.
+- Good example on how arrays are used in `R`.
 
 
 
-# Importing Web Data Formats
-
-## XML in R
-
-```{r echo=FALSE, warning=FALSE}
-# load packages
-library(xml2)
-
-# parse XML, represent XML document as R object
-xml_doc <- read_xml("../../data/customers.xml")
-xml_doc
-
-```
-
-```{r eval=FALSE}
-# load packages
-library(xml2)
-
-# parse XML, represent XML document as R object
-xml_doc <- read_xml("data/customers.xml")
-xml_doc
-
-```
-
-
-## XML in R: tree-structure
-
-'customers' is the root-node, 'persons' are it's children:
-
-```{r}
-
-# navigate downwards
-persons <- xml_children(xml_doc) 
-persons
-
-```
-
-
-## XML in R: tree-structure
-
-Navigate sidewards and upwards
-
-```{r}
-
-# navigate sidewards
-persons[1]
-xml_siblings(persons[[1]])
-# navigate upwards
-xml_parents(persons)
-
+## Happy break!!!
+```{r break, echo=FALSE, out.width = "80%", fig.align='center', fig.cap= "`Realistic image of a beach scene during sunset. A computer sits open on the sand displaying R software. Next to the computer, there are two chilled beers.`"}
+include_graphics("../../img/dalle3_break.png")
 ```
 
 
 
-## XML in R: tree-structure
 
-Extract specific parts of the data:
-
-```{r}
-
-# find data via XPath
-customer_names <- xml_find_all(xml_doc, xpath = ".//name")
-# extract the data as text
-xml_text(customer_names)
-
-```
+<!-- ## Handling text data for analysis -->
 
 
-## JSON in R
+<!-- ```{r nlppipeline, echo=FALSE, out.width = "95%", fig.align='center',  purl=FALSE} -->
+<!-- include_graphics("../../img/nlp_pipeline_dark.jpg") -->
+<!-- ``` -->
+
+<!-- ## Data structure: text corpus -->
 
 
-```{r eval=FALSE}
-# load packages
-library(jsonlite)
-
-# parse the JSON-document shown in the example above
-json_doc <- fromJSON("data/person.json")
-
-# look at the structure of the document
-str(json_doc)
-
-```
-
-```{r echo=FALSE, message=FALSE }
-# load packages
-library(jsonlite)
-
-# parse the JSON-document shown in the example above
-json_doc <- fromJSON("../../data/person.json")
-
-# look at the structure of the document
-str(json_doc)
-
-```
+<!-- ```{r corpus, echo=FALSE, out.width = "35%", fig.align='center',  purl=FALSE} -->
+<!-- include_graphics("../../img/text_corpus_dark.jpg") -->
+<!-- ``` -->
 
 
-## JSON in R
-
-The nesting structure is represented as a *nested list*:
-
-```{r}
-
-# navigate the nested lists, extract data
-# extract the address part
-json_doc$address
-# extract the gender (type)
-json_doc$gender$type
+<!-- ## Working with text data in R: Quanteda -->
 
 
-```
+<!-- ```{r packages, echo=FALSE} -->
+<!-- # Install/load packages -->
+<!-- pacman::p_load( -->
+<!--     tidytext, -->
+<!--     quanteda, -->
+<!--     readtext, -->
+<!--     stringr, -->
+<!--     quanteda.textstats, -->
+<!--     quanteda.textplots -->
+<!-- ) -->
+<!-- ``` -->
 
 
-## Tutorial (advanced): Importing data from a HTML table 
+<!-- # Image Data -->
 
--> Exercise session next week
+
+<!-- ## Basic data structures -->
+
+<!--  - *Raster images*: a matrix of pixels, as well as the color of each pixel. -->
+<!--  - *Vector-based images*: text files that store the coordinates of points on a surface and how these dots are connected (or not) by lines. -->
+
+<!-- ## Raster images -->
+
+<!-- ```{r rgb, echo=FALSE, out.width = "75%", fig.align='center', purl=FALSE} -->
+<!-- include_graphics("../../img/rgb_structure.jpg") -->
+<!-- ``` -->
+
+<!-- ## Raster and vector images in R -->
+
+
+<!-- ## Use cases in economic research and beyond -->
+
+<!--  - Extract text from historical documents (scan, use OCR) -->
+<!--  - Use machine learning to label text (too costly to do manually) -->
+<!--  - Extract information from maps -->
+
+
+
+
+
 
 
 # Q&A

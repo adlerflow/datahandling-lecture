@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <customers>
   <person>
-    <name>John Doe</name>
+    <name>Michael Scott</name>
      <orders>
      <product> x </product>
      <product> y </product>
      </orders>
   </person>
   <person>
-    <name>Peter Pan</name>
+    <name>Dwight Schrutte</name>
      <orders>
      <product> a </product>
      <product> x </product>

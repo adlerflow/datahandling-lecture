@@ -438,6 +438,28 @@ Visualisation</h1>
 
 <div id="working-with-a-data-frame" class="section level1">
 <h1>Working with a data frame</h1>
+<div id="set-your-script" class="section level2">
+<h2>Set your script</h2>
+<p>Set your <code>R</code> Script.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#######################################################################</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Handling Course: Example Script for Data Gathering and Import</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Imports data from ...</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Input: import c to data sources (data comes in ... format)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: cleaned data as CSV</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A. Sallin, St. Gallen, 2023</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">#######################################################################</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># SET UP --------------</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># SET PATH ------------------</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># If not in NUVOLOS, set correct path!</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># financial_data &lt;- read.csv(&quot;Path/to/my/file/financial_data.txt&quot;)</span></span></code></pre></div>
+</div>
 <div id="import-data" class="section level2">
 <h2>Import data</h2>
 <p>Have a look at the file <code>financial_data.txt</code> using your
@@ -446,112 +468,54 @@ favorite text editor. What do you notice?</p>
 environment. Make sure you have the right path to access the .txt
 document. What does this parser do? Explore the data.frame. What is its
 structure? What are its dimensions?</p>
-<p>Compute the summary statistics for each variable using the
-<code>summary()</code> command. What does this command give you? What do
-you notice? Make the necessary changes.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set correct path!</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>financial_data</span></code></pre></div>
-<pre><code>##               Firm.Year.Revenue.Profit.Category
-## 1      FirmA:2017:4355:897.455182390753:Finance
-## 2       FirmB:2017:4919:1091.37302667536:Health
-## 3         FirmC:2017:4065:1231.38097073883:Tech
-## 4          FirmD:2017:4989:860.29559324719:Tech
-## 5         FirmE:2017:4172:1684.93835644312:Tech
-## 6         FirmA:2018:2003:361.539927748218:Tech
-## 7       FirmB:2018:1622:330.115810342319:Health
-## 8         FirmC:2018:3952:1963.59138002992:Tech
-## 9      FirmD:2018:3692:1561.49793617651:Finance
-## 10 FirmE:2018:1933\xf6:621.137532358989:Finance
-## 11      FirmA:2019:1399:501.628850246035:Health
-## 12     FirmB:2019:3947:887.008216015529:Finance
-## 13       FirmC:2019:3145:1096.7485512495:Health
-## 14     FirmD:2019:4174:967.984285415709:Finance
-## 15        FirmE:2019:3773:1134.91458617793:Tech
-## 16     FirmA:2020:2625:973.449253651779:Finance
-## 17       FirmB:2020:3373:991.65017986251:Health
-## 18        FirmC:2020:2102:415.295358031988:Tech
-## 19      FirmD:2020:3931:1596.70896996912:Health
-## 20     FirmE:2020:1269:164.350667123124:Finance
-## 21      FirmA:2021:4453:996.913775233831:Health
-## 22        FirmB:2021:3231:1250.10200109556:Tech
-## 23        FirmC:2021:3621:1092.88429915309:Tech
-## 24     FirmD:2021:3051:491.819929499086:Finance
-## 25     FirmE:2021:4971:1499.12134785438:Finance
-## 26      FirmA:2022:2684:798.716446986049:Health
-## 27        FirmB:2022:3599:1441.32780364687:Tech
-## 28      FirmC:2022:2235:379.636942586862:Health
-## 29     FirmD:2022:3999:1756.98849973446:Finance
-## 30      FirmE:2022:2218:989.080575768091:Health</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">iconv</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>, <span class="at">from =</span> <span class="st">&quot;ISO-8859-2&quot;</span>, <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;ö&quot;</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORT RAW DATA FROM CSVs -------------</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># From simply opening the .txt data from the &quot;Files&quot; Panel on the left side</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># in RStudio, we can see that the file has a structure with &quot;:&quot; separated</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># value, has 5 columns and should have 30 rows. </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># However, when importing the file with &quot;read_csv&quot; or &quot;read.csv&quot;, we notice</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># that the output is not correct: R does not understand that the value separator</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># is a &quot;:&quot; and not a comma. For this reason, the file is not correctly read. </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># financial_data &lt;- read_csv(&quot;financial_data.txt&quot;)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># To indicate that the value separator is actually a &quot;:&quot;, we need to tell R </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># to use &quot;:&quot; as a separator.  This can be done using the option &quot;sep = &quot;:&quot;&quot; with </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># read.csv().</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># With read_csv() and the readr package, we need to use the function read_delim()</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># instead.</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># financial_data &lt;- read_delim(&quot;financial_data.txt&quot;, delim = &quot;:&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># When using read.csv(), we notice the following warning:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;Error in type.convert.default(data[[i]], as.is = as.is[i], dec = dec,  : </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># invalid multibyte string at &#39;&lt;f6&gt;&#39;&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This means there is an encoding problem in the file. A visual exploration shows</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># us that the encoding problem is in row 10, col 3.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We have the character \xF6. This could be any encoding. In this case, I am guessing</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the encoding by trying different things. The function &quot;string::stri_enc_detect()&quot;, upon</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># which &quot;guess_encoding()&quot; is built, does not help me much. </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># I did a Google search and realized it is likely to be Latin-1, which is &quot;ISO-8859-1&quot; and </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ISO-8859- family</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>stringi<span class="sc">::</span><span class="fu">stri_enc_detect</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+##   Encoding Language Confidence
+## 1    UTF-8                0.15</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iconv</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>, <span class="at">from =</span> <span class="st">&quot;ISO-8859-1&quot;</span>, <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;ö&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iconv</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>, <span class="at">from =</span> <span class="st">&quot;ISO-8859-9&quot;</span>, <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iconv</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>, <span class="at">from =</span> <span class="st">&quot;ISO-8859-2&quot;</span>, <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;ö&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, <span class="at">fileEncoding =</span> <span class="st">&quot;ISO-8859-2&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>financial_data</span></code></pre></div>
-<pre><code>##            Firm.Year.Revenue.Profit.Category
-## 1   FirmA:2017:4355:897.455182390753:Finance
-## 2    FirmB:2017:4919:1091.37302667536:Health
-## 3      FirmC:2017:4065:1231.38097073883:Tech
-## 4       FirmD:2017:4989:860.29559324719:Tech
-## 5      FirmE:2017:4172:1684.93835644312:Tech
-## 6      FirmA:2018:2003:361.539927748218:Tech
-## 7    FirmB:2018:1622:330.115810342319:Health
-## 8      FirmC:2018:3952:1963.59138002992:Tech
-## 9   FirmD:2018:3692:1561.49793617651:Finance
-## 10 FirmE:2018:1933ö:621.137532358989:Finance
-## 11   FirmA:2019:1399:501.628850246035:Health
-## 12  FirmB:2019:3947:887.008216015529:Finance
-## 13    FirmC:2019:3145:1096.7485512495:Health
-## 14  FirmD:2019:4174:967.984285415709:Finance
-## 15     FirmE:2019:3773:1134.91458617793:Tech
-## 16  FirmA:2020:2625:973.449253651779:Finance
-## 17    FirmB:2020:3373:991.65017986251:Health
-## 18     FirmC:2020:2102:415.295358031988:Tech
-## 19   FirmD:2020:3931:1596.70896996912:Health
-## 20  FirmE:2020:1269:164.350667123124:Finance
-## 21   FirmA:2021:4453:996.913775233831:Health
-## 22     FirmB:2021:3231:1250.10200109556:Tech
-## 23     FirmC:2021:3621:1092.88429915309:Tech
-## 24  FirmD:2021:3051:491.819929499086:Finance
-## 25  FirmE:2021:4971:1499.12134785438:Finance
-## 26   FirmA:2022:2684:798.716446986049:Health
-## 27     FirmB:2022:3599:1441.32780364687:Tech
-## 28   FirmC:2022:2235:379.636942586862:Health
-## 29  FirmD:2022:3999:1756.98849973446:Finance
-## 30   FirmE:2022:2218:989.080575768091:Health</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, <span class="at">fileEncoding =</span> <span class="st">&quot;latin1&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>LINE <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;financial_data.txt&quot;</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">read_lines_raw</span>(<span class="st">&quot;financial_data.txt&quot;</span>))</span></code></pre></div>
-<pre><code>## [[1]]
-##  [1] 22 46 69 72 6d 22 3a 22 59 65 61 72 22 3a 22 52 65 76 65 6e 75 65 22 3a 22
-## [26] 50 72 6f 66 69 74 22 3a 22 43 61 74 65 67 6f 72 79 22
-## 
-## [[2]]
-##  [1] 22 46 69 72 6d 41 22 3a 32 30 31 37 3a 22 34 33 35 35 22 3a 38 39 37 2e 34
-## [26] 35 35 31 38 32 33 39 30 37 35 33 3a 22 46 69 6e 61 6e 63 65 22
-## 
-## [[3]]
-##  [1] 22 46 69 72 6d 42 22 3a 32 30 31 37 3a 22 34 39 31 39 22 3a 31 30 39 31 2e
-## [26] 33 37 33 30 32 36 36 37 35 33 36 3a 22 48 65 61 6c 74 68 22
-## 
-## [[4]]
-##  [1] 22 46 69 72 6d 43 22 3a 32 30 31 37 3a 22 34 30 36 35 22 3a 31 32 33 31 2e
-## [26] 33 38 30 39 37 30 37 33 38 38 33 3a 22 54 65 63 68 22
-## 
-## [[5]]
-##  [1] 22 46 69 72 6d 44 22 3a 32 30 31 37 3a 22 34 39 38 39 22 3a 38 36 30 2e 32
-## [26] 39 35 35 39 33 32 34 37 31 39 3a 22 54 65 63 68 22
-## 
-## [[6]]
-##  [1] 22 46 69 72 6d 45 22 3a 32 30 31 37 3a 22 34 31 37 32 22 3a 31 36 38 34 2e
-## [26] 39 33 38 33 35 36 34 34 33 31 32 3a 22 54 65 63 68 22</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(financial_data, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iconv</span>(<span class="st">&quot;</span><span class="sc">\xF6</span><span class="st">&quot;</span>, <span class="at">from =</span> <span class="st">&quot;ISO-8859-2&quot;</span>, <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;ö&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This seems to be OK. Therefore, I can specify Latin-1 in my encoding.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;financial_data.txt&quot;</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">fileEncoding =</span> <span class="st">&quot;ISO-8859-1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The data looks now like what I expect... except for the variable &quot;Revenue&quot;, which</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is a character. I remove the special ö character from the encoding issue and </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># coerce </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(financial_data, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##     Firm Year Revenue    Profit Category
 ## 1  FirmA 2017    4355  897.4552  Finance
 ## 2  FirmB 2017    4919 1091.3730   Health
@@ -563,30 +527,34 @@ you notice? Make the necessary changes.</p>
 ## 8  FirmC 2018    3952 1963.5914     Tech
 ## 9  FirmD 2018    3692 1561.4979  Finance
 ## 10 FirmE 2018   1933ö  621.1375  Finance</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(financial_data)</span></code></pre></div>
-<pre><code>##      Firm                Year        Revenue              Profit      
-##  Length:30          Min.   :2017   Length:30          Min.   : 164.4  
-##  Class :character   1st Qu.:2018   Class :character   1st Qu.: 665.5  
-##  Mode  :character   Median :2020   Mode  :character   Median : 990.4  
-##                     Mean   :2020                      Mean   :1001.0  
-##                     3rd Qu.:2021                      3rd Qu.:1245.4  
-##                     Max.   :2022                      Max.   :1963.6  
-##    Category        
-##  Length:30         
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-## </code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shift to numeric</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>financial_data[<span class="dv">10</span>, <span class="st">&quot;Revenue&quot;</span>]</span></code></pre></div>
-<pre><code>## [1] &quot;1933ö&quot;</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>financial_data[<span class="dv">10</span>, <span class="st">&quot;Revenue&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1933</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>financial_data[, <span class="st">&quot;Revenue&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(financial_data[, <span class="st">&quot;Revenue&quot;</span>])</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check summary again</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(financial_data)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(financial_data)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  5 variables:
+##  $ Firm    : chr  &quot;FirmA&quot; &quot;FirmB&quot; &quot;FirmC&quot; &quot;FirmD&quot; ...
+##  $ Year    : int  2017 2017 2017 2017 2017 2018 2018 2018 2018 2018 ...
+##  $ Revenue : chr  &quot;4355&quot; &quot;4919&quot; &quot;4065&quot; &quot;4989&quot; ...
+##  $ Profit  : num  897 1091 1231 860 1685 ...
+##  $ Category: chr  &quot;Finance&quot; &quot;Health&quot; &quot;Tech&quot; &quot;Tech&quot; ...</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>financial_data[<span class="dv">10</span>, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">1933</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce to numeric</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>Revenue <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(financial_data<span class="sc">$</span>Revenue)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Another way of writing the column selection</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>financial_data[<span class="dv">10</span>, <span class="st">&quot;Revenue&quot;</span>]</span></code></pre></div>
+<pre><code>## [1] 1933</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>financial_data[<span class="dv">10</span>, <span class="st">&quot;Revenue&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1933</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>financial_data[, <span class="st">&quot;Revenue&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(financial_data[, <span class="st">&quot;Revenue&quot;</span>])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The data is now ready. You are ready to compute the rest of the exercise.</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="re">END</span><span class="co"> - for now</span></span></code></pre></div>
+<p><br></p>
+</div>
+<div id="summary-statistics-of-your-data" class="section level2">
+<h2>Summary statistics of your data</h2>
+<p>Compute the summary statistics for each variable using the
+<code>summary()</code> command. What does this command give you? What do
+you notice? Make the necessary changes.</p>
 <pre><code>##      Firm                Year         Revenue         Profit      
 ##  Length:30          Min.   :2017   Min.   :1269   Min.   : 164.4  
 ##  Class :character   1st Qu.:2018   1st Qu.:2332   1st Qu.: 665.5  
@@ -615,24 +583,18 @@ are many ways to create a variable in a data frame. Here, use the
 <p>Which variable is (should be) a factor? Recode this variable as a
 factor. What are the levels? Should we have the variable
 <code>Firm</code> as a factor?</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>Category <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(financial_data<span class="sc">$</span>Category)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(financial_data<span class="sc">$</span>Category)</span></code></pre></div>
 <p><br></p>
 </div>
-<div id="nests" class="section level2">
-<h2>Nests</h2>
+<div id="nests---more-difficult-question-but-still-exam-relevant" class="section level2">
+<h2>Nests - more difficult question… but still exam relevant 👻</h2>
 <p>Split your data using the factor variable into three data frames that
-are contained in a list. Compute the mean profit for each data frame.
-Hint: use the function <code>split</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>list_financial_data <span class="ot">&lt;-</span> <span class="fu">split</span>(financial_data, financial_data<span class="sc">$</span>Category)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list_financial_data)){</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">mean</span>(list_financial_data[[i]]<span class="sc">$</span>Profit))</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, using lapply</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(list_financial_data, <span class="cf">function</span>(x) <span class="fu">mean</span>(x<span class="sc">$</span>Profit))</span></code></pre></div>
+are contained in a list. Compute the mean profit for each data
+frame.</p>
+<ul>
+<li>Hint: use the function <code>split</code>.</li>
+<li>Hint: use a <code>for-loop</code> over each list element to compute
+the mean</li>
+</ul>
 <p><br></p>
 </div>
 <div id="advanced-map-not-exam-relevant" class="section level2">
@@ -640,24 +602,6 @@ Hint: use the function <code>split</code>.</p>
 <p>Do the same as the exercise above using the <code>map</code>
 function. Install the packages <code>tidyr</code>, <code>dplyr</code>,
 and <code>purrr</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or (advanced!) with a nested tibble and map </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>tibble_financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">|&gt;</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">|&gt;</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(tibble_financial_data<span class="sc">$</span>data, <span class="sc">~</span><span class="fu">mean</span>(.<span class="sc">$</span>Profit))</span></code></pre></div>
-<pre><code>## [[1]]
-## [1] 982.0813
-## 
-## [[2]]
-## [1] 877.2573
-## 
-## [[3]]
-## [1] 1143.627</code></pre>
 <!-- <br> -->
 <!-- <br> -->
 <!-- # An exercise on arrays -->

@@ -224,6 +224,7 @@ str(swiss)
 head(swiss)
 ```
 
+
 ## Work with data.frames
 
 *Select columns *
@@ -240,11 +241,18 @@ swiss[,1] # use brackets [] and the column number/index
 swiss[, "Fertility"] # use the name of the column
 ```
 
+```{r eval = FALSE}
+swiss[, c("Fertility", "Agriculture")] # use the name of the column
+```
 <br>
 
 *Select rows*
 ```{r eval = FALSE}
-swiss[1,] 
+swiss[1,]  # First row
+```
+
+```{r eval = FALSE}
+swiss[swiss$Fertility > 40,]  # Based on condition ("filter")
 ```
 
 
@@ -260,7 +268,7 @@ swiss[1,]
 
 ## Data.frames vs tibbles
 
-```{r tidyverse, echo=FALSE, out.width = "60%", fig.align='center',  purl=FALSE}
+```{r tidyverse, echo=FALSE, out.width = "55%", fig.align='center',  purl=FALSE}
 include_graphics("../../img/tidyverse_website.png")
 ```
 
@@ -282,6 +290,7 @@ library(tidyverse)
 
 as_tibble(swiss)
 ```
+
 
 # Importing Rectangular Data from Text-Files
 
@@ -397,8 +406,8 @@ swiss
   
 - Recall the introduction to data structures and data types in R
 - How does R represent data in RAM
-- *Structure*: `data.frame`/`tibble`, etc.
-- *Types*: `character`, `numeric`, etc.
+  - *Structure*: `data.frame`/`tibble`, etc.
+  - *Types*: `character`, `numeric`, etc.
 - Parsers in `read_csv()` guess the data *types*.
 
 
