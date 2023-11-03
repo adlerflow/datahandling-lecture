@@ -30,7 +30,7 @@ pre {
 
 ## Updates
 
-- Exam for exchange students: 21.12.2023 at 16:15 in room 10-013.
+- Exam for exchange students: 21.12.2023 at 16:15 in room 01-013.
 - Don't forget the exercise from lecture 5 💣
 
 
@@ -409,6 +409,15 @@ Tag-based:
  - Represent much more *complex (multi-dimensional)* data in XML-files than what is possible in CSVs.
  - Self-explanatory syntax: *machine-readable and human-readable*. 
  - Tags are part of the syntax, give both structure and name variables.
+
+<br>
+
+Potential drawback of XML: *inefficient* storage:
+  - Tags are part of the syntax, thus, part of the actual file.
+      - Tags (variable labels) are *repeated* again and again!
+      - CSV: variable labels are mentioned once.
+      - Potential solution: data compression (e.g., zip).
+  - If the data is actually two dimensional, a CSV is more practical.
 
 
 ## XML in R

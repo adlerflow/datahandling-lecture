@@ -277,7 +277,7 @@ include_graphics("../../img/tidyverse_website.png")
 
 Similar! 
 
-- Used in the tidyverse and ggplot2 packages. 
+- Tibbles are used in the tidyverse and ggplot2 packages. 
 - Same information as a data frame.
 - Slight differences in the manipulation and representation of data.
 - See [**Tibble vs. DataFrame**](https://jtr13.github.io/cc21fall1/tibble-vs.-dataframe.html#tibble-vs.-dataframe") for more details.
