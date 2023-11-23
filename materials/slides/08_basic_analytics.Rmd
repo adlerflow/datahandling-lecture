@@ -48,8 +48,8 @@ pre {
 
 ## Reminder
 
-- Send questions for the Q&A session (last lecture)
-- *aurelien.sallin@unisg.ch*
+- Last lecture: content is still open. Any wishes?
+- Send questions for the last lecture to me per email: *aurelien.sallin@unisg.ch*
 
 
 
@@ -124,64 +124,6 @@ Which of the following statements is true?
 - `mean(schwiizerChuchiLong$Raclette) == 8.333` 
 
 
-## Stacking: True or False
-
-Be the data frame
-
-```{r}
-Ostschwiz <- data.frame(
-  Region = c("St. Gallen", "Appenzell", "Appenzell"),
-  FavoriteBeverage = c("Schützengarten", "Quöllfrisch", "Appenzeller"),
-  Year = c(2021, 2021, 2022)
-)
-
-Valais <- data.frame(
-  Region = c("Valais"),
-  FavoriteBeverage = c("Fendant"),
-  Year = c(2021)
-)
-
-Vaud <- data.frame(
-  Region = c("Vaud"),
-  FavoriteBeverage = c("Chasselas"),
-  Year = c(2021)
-)
-```
-
-The statement `nrow(rbind(Ostschwiz, Valais, Vaud)) == 5` returns `FALSE`
-
-
-## Stacking and reshaping: True or False
-
-Be the data frame
-
-```{r}
-Ostschwiz <- data.frame(
-  Region = c("St. Gallen", "Appenzell", "Appenzell"),
-  FavoriteBeverage = c("Schützengarten", "Quöllfrisch", "Appenzeller"),
-  Year = c(2021, 2021, 2022)
-)
-
-Valais <- data.frame(
-  Region = c("Valais"),
-  FavoriteBeverage = c("Fendant"),
-  Year = c(2021)
-)
-
-Vaud <- data.frame(
-  Region = c("Vaud"),
-  FavoriteBeverage = c("Chasselas"),
-  Year = c(2021)
-)
-
-Ostschwiz <- pivot_wider(Ostschwiz, 
-                         names_from = c(Year), 
-                         values_from = FavoriteBeverage)
-```
-
-The statement `colnames(Ostschwiz)[2]` returns `"FavoriteBeverage`
-
-
 ## Tidy data: essay question
 
 Why is this data frame not tidy, and what would you do to make it tidy? Write down your reasoning in numbered steps. You can write down some exact code, some higher-level code concepts, or in plain text. 
@@ -229,6 +171,94 @@ tidy_grades <- grades_data %>%
 
 
 # Data Analysis with R
+
+## Data Analysis with R
+
+  1. Stacking (recap last time)
+  2. Merging (joining) datasets
+  3. Data manipulation with `tidyverse()`
+  4. Aggregation of statistics
+
+
+
+## Stack/row-bind: the concept (recap)
+
+```{r rowbinding, echo=FALSE, out.width = "55%", fig.align='center', purl=FALSE}
+include_graphics("../../img/rowbinding_dark.png")
+```
+
+
+## Stack/row-bind: implementation in `R` (recap)
+
+- Use `rbind()` in base `R`
+  - Requires that the data frames have the same column names and same column classes. 
+  
+<br>
+
+- Use `bind_rows()` from `dplyr()`
+  - More flexible
+  - Binds data frames with different column names and classes
+  - Automatically fills missing columns with `NA`
+
+<br>
+
+*For these reasons (+ performance, handling or row names, and handling of factors), `dplyr::bind_rows()` is preferred in most applications.*
+
+
+## Stack/row-bind: code example
+
+```{r}
+# Create three dfs
+subset1 <- data.frame(ID = c(1,2),
+                      X = c("a", "b"),
+                      Y = c(50,10))
+
+subset2 <- data.frame(ID = c(3,4),
+                      Z = c("M", "O"))
+
+subset3 <- data.frame(ID = c(5),
+                      X = c("c"),
+                      Z = "P")
+
+# Inspect
+subset1
+subset2
+subset3
+```
+
+
+## Stack/row-bind: code example
+```{r, error=TRUE, echo = TRUE, eval=FALSE}
+# Stack data frames
+combined_df_bind_rows <- bind_rows(subset1, subset2, subset3)
+combined_df_rbind     <- rbind(subset1, subset2, subset3) 
+
+# What are the following objects?
+combined_df_bind_rows
+combined_df_rbind
+```
+
+
+## Stack/row-bind: code example
+```{r, error=TRUE}
+subset1; subset2; subset3
+
+# Stack data frames and inspect results
+combined_df_bind_rows <- bind_rows(subset1, subset2, subset3)
+combined_df_bind_rows
+```
+
+
+## Stack/row-bind: code example
+```{r, error=TRUE}
+subset1; subset2; subset3
+
+# Stack data frames and inspect results
+combined_df_rbind     <- rbind(subset1, subset2, subset3) 
+combined_df_rbind
+```
+
+
 
 ## Merging (Joining) datasets
 
@@ -303,7 +333,6 @@ include_graphics("../../img/join-full.png")
 
 ## Merging (joining) datasets: concept
 
-
 ```{r vennjoin, echo=FALSE, out.width = "90%", fig.align='center', fig.cap= 'Join Venn Diagramm. Source: @wickham_grolemund2017, licensed under the [Creative Commons Attribution-Share Alike 3.0 United States](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) license.', purl=FALSE}
 include_graphics("../../img/join-venn.png")
 ```
@@ -332,9 +361,11 @@ df_c
 # initiate data frame on persons' characteristics
 df_p <- data.frame(id = 1:4,
                    first_name = c("Anna", "Betty", "Claire", "Diane"),
-                   profession = c("Economist", "Data Scientist", "Data Scientist", "Economist"))
+                   profession = c("Economist", "Data Scientist", 
+                                  "Data Scientist", "Economist"))
 df_p
 ```
+
 
 ## Merging (joining) datasets: example
 
@@ -361,7 +392,7 @@ dplyr (tidyverse)  | base::merge
 `inner_join(x, y)` | `merge(x, y)`
 `left_join(x, y)`  | `merge(x, y, all.x = TRUE)`
 `right_join(x, y)` | `merge(x, y, all.y = TRUE)`,
-`full_join(x, y)`  | `merge(x, y, all.x = TRUE, all.y = TRUE)`
+`full_join(x, y)`  | `merge(x, y, all = TRUE)`
 
 
 
@@ -382,16 +413,53 @@ dplyr (tidyverse)  | base::merge
 
 ## Data summaries and preparatory steps
 
-- *Select* subset of variables (e.g., for comparisons).
-- *Filter* the dataset (some observations not needed in _this_ analysis).
-- *Mutate* the dataset: additional values needed
+- *Arrange* the dataset by reordering the rows.
+- *Select* the subset of variables you need (e.g., for comparisons).
+- *Filter* the dataset by restricting your dataset to observations needed in _this_ analysis.
+- *Mutate* the dataset by adding the values you need for your analysis.
 
 ## Select, filter, mutate in R (tidyverse)
 
+- `arrange()`
 - `select()`
 - `filter()`
 - `mutate()`
 
+```{r dplyr, echo=FALSE, out.width = "22%", fig.align='center', purl=FALSE}
+include_graphics("../../img/dplyr.png")
+```
+
+
+## Prepare your data in a `pipe`line
+
+- Using the `piping` `%>%` operator is to chain one function after another without the need to assign intermediate variables. 
+- The operator has been now replaced with `|>`.
+
+
+```{r magrittr, echo=FALSE, out.width = "55%", fig.align='center', purl=FALSE}
+include_graphics("../../img/magrittr.png")
+```
+
+
+
+## Prepare your data in a `pipe`line
+
+```{r, eval = FALSE}
+# Traditional way
+mydf <- data(swiss) 
+mydf <- arrange(mydf, -Catholic)
+mydf <- filter(mydf, Education > 8 & Catholic > 90)
+mydf <- mutate(mydf, Country = "Switzerland")
+mydf <- select(mydf, Examination)
+
+# The pipe way
+mydf <- data(swiss)  |> 
+  arrange(-Catholic) |> 
+  filter(Education > 8 & Catholic > 90) |> 
+  mutate(Country = "Switzerland") |> 
+  select(Examination)
+
+```
 
 
 # Data Summaries: Aggregate Statistics
@@ -400,10 +468,11 @@ dplyr (tidyverse)  | base::merge
 
 - Overview of key characteristics of main variables used in analysis.
 - Key characteristics:
-  - mean
-  - standard deviation
+  - Mean
+  - Standard deviation
   - No. of observations
   - etc.
+
 
 ## Aggregate statistics in R
 
@@ -412,11 +481,14 @@ dplyr (tidyverse)  | base::merge
   - Including all values in a column.
   - By group (observation categories, e.g. by location, year, etc.)
 
+
 ## Aggregate statistics in R
 
+- `summary()` in (`base`)
 - `summarise()` (in `tidyverse`)
 - `group_by()` (in `tidyverse`)
 - `sapply()`, `apply()`, `lapply()`, etc. (in `base`)
+- `skimr` package 
 
 
 
@@ -428,139 +500,159 @@ dplyr (tidyverse)  | base::merge
 </center>
 
 
+# Some practice 
 
+## Summarizing categorical variables: challenge
 
-# Data Analytics: a primer in linear regression/OLS
+Use what we just saw in the lecture to solve the following problem. You have the following dataset:
 
-## Some vocabulary and notation
-
-- *Dependent variable*: $y_i$.
-- *Explanatory variable*: $x_i$. 
-- "All the rest": $u_{i}$ (the *'residuals'* or the 'error term'). 
-
-$y_{i}= \alpha + \beta x_{i} + u_{i}$.
-
-## Causality?
-
-## OLS Example: data
-
-
-```{r eval=FALSE}
-# load the data
-data(swiss)
-# look at the description
-?swiss
-```
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-# load the data
-data(swiss)
+```{r, eval = FALSE}
+df_p <- data.frame(id = 1:5,
+                   first_name = c("Anna", "John", "Claire", "Evan", "Brigitte"),
+                   profession = c("Economist", "Data Scientist", 
+                                  "Data Scientist", "Economist", "Economist"),
+                   salaryK = c(100, 120, 90, 110, 105),
+                   experienceY = c(10, 10, 10, 10, 10))
 
 ```
 
-## Research question
-
-- Do more years of schooling improve educational outcomes?
-- Approximate educational success with the variable `Education` and educational outcomes with the variable `Examination`.
-- Make use of the simple linear model to investigate whether more schooling improves educational outcomes (on average)?
-
+  1. Clean the data
+  2. Summarize the data. 
+  3. Give summary statistics on the categorical variable "profession". What can you show, and how can you code it?
+  3. You are interested in quantifying the gender pay gap. Prepare the data accordingly and give an estimate of the gender pay gap.
 
 
-## Model specification
+<!-- # A primer in linear regression/OLS (if time) -->
 
-$Examination_{i}= \alpha + \beta Education_{i}$,
+<!-- ## Some vocabulary and notation -->
 
-- Intuitive hypothesis: $\beta$ is positive, indicating that a higher share of draftees with more years of schooling results in a higher share of draftees who reach the highest examination mark.
-- *Problems*?
+<!-- - *Dependent variable*: $y_i$. -->
+<!-- - *Explanatory variable*: $x_i$. -->
+<!-- - "All the rest": $u_{i}$ (the *'residuals'* or the 'error term'). -->
 
+<!-- $y_{i}= \alpha + \beta x_{i} + u_{i}$. -->
 
+<!-- ## Causality? -->
 
-## Model specification
-
-To formally acknowledge that other factors might also play a role, we extend our model with the term $u_{i}$. For the moment, we thus subsume all other potentially relevant factors in that term:
-
-$Examination_{i}= \alpha + \beta Education_{i} + u_{i}$.
-
-
-## Raw data
+<!-- ## OLS Example: data -->
 
 
-```{r}
-plot(swiss$Education, swiss$Examination)
-```
+<!-- ```{r eval=FALSE} -->
+<!-- # load the data -->
+<!-- data(swiss) -->
+<!-- # look at the description -->
+<!-- ?swiss -->
+<!-- ``` -->
 
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE} -->
+<!-- # load the data -->
+<!-- data(swiss) -->
 
-## Derivation and implementation of OLS estimator
+<!-- ``` -->
 
-From the model equation we easily see that these 'differences' between the predicted and the actual values of $y$ are the remaining unexplained component $u$: 
+<!-- ## Research question -->
 
-$y_{i}-\hat{\alpha}-\hat{\beta} x_i=u_i$.
-
-Hence, we want to minimize the *sum of squared residuals (SSR)*: $\sum{u_i^2}=\sum{(y_{i}-\hat{\alpha}-\hat{\beta} x_i)^2}$. Using calculus, we define the two first order conditions:
-
-$$\frac{\partial SSR}{\partial \hat{\alpha}}=\sum{-2(y_{i}-\hat{\alpha}-\hat{\beta} x_i)}=0$$
-
-$$\frac{\partial SSR}{\partial \hat{\beta}}=\sum{-2x_i(y_{i}-\hat{\alpha}-\hat{\beta} x_i)}=0$$
-
-
-## Derivation and implementation of OLS estimator
-
-The first condition is relatively easily solved by getting rid of the $-2$ and considering that  $\sum{y_i}=N\bar{y}$:
-$\hat{\alpha}=\bar{y}-\hat{\beta}\bar{x}$.
-
-
-## Derivation and implementation of OLS estimator
-
-By plugging the solution for $\hat{\alpha}$ into the first order condition regarding $\hat{\beta}$ and again considering that $\sum{y_i}=N\bar{y}$, we get the solution for the slope coefficient estimator:
-
-$\frac{\sum{x_{i}y_{i}}-N\bar{y}\bar{x}}{\sum{x_i^2}-N\bar{x}^2}$.
-
-
-## Implement OLS in R!
-
-
-```{r}
-
-# implement the simple OLS estimator
-# verify implementation with simulated data from above
-# my_ols(y,x) 
-# should be very close to alpha=30 and beta=0.9
-my_ols <- 
-  function(y,x) {
-    N <- length(y)
-    betahat <- (sum(y*x) - N*mean(x)*mean(y)) / (sum(x^2)-N*mean(x)^2)
-    alphahat <- mean(y)-betahat*mean(x)
-    
-    return(list(alpha=alphahat,beta=betahat))
-  }
-
-# estimate effect of Education on Examination
-estimates <- my_ols(swiss$Examination, swiss$Education)
-estimates
-```
-
-
-## Simple visualisation
-
-```{r}
-plot(swiss$Education, swiss$Examination)
-abline(estimates$alpha, estimates$beta, col="red")
-```
+<!-- - Do more years of schooling improve educational outcomes? -->
+<!-- - Approximate educational success with the variable `Education` and educational outcomes with the variable `Examination`. -->
+<!-- - Make use of the simple linear model to investigate whether more schooling improves educational outcomes (on average)? -->
 
 
 
-## Regression toolbox in R
+<!-- ## Model specification -->
+
+<!-- $Examination_{i}= \alpha + \beta Education_{i}$, -->
+
+<!-- - Intuitive hypothesis: $\beta$ is positive, indicating that a higher share of draftees with more years of schooling results in a higher share of draftees who reach the highest examination mark. -->
+<!-- - *Problems*? -->
 
 
-```{r}
-estimates2 <- lm(Examination~Education, data=swiss)
-estimates2
-```
-With one additional line of code we can compute all the common statistics about the regression estimation:
 
-```{r}
-summary(estimates2)
-```
+<!-- ## Model specification -->
+
+<!-- To formally acknowledge that other factors might also play a role, we extend our model with the term $u_{i}$. For the moment, we thus subsume all other potentially relevant factors in that term: -->
+
+<!-- $Examination_{i}= \alpha + \beta Education_{i} + u_{i}$. -->
+
+
+<!-- ## Raw data -->
+
+
+<!-- ```{r} -->
+<!-- plot(swiss$Education, swiss$Examination) -->
+<!-- ``` -->
+
+
+<!-- ## Derivation and implementation of OLS estimator -->
+
+<!-- From the model equation we easily see that these 'differences' between the predicted and the actual values of $y$ are the remaining unexplained component $u$: -->
+
+<!-- $y_{i}-\hat{\alpha}-\hat{\beta} x_i=u_i$. -->
+
+<!-- Hence, we want to minimize the *sum of squared residuals (SSR)*: $\sum{u_i^2}=\sum{(y_{i}-\hat{\alpha}-\hat{\beta} x_i)^2}$. Using calculus, we define the two first order conditions: -->
+
+<!-- $$\frac{\partial SSR}{\partial \hat{\alpha}}=\sum{-2(y_{i}-\hat{\alpha}-\hat{\beta} x_i)}=0$$ -->
+
+<!-- $$\frac{\partial SSR}{\partial \hat{\beta}}=\sum{-2x_i(y_{i}-\hat{\alpha}-\hat{\beta} x_i)}=0$$ -->
+
+
+<!-- ## Derivation and implementation of OLS estimator -->
+
+<!-- The first condition is relatively easily solved by getting rid of the $-2$ and considering that  $\sum{y_i}=N\bar{y}$: -->
+<!-- $\hat{\alpha}=\bar{y}-\hat{\beta}\bar{x}$. -->
+
+
+<!-- ## Derivation and implementation of OLS estimator -->
+
+<!-- By plugging the solution for $\hat{\alpha}$ into the first order condition regarding $\hat{\beta}$ and again considering that $\sum{y_i}=N\bar{y}$, we get the solution for the slope coefficient estimator: -->
+
+<!-- $\frac{\sum{x_{i}y_{i}}-N\bar{y}\bar{x}}{\sum{x_i^2}-N\bar{x}^2}$. -->
+
+
+<!-- ## Implement OLS in R! -->
+
+
+<!-- ```{r} -->
+
+<!-- # implement the simple OLS estimator -->
+<!-- # verify implementation with simulated data from above -->
+<!-- # my_ols(y,x) -->
+<!-- # should be very close to alpha=30 and beta=0.9 -->
+<!-- my_ols <- -->
+<!--   function(y,x) { -->
+<!--     N <- length(y) -->
+<!--     betahat <- (sum(y*x) - N*mean(x)*mean(y)) / (sum(x^2)-N*mean(x)^2) -->
+<!--     alphahat <- mean(y)-betahat*mean(x) -->
+
+<!--     return(list(alpha=alphahat,beta=betahat)) -->
+<!--   } -->
+
+<!-- # estimate effect of Education on Examination -->
+<!-- estimates <- my_ols(swiss$Examination, swiss$Education) -->
+<!-- estimates -->
+<!-- ``` -->
+
+
+<!-- ## Simple visualisation -->
+
+<!-- ```{r} -->
+<!-- plot(swiss$Education, swiss$Examination) -->
+<!-- abline(estimates$alpha, estimates$beta, col="red") -->
+<!-- ``` -->
+
+
+
+<!-- ## Regression toolbox in R -->
+
+
+<!-- ```{r} -->
+<!-- estimates2 <- lm(Examination~Education, data=swiss) -->
+<!-- estimates2 -->
+<!-- ``` -->
+<!-- With one additional line of code we can compute all the common statistics about the regression estimation: -->
+
+<!-- ```{r} -->
+<!-- summary(estimates2) -->
+<!-- ``` -->
 
 
 

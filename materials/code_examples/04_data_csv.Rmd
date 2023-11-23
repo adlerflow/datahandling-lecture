@@ -153,7 +153,7 @@ financial_data[, "Revenue"] <- as.numeric(financial_data[, "Revenue"])
 ## Summary statistics of your data
 Compute the summary statistics for each variable using the `summary()` command. What does this command give you? What do you notice? Make the necessary changes.
 
-```{r eval = TRUE, echo = FALSE}
+```{r eval = TRUE, echo = TRUE}
 # Check summary again
 summary(financial_data)
 ```
@@ -165,7 +165,7 @@ summary(financial_data)
 
 Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame. Here, use the `$` index.]
 
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE, echo = TRUE}
 financial_data$costs <- financial_data$Revenue - financial_data$Profit
 ```
 
@@ -175,7 +175,7 @@ financial_data$costs <- financial_data$Revenue - financial_data$Profit
 
 Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 financial_data$Category <- as.factor(financial_data$Category)
 
 levels(financial_data$Category)
@@ -189,7 +189,7 @@ Split your data using the factor variable into three data frames that are contai
 - Hint: use the function `split`. 
 - Hint: use a `for-loop` over each list element to compute the mean
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 list_financial_data <- split(financial_data, financial_data$Category)
 
 for (i in 1:length(list_financial_data)){
@@ -207,7 +207,7 @@ lapply(list_financial_data, function(x) mean(x$Profit))
 
 Do the same as the exercise above using the `map` function. Install the packages `tidyr`, `dplyr`, and `purrr`.
 
-```{r message=FALSE, warning=FALSE, echo = FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE, echo = TRUE, eval = FALSE}
 # Or (advanced!) with a nested tibble and map 
 library(tidyr)
 library(dplyr)

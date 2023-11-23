@@ -17,6 +17,7 @@ options(width = 100)
 library(knitr)
 library(dplyr)
 library(tidyr)
+library(stringr)
 ```
 
 <style>
@@ -48,16 +49,16 @@ pre {
 
 ## Updates
 
-- Exam for exchange students: 21.12.2023 at 16:15 in room 01-013.
+- *Exam for exchange students*: 21.12.2023 at 16:15 in room 01-013.
 - Materials on text analysis and image analysis (lecture 6) is for self study
-- The mock exam is online 💣
+- The *mock exam* is online 💣
   - Central exam from last year
-  - Solutions won't be discussed in the lecture
-  - Use the forum on Canvas to discuss solutions
+  - Solutions won't be discussed in the lecture: use the forum on Canvas
   - No forum supervision/email during the learning phase guaranteed (from me or the TAs) 
 
+- Walk-ins for the *digital exam*: see announcement in Canvas
 
-## Part II: Data gathering and preparation {.smaller}
+## Part II: Data preparation, analysis, and visualization {.smaller}
 
 ```{r echo = FALSE, warning=FALSE, message = FALSE}
 library(readxl)
@@ -75,7 +76,7 @@ kable(sched[12:15, c(1,5)], format = "markdown")
 ```
 
 
-## Part III: Analysis, visualisation, output {.smaller}
+## Part II: Data preparation, analysis, and visualization {.smaller}
 
 ```{r echo = FALSE, warning = FALSE}
 kable(sched[16:nrow(sched), c(1,5)], format = "markdown") 
@@ -85,14 +86,12 @@ kable(sched[16:nrow(sched), c(1,5)], format = "markdown")
 
 # Summary and warm up
 
-## Summary
-
-## Data
+## Summary: Data
 
 *Rectangular data*
 
 - Import data from text files, csv, tsv, etc.
-- Tibbles, data frames in $R$
+- Tibbles, data frames in R
 
 <br>
 
@@ -222,7 +221,7 @@ Write an R code to extract a table with, as a first column, a vector of first na
 ```
 
 - 'students' is the root-node, 'grades' are its children
-- the siblings of Trevor Noah are Anna Schmid and Peter Mueller
+- The siblings of Trevor Noah are Anna Schmid and Peter Mueller
 - The code below would be an alternative, equivalent notation for the third student in the xml file above.
 ```{xml}
 <student id="19093" firstName="Noah" lastName="Trevor">
@@ -264,7 +263,7 @@ include_graphics("../../img/data_science_pipeline.png")
 
 - Use simple string-operations to clean text variables.
 - Reshape datasets from wide to long (and vice versa).
-- Apply row-binding/stacking of datasets
+- Apply row-binding/stacking of datasets.
 
 
 
@@ -275,7 +274,7 @@ include_graphics("../../img/data_science_pipeline.png")
 ## The dataset is imported, now what?
 
 - In practice: still a long way to go.
-- Parsable, but messy data: Inconsistencies, data types, missing observations, wide format.
+- Parsable, but messy data: inconsistencies, data types, missing observations, wide format.
 
 ## The dataset is imported, now what?
 
@@ -288,7 +287,7 @@ include_graphics("../../img/data_science_pipeline.png")
 - *Key conditions*:
   1. Data values are consistent/clean within each variable.
   2. Variables are of proper data types.
-  3. Dataset is in 'tidy' (in long format, more on this after the break)!
+  3. Dataset is in 'tidy' (long) format.
 
 
 ## "Garbage in garbage out" principle
@@ -315,12 +314,16 @@ include_graphics("../../img/dalle_garbageinout.png")
 
 ## Tidy data: some vocabulary
 
-Following @wickham_2014:
+Following @wickham_2014, a tidy dataset is tidy when... 
 
-- *Dataset*: Collection of *values* (numbers and strings).
-- Every value belongs to a *variable* and an *observation*.
-- *Variable*: Contains all values that measure the same underlying attribute across units.
-- *Observation*: Contains all values measured on the same unit (e.g., a person).
+  1. Each <span style="color:red">variable</span> is a <span style="color:red">column</span>; each column is a variable.
+  2. Each <span style="color:green">observation</span> is a <span style="color:green">row</span>; each row is an observation.
+  3. Each <span style="color:blue">value</span> is a <span style="color:blue">cell</span>; each cell is a single value.
+
+<!-- - *Dataset*: Collection of *values* (numbers and strings). -->
+<!-- - Every value belongs to a *variable* and an *observation*. -->
+<!-- - *Variable*: Contains all values that measure the same underlying attribute across units. -->
+<!-- - *Observation*: Contains all values measured on the same unit (e.g., a person). -->
 
 
 ## Tidy data
@@ -332,7 +335,7 @@ include_graphics("../../img/tidy-1.png")
 
 ## Three examples of non-tidy data (1)
 
-*Not tidy:* 
+*Messy:* 
 ```{r, echo = FALSE}
 weather_data <- data.frame(
   measure = c("Temperature", "Humidity"),
@@ -353,7 +356,7 @@ weather_data
 
 ## Three examples of non-tidy data (1)
 
-*Not tidy* 💩
+*Messy* 💩
 ```{r, echo = FALSE}
 weather_data <- data.frame(
   measure = c("Temperature", "Humidity"),
@@ -383,9 +386,10 @@ tidy_weather
 
 ## Three examples of non-tidy data (2)
 
-*Not tidy:*
+*Messy:*
 ```{r, echo = FALSE}
 temp_location_data <- data.frame(
+  year = c(2019, 2019, 2019),
   temperature_location = c("22C_London", "18C_Paris", "25C_Rome")
 )
 
@@ -401,19 +405,20 @@ homework..
 
 ```{r, echo = FALSE, include=FALSE}
 # Tidying the dataset by separating the variables
-tidy_temp_location <- as.data.frame(
+tidy_temp_location <- data.frame(
+  temp_location_data$year,
   str_split(temp_location_data$temperature_location, 
             pattern = "_", 
             simplify = TRUE)
 )
 
-names(tidy_temp_location) <- c("temperature", "location")
+names(tidy_temp_location) <- c("year", "temperature", "location")
 ```
 
 
 ## Three examples of non-tidy data (3)
 
-*Not tidy:*
+*Messy:*
 ```{r, echo = FALSE}
 grades_data <- data.frame(
   Student = c("Johannes", "Hannah", "Igor"),
@@ -447,6 +452,17 @@ tidy_grades
 include_graphics("../../img/reshape2_dark.png")
 ```
 
+## Reshaping: implementation in `R`
+
+- From wide to long: `melt()`, `gather()`,
+
+👉 We'll use `tidyverse::pivot_longer()`.
+
+
+- From long to wide: `cast()`, `spread()`,
+
+👉 We'll use `tidyverse::pivot_wider()`.
+
 
 ## Stack/row-bind: the concept
 
@@ -462,7 +478,7 @@ include_graphics("../../img/rowbinding_dark.png")
 <br>
 
 - Use `bind_rows()` from `dplyr()`
-  - More flexible.
+  - More flexible
   - Binds data frames with different column names and classes
   - Automatically fills missing columns with `NA`
 
