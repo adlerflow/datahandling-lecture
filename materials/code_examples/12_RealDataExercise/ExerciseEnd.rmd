@@ -1,12 +1,25 @@
 ---
-title: "RealData example"
-author: "ASA"
-date: '2023-12-20'
-output: html_document
+title: 'Data Handling: Import, Cleaning and Visualisation'
+subtitle: "Real Data example"
+author: "Dr. Aurélien Sallin"
+output:
+  html_document:
+    highlight: tango
+    theme: cerulean
+    mathjax: "http://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+header-includes:
+  -\usepackage[T1]{fontenc}
+  -\usepackage{hyperref}
+css: ../../style/notes_hsg.css
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(eval=TRUE)
+options(scipen = 999)
 ```
 
 
@@ -15,17 +28,24 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In recent years, and especially in the post-COVID time, the psychological health of the Swiss population has deteriorated. This is especially true for people in the younger age groups, and for women. For more information, see OBSAN 2023 ([Obsan_03_2023_BERICHT.pdf (admin.ch)](https://www.obsan.admin.ch/sites/default/files/2023-05/Obsan_03_2023_BERICHT.pdf)).
 
-You are interested in understanding what are the financial consequences of deteriorating psychological health. To investigate this question, you can use health insurance claim data from SWICA, a leading Swiss health insurance. You receive two datasets in an aggregated form:
+You are interested in understanding what are the financial consequences of deteriorating psychological health. You will use health insurance claim data from SWICA, a leading Swiss health insurance. You receive two datasets containing aggregated data:
 
--   "stamm" data: this dataset contains basic information about the population insured in the base mandatory health plan at SWICA between 2020 and 2021.
+-   *"stamm" data*: this dataset contains basic information about the population insured in the base mandatory health plan at SWICA between 2020 and 2021.
 
--   "medi" data: this dataset contains the aggregated number of psychological consultations and related costs.
+-   *"medi" data*: this dataset contains the aggregated number of psychological consultations and related costs.
 
-Use these data to answer the following questions. **Note**: these data are confidential. They cannot be used outside of this classroom. They have been modified to preserve confidentiality.
+Use these data to answer the following questions. 
+
+*Note: these data are confidential. They cannot be used outside of this classroom. They have been modified to preserve confidentiality.*
+
+<br>
+<br>
 
 ## Questions
 
-1.  Load the necessary packages in R: `tidyverse` and `jsonlite`. Make sure your PATH is correctly set.
+### 1. Start your R script
+
+Load the necessary packages in R: `tidyverse` and `jsonlite`. Make sure your PATH is correctly set.
 
 ```{r}
 # Import packages
@@ -33,27 +53,40 @@ library(tidyverse)
 library(jsonlite)
 
 # Set PATH
-path <- "H:/Blog_KongressBerlin/"
+path <- "C:/Users/aurel/datahandling-lecture2023/materials/code_examples/12_RealDataExercise/"
 ```
 
-2.  Import both dataset in R. Explore these data.
+<br>
 
-```{r}
+### 2.  Import both dataset in R. Explore these data.
+
+```{r message=FALSE, warning=FALSE}
 # Explore both data set
 kons <- fromJSON(paste0(path, "medi_data.json")) |>
   as_tibble() 
 
 stamm <- read_delim(file = paste0(path, "stamm_data.csv"))  
+
+summary(kons)
+summary(stamm)
 ```
 
-3.  Explore the dataset "stamm". The JAHRESFRANCHISE_K shows what would be the "Franchise" (deductible part, i.e. the part that everyone pays out of their own pocket) if the observation was a child, and the JAHRESFRANCHISE_E shows what would be the deductible if the observation was an adult. Recode accordingly into a JAHRESFRANCHISE variable.
+<br>
+
+### 3.  Explore the dataset "stamm". 
+
+The JAHRESFRANCHISE_K shows what would be the "Franchise" (deductible part, i.e. the part that everyone pays out of their own pocket) if the observation was a child, and the JAHRESFRANCHISE_E shows what would be the deductible if the observation was an adult. Recode accordingly into a JAHRESFRANCHISE variable.
 
 ```{r}
 stamm <- stamm |> 
   mutate(JAHRESFRANCHISE = ifelse(age_group %in% "0-18", JAHRESFRANCHISE_K, JAHRESFRANCHISE_E))
 ```
 
-4.  Now, check the distribution of the deductible choice in the pool of insured people. Check for adults. You can check for both years, or for one year only. What strikes you?
+
+<br>
+
+### 4.  Now, check the distribution of the deductible choice in the pool of insured people. 
+Check for adults. You can check for both years, or for one year only. What strikes you?
 
 ```{r}
 # Since those are real data, check the distribution of franchise. Check for adults
@@ -65,39 +98,55 @@ stamm  %>%
   labs(y = "Number of insured people",
        x = "Deductible")
 
-stamm  %>% 
-  filter(age_group != "0-18")  %>%
-  mutate(ageP = as.numeric(str_sub(age_group, 1, 2)))  %>% 
-  group_by(JAHRESFRANCHISE, JAHR_STA)  %>% 
-  summarise(meanAge = mean(ageP))  %>% 
-  ggplot(aes(x = as.factor(JAHRESFRANCHISE), y = meanAge, 
-             color = as.factor(JAHR_STA),
-             group = as.factor(JAHR_STA))) +
-  geom_point() +
-  geom_line() +
-  facet_wrap(JAHR_STA ~. ) +
-  theme_classic()
+# stamm  %>% 
+#   filter(age_group != "0-18")  %>%
+#   mutate(ageP = as.numeric(str_sub(age_group, 1, 2)))  %>% 
+#   group_by(JAHRESFRANCHISE, JAHR_STA)  %>% 
+#   summarise(meanAge = mean(ageP))  %>% 
+#   ggplot(aes(x = as.factor(JAHRESFRANCHISE), y = meanAge, 
+#              color = as.factor(JAHR_STA),
+#              group = as.factor(JAHR_STA))) +
+#   geom_point() +
+#   geom_line() +
+#   facet_wrap(JAHR_STA ~. ) +
+#   theme_classic() +
+#   labs(color = "Year", # not exam-relevant
+#        y = "Mean age",
+#        x = "Deductible")
 ```
+
 <br>
 
-5. Explore the dataset containing medical costs for psychological consultations. Get some summary statistics about the dataset. What is the relationship between age and total costs, and gender and costs? What should you pay attention to when working with these data?
+
+### 5. Explore the dataset containing medical costs for psychological consultations. 
+Get some summary statistics about the "medi" dataset. What is the relationship between age and total consultation costs, and gender and consultation costs? What should you pay attention to when working with these data?
 
 ```{r}
 # Relationship between years and costs
-kons |> 
+konsSummary <- kons |> 
   group_by(JAHR, B003_ALTERSGRUPPE) |>  
   summarise(min = min(PLE_KOSTEN),
             mean = mean(PLE_KOSTEN),
-            max = max(PLE_KOSTEN))  |>  
-  ggplot(aes(x = B003_ALTERSGRUPPE, y = mean, color = as.factor(JAHR))) +
-  geom_point() 
+            max = max(PLE_KOSTEN),
+            tot = sum(PLE_KOSTEN))
+
+konsSummary |> 
+  ggplot(aes(x = B003_ALTERSGRUPPE, y = tot, color = as.factor(JAHR))) +
+  geom_point() +
+  theme_classic() +
+  labs(color = "Year",
+       y = "Total costs for psychological consultations",
+       x = "Age group") +
+  scale_y_continuous(labels = function(x) format(x, big.mark = "'")) # not exam-relevant
 ```
+
+
 
 <br>
 
-6. What is the most frequent provider of consultations?
+### 6. What is the most frequent provider of psychological consultations?
 ```{r}
-kons$AA_TYPE_graph <- str_wrap(kons$AA_TYPE, 12)
+kons$AA_TYPE_graph <- str_wrap(kons$AA_TYPE, 12) # not exam-relevant
 
 kons |> 
   filter(JAHR == 2021) |> 
@@ -112,48 +161,14 @@ kons |>
 
 <br>
 
-7. Now, merge both datasets. Why is it important to merge them. What kind of merge do you need, and what key are you using?
+### 7. Now, merge both datasets. 
 
-Hint 1: you might need to create a function to aggregate age groups. Here is some code that might be helpful:
-
-```{}
-ageAggregate <- function(age_variable) {
-    age_variable <- case_when(age_variable == "0-18" ~ "0-18", 
-                                age_variable == "19-25" ~ "19-25", 
-                                age_variable == "26-30" | age_variable == "31-35" ~ "26-35", 
-                                age_variable == "36-40" | age_variable == "41-45" ~ "36-45", 
-                                age_variable == "46-50" | age_variable == "51-55" ~ "46-55", 
-                                age_variable == "56-60" | age_variable == "61-65" ~ "56-65", 
-                                age_variable == "66-70" | age_variable == "71-75" ~ "66-75", 
-                                TRUE ~ "76-")
-    age_variable <- factor(age_variable, levels = c("0-18", "19-25", "26-35", "36-45", "46-55", "56-65", "66-75", "76-"))
-    return(age_variable)
-}
-```
-
-Hint 2: We will now focus only on providers for "Psychiatrie und Psychotherapie".
-
-
-```{r include=FALSE}
-ageAggregate <- function(age_variable) {
-    age_variable <- case_when(age_variable == "0-18" ~ "0-18", 
-                                age_variable == "19-25" ~ "19-25", 
-                                age_variable == "26-30" | age_variable == "31-35" ~ "26-35", 
-                                age_variable == "36-40" | age_variable == "41-45" ~ "36-45", 
-                                age_variable == "46-50" | age_variable == "51-55" ~ "46-55", 
-                                age_variable == "56-60" | age_variable == "61-65" ~ "56-65", 
-                                age_variable == "66-70" | age_variable == "71-75" ~ "66-75", 
-                                TRUE ~ "76-")
-    age_variable <- factor(age_variable, levels = c("0-18", "19-25", "26-35", "36-45", "46-55", "56-65", "66-75", "76-"))
-    return(age_variable)
-}
-```
+Why is it important to merge them. What kind of merge do you need, and what key are you using? We will now focus only on providers for "Psychiatrie und Psychotherapie".
 
 
 ```{r}
 kons <- kons |>
-    filter(AA_TYPE == "Psychiatrie und Psychotherapie") |> 
-    mutate(B003_ALTERSGRUPPE = ageAggregate(B003_ALTERSGRUPPE))
+    filter(AA_TYPE == "Psychiatrie und Psychotherapie") 
 ```
 
 ```{r}
@@ -172,7 +187,7 @@ df <- left_join(stamm, kons, by = c("JAHR_STA" = "JAHR",
     
 <br>
 
-8. Compute the number of consultations adjusted by the number of months. Give some summary statistics per year.
+### 8. Compute the number of consultations adjusted by the number of months. Give some summary statistics per year.
 
 ```{r}
 df <- df  %>% 
@@ -188,25 +203,24 @@ df  %>%
 
 <br>
 
-9. Give some summary stats per age group. Where is the group with the most increase in number of consultations?
+### 9. Give some summary stats per age group. Where is the group with the largest increase in number of consultations?
 
 ```{r}
 df |>  
     group_by(JAHR_STA, age_group) |> 
-    summarise(mean(KONS_MONAT, na.rm = T),
-              min(KONS_MONAT, na.rm = T),
-              max(KONS_MONAT, na.rm = T))                               
+    summarise(meanKonsMonat = mean(KONS_MONAT, na.rm = T),
+              minKonsMonat = min(KONS_MONAT, na.rm = T),
+              maxKonsMonat = max(KONS_MONAT, na.rm = T))                               
 
 df |> 
   group_by(JAHR_STA, age_group) |>  
-  summarise(mean = mean(KONS_MONAT, na.rm = T),
-            min(KONS_MONAT, na.rm = T),
-            max(KONS_MONAT, na.rm = T)) |>  
+  summarise(mean = mean(KONS_MONAT, na.rm = T)) |> 
   ggplot(aes(x = age_group, y = mean, fill = as.factor(JAHR_STA))) +
-  geom_bar(stat="identity", position = "dodge") +
+  geom_bar(stat="identity", position = "dodge") + # not exam-relevant
   theme_classic() +
   labs(y = "Consultations per month per insured person, 2020 and 2021",
-       x = "Age group")
+       x = "Age group",
+       fill = "Year")
 
 df |> 
   group_by(JAHR_STA, age_group) |>  
@@ -215,14 +229,15 @@ df |>
   mutate(pct = (`2021` - `2020`)/`2020`) |> 
   ggplot(aes(x = age_group, y = pct, label = paste0(round(pct, 2)*100, "%"))) +
   geom_bar(stat = "identity")  +
-  geom_text(nudge_y = 0.015) +
+  geom_text(nudge_y = 0.015) + # not exam-relevant
   labs(y = "Changes in number of consultations per month per insured person, 2020-2021",
-       x = "Age group")
+       x = "Age group") +
+  theme_classic() 
 ```
 
 <br>
 
-10. Does this vary also with gender?
+### 10. Does this vary also with gender?
 
 ```{r}
 df |> 
@@ -250,12 +265,14 @@ df |>
             position=position_dodge(width=1)) +
   labs(y = "Changes in number of consultations per month per insured person, 2020-2021",
        x = "Age group",
-       fill = "Gender")
+       fill = "Gender") +
+  theme_classic() 
 ```
 
 <br>
 
-11. What are the costs of young women needing more psychological care? Estimate the costs for the canton of Zürich
+### 11. What are the costs of young women needing more psychological care? 
+Estimate the costs for the canton of Zürich
 
 ```{r}
 costs <- df |> 
