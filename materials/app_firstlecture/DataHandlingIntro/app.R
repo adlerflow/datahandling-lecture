@@ -20,7 +20,7 @@ loadData <- function() {
   gs4_auth(scopes = "https://www.googleapis.com/auth/spreadsheets", 
            path = "datahandlingform-e3748c92a518.json")
            # path = "C:/Users/aurel/OneDrive/Documents/DataHandling/datahandling-lecture2023/materials/app_firstlecture/DataHandlingIntro/datahandlingform-e3748c92a518.json")
-  ss <- sheet_url
+  ss <- "https://docs.google.com/spreadsheets/d/13jZFfQHdqN5fI4PqGZZCvHGSgPbDPKBhdSmQ4WClyME/edit?gid=0#gid=0"
   read_sheet(ss)
 }
 
@@ -91,7 +91,7 @@ shinyApp(
       data <- data %>% as.list() %>% data.frame()
       gs4_auth(scopes = "https://www.googleapis.com/auth/spreadsheets", 
                path = "datahandlingform-e3748c92a518.json")
-      ss <- sheet_url
+      ss <- "https://docs.google.com/spreadsheets/d/13jZFfQHdqN5fI4PqGZZCvHGSgPbDPKBhdSmQ4WClyME/edit?gid=0#gid=0"
       googlesheets4::sheet_append(ss, data = data, sheet = 1)
     }
     observeEvent(input$submit, {
