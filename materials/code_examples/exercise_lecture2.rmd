@@ -1,8 +1,13 @@
 ---
-title: "Data Handling: Programming with R"
+title: "Data Handling: Exercises to lecture 2"
 author: "Aurélien Sallin"
-date: '2023-09-28'
-output: html_document
+date: '2024-09-26'
+output: 
+  html_document:
+    theme: united
+    toc: yes
+    toc_float:
+      collapsed: true
 ---
 
 ```{r setup, include=FALSE}

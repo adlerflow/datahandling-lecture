@@ -72,7 +72,29 @@
 }
 
 
+/*Code */
+.remark-code {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    color: #333;
+    background: #f8f8f8;
+    /*border: 1px solid red;
+    margin: 0 2px;
+    padding: 0 5px;
+    white-space: nowrap;*/
+    border: 0.5px solid rgba(160, 160, 160, 0.534);
+    border-radius: 3px;/*
+    font-size: 19px;*/
+}
 
+.hljs-github .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    color: #333;
+    background: #f8f8f8;
+}
 
 
 /******************

@@ -90,34 +90,16 @@ library(purrr)
   font-size: 14px;
 }
 
-/*td is for cells, th for headers*/
-table.rmdtable {
-    width: 90%;
-    border-collapse: -moz-initial;
-    border-spacing: 2px;
-    font-size: 13px
-    border-bottom: 0px solid #797979;
-  }
+
 table {
+  width: 90%;
+  border-collapse: -moz-initial;
+  border-spacing: 2px;
+  font-size: 13px
+  border-bottom: 0px solid #797979;
   font-size:20px;
 }
 
-table.rmdtable td, th {
-  font-size: 18px;
-  padding: 1em 0.5em;
-}
-
-table.rmdtable th {
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  background: -webkit-linear-gradient(top, #02934a 40%, #02934a 80%) no-repeat;
-                                      
-}
-
-table.rmdtable tr > td:first-child, table th {
-  font-weight: normal;
-}
 ```
 
 
@@ -278,7 +260,7 @@ rbind(c(1,4,7), c(2,5,8), c(3,6,9))
 ---
 
 <p style="text-align: center;font-size: 25pt;position: fixed;top: 50%;left: 50%;
-  transform: translate(-50%, -50%);">Math operators</p>
+  transform: translate(-50%, -50%);">Operators</p>
 
 ---
 
@@ -286,14 +268,17 @@ rbind(c(1,4,7), c(2,5,8), c(3,6,9))
 
 .pull-left[
 ```{r, eval = F}
-# basic arithmetic
+# Basic arithmetic
 2+2
-sum_result <- 2+2
-sum_result
-sum_result -2
 4*5
 20/5
+sum_result <- 2+2
+sum_result -2
+```
 
+<br>
+
+```{r, eval = F}
 # Modulo (remainder)
 5 %% 3 
 
@@ -306,12 +291,15 @@ sum_result -2
 ```{r echo=FALSE}
 # basic arithmetic
 2+2
-sum_result <- 2+2
-sum_result
-sum_result -2
 4*5
 20/5
+sum_result <- 2+2
+sum_result -2
+```
 
+<br>
+
+```{r, echo=FALSE}
 # Modulo (remainder)
 5 %% 3 
 
@@ -322,17 +310,100 @@ sum_result -2
 
 
 ---
+## Assignment and comparison operators
+
+.pull-left[
+```{r, eval = F}
+# R Assignment Operators
+b <- 1+1
+3 -> my_var
+
+b <<- 1+1 # global operator. Don't use it
+```
+
+<br>
+
+```{r, eval = F}
+# R Comparison Operators
+1 == 2
+1 != 2
+1 > 2
+1 < 2
+1 >= 2
+1 <= 2
+```
+]
+
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+
+```{r, echo = F}
+# R Comparison Operators
+1 == 2
+1 != 2
+1 > 2
+1 < 2
+1 >= 2
+1 <= 2
+```
+]
+
+
+---
+## Logical and misc. operators
+
+.pull-left[
+```{r, eval = F}
+# R Logical Operators
+TRUE & FALSE
+TRUE | FALSE
+!TRUE
+```
+
+<br> 
+
+```{r, eval = F}
+# R Miscellaneous Operators
+1:10
+2 %in% c(1,2)
+```
+]
+
+.pull-right[
+```{r, echo = F}
+# R Logical Operators
+TRUE & FALSE
+TRUE | FALSE
+!TRUE
+```
+
+<br> 
+
+```{r, echo = F}
+# R Miscellaneous Operators
+1:10
+2 %in% c(1,2)
+```
+]
+
+
+
+
+---
 
 ## Math operators: other operators
 
 ```{r other operators, eval=FALSE}
-# other common math operators and functions
+# Other common math operators and functions
 4^2
 sqrt(4^2)
 log(2)
 exp(10)
 log(exp(10))
-
 ```
 
 
@@ -644,7 +715,9 @@ class: center, middle, inverse, Large
 ---
 ## Loops and functionals
 
-| <div style="width:290px">**for-loops**</div> | **functionals** |
+<br>
+
+| <div style="width:390px">**for-loops**</div> | **functionals** |
 |:-:|:-:|
 | Gets messy fast | Elegant and readable, allow for better syntax  |
 | Long code | Short code, based on functions  |
@@ -662,7 +735,7 @@ class: center
 
 Starting point: we should be aware of how the mean is defined:
   
-$$\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}$$.
+$$\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}$$
   
 ---
 ## Tutorial 1: A Function to Compute the Mean
@@ -703,9 +776,22 @@ meaN(vector)
 
 We can use loops to simulate natural processes over time. Write a program that calculates the populations of two kinds of sloths over time. At the beginning of year 1, there are **1000 slow sloths** and **1 fast sloth**. This one fast sloth is a new mutation that is genetically able to use roller blades. Not surprisingly, being fast gives it an advantage, as it can better escape from predators. 
 
-| A slow sloth |A fast sloth in its natural element  |   
-|:-:|:-:|
-| <img src="../../img/slowsloth.png" height="260"/> <br>  | <img src="../../img/fastsloth.png" height="260"/> <br> |
+.pull-left[
+.center[
+```{r , echo= FALSE, fig.align="center", out.width="50%", fig.cap = "A slow sloth"}
+include_graphics("../../img/slowsloth.png")
+```
+]
+]
+
+.pull-right[
+.center[
+```{r , echo= FALSE, fig.align="center", out.width="50%",fig.cap = "A fast sloth in its natural element "}
+include_graphics("../../img/fastsloth.png")
+```
+]
+]
+
   
   
 ---
