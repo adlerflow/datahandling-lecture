@@ -1,6 +1,6 @@
 ##########################################################################
 # Mean Function:
-# Computes the mean, given a 
+# Computes the mean, given a
 # numeric vector.
 # x, a numeric vector
 # returns the arithmetic mean of x (a numeric scalar)
@@ -16,29 +16,17 @@
 
 
 my_mean <- function(x) {
-  
-  if (is.numeric(x)){
-    
-    N <- length(x)
-    # sum
-    sumx <- sum(x)
-    # put pieces together
-    meanx <- (1/N) * sumx
-    
-  } else {
-    
-    warning("x is not numeric!\n")
-    
+
+  if (!is.numeric(x)) {
+
+    warning("x is not numeric! Force x to numeric.\n")
+
     x <- as.numeric(x)
-    
-    N <- length(x)
-    # sum
-    sumx <- sum(x)
-    # put pieces together
-    meanx <- (1/N) * sumx
   }
   
-
+  N <- length(x)
+  meanx <- (1/N) * sum(x)
   
+  # Return function
   return(meanx)
 }

@@ -1,0 +1,54 @@
+---
+title: "The Impact of Choosing Wisely™ Recommendation versus Government Regulation Against Low-Value Care"
+subtitle: "The case of Vitamin D Laboratory Analyses in Switzerland"
+author: "A. Sallin, D. Ammann, C. Bähler, T. Müller, S. Neuner-Jehle, O. Senn, E. Blozik"
+date: today
+affiliation-title: "SWICA"
+# pagetitle: Title of Talk
+echo: false
+code-line-numbers: false
+format:
+  revealjs:
+    width: 1280
+    height: 720
+    footer: "Short title | Marc Paterno"
+    # include-after-body: 
+      # - "all-the-js-code.html"
+    smaller: true
+    embed-resources: true
+    self-contained: true
+    slide-number: c
+    theme: [default, swicatheme.scss]
+cache: false
+# bibliography: bibliography.bib
+
+---
+
+![Logo](../../img/logo.png){width=40%}
+
+# Data Handling: Import, Cleaning and Visualisation
+
+### Lecture 3: A Brief Introduction to Data and Data Processing
+
+
+Dr. Aurélien Sallin<br>02/10/2024
+
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
