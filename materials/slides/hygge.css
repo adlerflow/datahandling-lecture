@@ -59,6 +59,14 @@
     text-shadow: 0 0 20px #333;
 }
 
+.inverse .remark-slide-number {
+    display: none;
+}
+
+.remark-slide-number {
+    font-size: 14px;
+}
+
 
 /* Add style for announcements*/
 .announcement-style {
@@ -96,6 +104,100 @@
     background: #f8f8f8;
 }
 
+
+/******************
+ *
+ * Format title slide
+ *
+ ****************/
+/* Apply styles only to the first slide with the title-slide class */
+.title-slide {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    height: 800px;
+    text-align: left;
+}
+
+/* Style for the logo in the title slide */
+.title-slide img {
+    float: left;
+    margin-right: 20px;
+    margin-left: 0px;
+    width: 100px;
+}
+
+/* Style the title */
+.title-slide h1 {
+    color: #15803d;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 0px;
+}
+
+/* Style the subtitle */
+.title-slide h3 {
+    color: #6b7280;
+    font-size: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    /* Ensure padding is consistent */
+    text-align: left;
+    /* Align text to the left */
+}
+
+/* Style the author and date */
+.title-slide p {
+    color: #6b7280;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    /* Ensure padding is consistent */
+    text-align: left;
+    /* Align text to the left */
+}
+
+
+
+
+/******************
+ *
+ * Format tables
+ *
+ ****************/
+/*td is for cells, th for headers*/
+table.rmdtable {
+    width: 90%;
+    border-collapse: -moz-initial;
+    border-spacing: 2px;
+    font-size: 13px border-bottom: 0px solid #797979;
+}
+
+table {
+    font-size: 20px;
+}
+
+table.rmdtable td,
+th {
+    font-size: 18px;
+    padding: 1em 0.5em;
+}
+
+table.rmdtable th {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(top, #02934a 40%, #02934a 80%) no-repeat;
+
+}
+
+table.rmdtable tr>td:first-child,
+table th {
+    font-weight: normal;
+}
 
 /******************
  *
