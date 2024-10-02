@@ -2,7 +2,7 @@
 title: 'Data Handling: Import, Cleaning and Visualisation'
 author: "Dr. Aurélien Sallin"
 subtitle: "Lecture 3: A Brief Introduction to Data and Data Processing"
-date: "04/10/2024"
+date: "03/10/2024"
 # pagetitle: Title of Talk
 echo: false
 code-line-numbers: false
@@ -57,8 +57,8 @@ Recap
 ## Three tutorials
 
  - Compute the mean with your own function      [-> no solution posted]{style="color:#02934a;"}
- - Evolution in action: fast and slow sloths    [-> solution in the exercise session]{style="color:#02934a;"}
- - Append and lists                             [-> solution in second exercise session]{style="color:#02934a;"}
+ - Evolution in action: fast and slow sloths    [-> solution in the first exercise session]{style="color:#02934a;"}
+ - Append and lists                             [-> solution in the second exercise session]{style="color:#02934a;"}
 
 ```{r scratch, echo=FALSE, out.width = "35%", fig.align='center', purl=FALSE}
 include_graphics("../../img/fastsloth.png")
@@ -83,7 +83,7 @@ some_numbers <- c(30, 50, 60)
 
 1. `sum(some_numbers[c(2,3)]) == 80`
 2. `some_numbers[some_numbers %in% c(30)] == 30`
-3. some_numbers * 5 ` will do $30*5 + 50*5 + 60*5$
+3. `some_numbers * 5 ` will do `30*5 + 50*5 + 60*5`
 
 ## Warm-up
 
@@ -103,7 +103,7 @@ Which of the answers are correct?
 :::
 
 ::: {.column width="50%"}
-#### Answer 1
+#### Answer 1 (recap lecture 2)
 
 ```{r, echo = TRUE, eval = FALSE}
 max(mymatrix[,2]) == 3
@@ -111,7 +111,7 @@ max(mymatrix[,2]) == 3
 
 <br>
 
-#### Answer 2 
+#### Answer 2 (recap lecture 2)
 
 ```{r, echo = TRUE, eval = FALSE}
 apply(mymatrix, MARGIN = 2, min) 
@@ -141,7 +141,7 @@ Which of the answers are correct?
 
 ::: {.column width="50%"}
 
-#### Answer 3
+#### Answer 3 (🌶️)
 ```{r,  echo = TRUE, eval = FALSE}
 m <- apply(mymatrix, MARGIN = 2, min)
 ```
@@ -180,7 +180,7 @@ Which of the answers are correct?
 
 ::: {.column width="50%"}
 
-#### Answer 4
+#### Answer 4 (🌶️)
 
 In this code:
   
@@ -250,10 +250,10 @@ Data Processing
 
 1. Have a basic understanding of data processing;
 2. Understand binary and hexadecimal systems;
-3. Understand the importance of encoding for data projects;
+3. Understand the importance of encoding for data projects.
 
 
-##
+## Numeral systems as representations 
 
 ```{r newabacus, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE}
 include_graphics("../../img/new_abacus.jpg")
@@ -272,7 +272,7 @@ include_graphics("../../img/cpu_blackbox.png")
 ```
 
 
-## The binary system
+## The binary sytem
 
 Microprocessors can only represent two signs (states): 
 
@@ -283,6 +283,11 @@ Microprocessors can only represent two signs (states):
 include_graphics("../../img/on_off.png")
 ```
 
+## The binary sytem
+
+```{r matrix, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE}
+include_graphics("../../img/matrix.gif")
+```
 
 ## The binary counting frame
 
@@ -397,7 +402,7 @@ Number  | 128 | 64 | 32 | 16 | 8  | 4  | 2  |  1
 
 
 
-## Floating point numbers: a strange phenomenon
+## Floating point numbers
 
 :::: {.columns}
 
@@ -422,7 +427,47 @@ print(y)
 ::::
 
 
-## Floating point numbers: a strange phenomenon
+## Floating point numbers
+
+A function to convert a decimal number to binary:
+
+```{r, echo=TRUE}
+#| code-fold: true
+#| code-summary: "Show the function"
+
+decimal_to_binary <- function(decimal, precision = 10) {
+  
+  # Separate integer and fractional part
+  integer_part <- floor(decimal) # floor(x) takes the largest integers not greater than the corresponding elements x
+  fractional_part <- decimal - integer_part
+  
+  # Convert the integer part to binary
+  binary_integer <- as.character(intToBits(integer_part))
+  binary_integer <- paste(rev(binary_integer), collapse = "")
+  binary_integer <- sub("^0+", "", binary_integer)  # Remove leading zeros
+  
+  # Convert the fractional part to binary
+  binary_fraction <- ""
+  
+  while(fractional_part > 0 && nchar(binary_fraction) < precision) { 
+    fractional_part <- fractional_part * 2
+    bit <- floor(fractional_part)
+    binary_fraction <- paste0(binary_fraction, bit)
+    fractional_part <- fractional_part - bit
+  }
+  
+  return(paste0(binary_integer, ".", binary_fraction))
+}
+```
+
+
+```{r, echo = TRUE}
+decimal_to_binary(0.1, precision = 100)
+```
+
+
+## Floating point numbers
+
 
 :::: {.columns}
 
@@ -447,7 +492,7 @@ print(result)
 
 
 
-## Floating point numbers: a strange phenomenon
+## Floating point numbers
 
 :::: {.columns}
 
@@ -570,7 +615,7 @@ $$(8\times 16^1) +  (B\times 16^0) = 8B = 139.$$
 Advantages (when working with binary numbers)
 
 1. Shorter than raw binary representation
-2. Much easier to translate forth and back between binary and hexadecimal than binary and decimal.
+2. Much easier to translate back and forth between binary and hexadecimal than binary and decimal.
 
 &nbsp;
 
@@ -771,7 +816,11 @@ large_matrix <- matrix(1, nrow=1e8, ncol=1e8)
 - Assuming each number is stored using 8 bytes, this matrix would require $8\times10^16$ bytes of RAM.
 
 
-## Random Access Memory and bytes
+## Units of information/data storage
+
+- [*bit*]{style="color:#02934a;"} (abbrev 'b'): smallest unit of information in computing: `0` or `1`. 
+- To store this number, we require a capacity of 8 bits or one [*byte*]{style="color:#02934a;"} (1 byte = 8 bits; abbrev. 'B'). 
+- Historically, one byte encoded a single character of text (ASCII). 4 bytes (32 bits) are called a [*word*]{style="color:#02934a;"}. 
 
 ```{r bitbyteword, echo=FALSE, out.width = "80%", fig.align='center',  purl=FALSE}
 include_graphics("../../img/bitbyte.jpg")
@@ -781,9 +830,13 @@ include_graphics("../../img/bitbyte.jpg")
 
 ## Bigger units for storage capacity 
 
- - $1 \text{ kilobyte (KB)} = 1000^{1} \text{ bytes}$
- - $1 \text{ megabyte (MB)} = 1000^{2} \text{ bytes}$
- - $1 \text{ gigabyte (GB)} = 1000^{3} \text{ bytes}$
+ - 1 kilobyte (KB) = $1000^1$ bytes
+ - 1 megabyte (MB) = $1000^2$ bytes
+ - 1 gigabyte (GB) = $1000^3$ bytes
+ 
+ <!-- - `1 \text{ kilobyte (KB)} = 1000^{1} \text{ bytes}` -->
+ <!-- - `1 \text{ megabyte (MB)} = 1000^{2} \text{ bytes}` -->
+ <!-- - `1 \text{ gigabyte (GB)} = 1000^{3} \text{ bytes}` -->
  
 <!-- ## Common units for data transfer (over a network) -->
 
