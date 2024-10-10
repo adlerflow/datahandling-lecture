@@ -209,11 +209,6 @@ i <- i + 1
 ::::
 
 
-
-
-
-
-
 ## Warm-up
 
 What is `total_sum`?
@@ -438,13 +433,20 @@ A function to convert a decimal number to binary:
 decimal_to_binary <- function(decimal, precision = 10) {
   
   # Separate integer and fractional part
-  integer_part <- floor(decimal) # floor(x) takes the largest integers not greater than the corresponding elements x
-  fractional_part <- decimal - integer_part
+  integer_part <-  decimal %/% 1 # floor(x) takes the largest integers not greater than the corresponding elements x
+  fractional_part <- decimal %% 1
   
-  # Convert the integer part to binary
-  binary_integer <- as.character(intToBits(integer_part))
-  binary_integer <- paste(rev(binary_integer), collapse = "")
-  binary_integer <- sub("^0+", "", binary_integer)  # Remove leading zeros
+  # If integer part is 0, we need to retain "0" rather than removing it
+  if (integer_part == 0) {
+    binary_integer <- "0"
+  } else {
+    # Convert the integer part to binary
+    binary_integer <- as.character(intToBits(integer_part))
+    binary_integer <- rev(binary_integer)
+    binary_integer <- sub("^0", "", binary_integer)  # Remove leading zeros only if integer part is not zero
+    binary_integer <- tail(binary_integer, 8)
+    binary_integer <- paste(binary_integer, collapse = "")
+  }
   
   # Convert the fractional part to binary
   binary_fraction <- ""

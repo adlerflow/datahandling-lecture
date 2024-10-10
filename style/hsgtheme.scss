@@ -16,10 +16,10 @@ $body-color: #000 !default;
 $link-color: #02934a !default; // hsg-green
 $selection-bg: #02934a !default;
 
-$code-bg: $body-bg !default;
-$code-color: #530aa7 !default;
+$code-bg: $body-bg !default; // background for the code inline
+$code-color: #530aa7 !default; // color for inline code
 
-$code-block-bg: #050364d0 !default; // background code chunks
+$code-block-bg: #050364d0 !default; // background code chunks. Overrides highlight-style
 $code-block-border-color: rgb(255, 255, 255) !default;
 
 
@@ -45,6 +45,37 @@ $presentation-block-margin: 24px;
 .reveal a {
     line-height: 1.3em;
 }
+
+code {
+    // changes inline code output
+    font-size: 1.1em;
+}
+
+// Change code font size
+// code.sourceCode { // changes only the font in the code chunks
+//    font-size: 1.25em;
+// }
+
+.reveal div.sourceCode {
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+    //box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
+    //width: fit-content;
+    //margin: auto !important;
+    padding: 0px;
+}
+
+.reveal pre code {
+    border: none;
+    background-color: #dfdadafb;
+    color: #050364d0;
+    padding: 20px;
+}
+
+
+
 
 // if you want to specify headings with more details than what is available with sass variables above
 .reveal h1,
@@ -120,12 +151,3 @@ $presentation-block-margin: 24px;
     display: none;
 }
 
-
-// Change code font size
-code.sourceCode { // changes only the font in the code chunks
-    font-size: 1.2em;
-}
-
-// code { // changes code chunks and code output
-//     font-size: 0.3em;
-// }
