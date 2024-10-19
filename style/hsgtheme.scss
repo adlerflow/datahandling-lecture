@@ -19,7 +19,9 @@ $selection-bg: #02934a !default;
 $code-bg: $body-bg !default; // background for the code inline
 $code-color: #530aa7 !default; // color for inline code
 
-$code-block-bg: #050364d0 !default; // background code chunks. Overrides highlight-style
+//$code-block-bg: $link-color !default; // background code chunks. Overrides highlight-style
+//$code-block-bg: #050364d0 !default; // background code chunks. Overrides highlight-style
+$code-block-bg: #04041bc2 !default; // background code chunks. Overrides highlight-style
 $code-block-border-color: rgb(255, 255, 255) !default;
 
 

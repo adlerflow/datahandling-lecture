@@ -3,7 +3,6 @@ title: 'Data Handling: Import, Cleaning and Visualisation'
 author: "Dr. Aurélien Sallin"
 subtitle: 'Lecture 4:<br>Data Storage and Data Structures'
 date: "10/10/2024"
-# pagetitle: Title of Talk
 echo: false
 code-line-numbers: false
 format:
@@ -19,9 +18,6 @@ format:
     theme: ../../style/hsgtheme.scss
 highlight-style: dracula # style to highlight code. Set background color in theme
 cache: false
-# revealjs-plugins:
-#   - quiz
-# bibliography: bibliography.bib
 ---
 
 ```{r set-options, echo=FALSE, cache=FALSE, warning=FALSE}
@@ -692,7 +688,7 @@ c(persons, ages)
 - *Explicit*: use specific functions to manually convert data types `as.numeric()`, `as.character()`, `as.logical()`, etc.
 
 ::: aside
-Types from least to most flexible are: logical, integer, double, and character.
+Coercion hierarchy: Types from least to most flexible are: logical <- integer <- double <- character.
 :::
 <!--   - *Implicit Coercion*: happens automatically when combining objects of different types without explicitly requesting a conversion.  -->
 <!--   - *Explicit Coercion*: use specific functions to manually convert one type of data into another. -->

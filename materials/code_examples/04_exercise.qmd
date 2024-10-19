@@ -2,13 +2,31 @@
 title: 'Data Handling: Import, Cleaning and Visualisation'
 subtitle: "Exercise to lecture 4"
 author: "Dr. Aurélien Sallin"
-output:
+params:
+  show_code: true  # Toggle this to switch between student and solution versions
+format:
   html:
     theme: ../../style/hsgtheme.scss
-    self-contained: true
     embed-resources: true
-highlight-style: light
+    self-contained: true
+    self-contained-math: true
+highlight-style: dracula
 ---
+
+```{bash, eval = FALSE, echo = FALSE}
+# Render the student version (code hidden)
+quarto render 04_exercise.qmd -P show_code=false -o 04_exercise_questions.html
+
+# Render the solution version (code visible)
+quarto render 04_exercise.qmd -P show_code=true -o 04_exercise_solutions.html
+
+# Render the student version
+# system("quarto render 04_exercise.qmd -P show_code=false -o 04_exercise_questions.html")
+# system("quarto render 04_exercise.qmd -P show_code=true -o 04_exercise_solutions.html")
+
+```
+
+
 
 
 ```{r setup, include=FALSE}
@@ -19,7 +37,7 @@ highlight-style: light
 
 # Working with a data frame
 
-```{r data creation, include = FALSE, eval= FALSE}
+```{r data creation, include = FALSE, eval= FALSE, echo=params$show_code}
 # Data Creation (to be executed by the instructor)
 set.seed(1234) # For reproducibility
 
@@ -39,9 +57,9 @@ write.table(data, "financial_data.txt", row.names = FALSE, sep = ":",  fileEncod
 
 ```
 
-## Set your script
+## Set up your script
 
-Set your `R` Script.
+Set up your `R` Script.
 
 ```{r eval = TRUE, echo = TRUE}
 #######################################################################
@@ -73,7 +91,7 @@ Have a look at the file `financial_data.txt` using your favorite text editor. Wh
 
 Import the table using the `read.csv()` function in your environment. Make sure you have the right path to access the .txt document. What does this parser do? Explore the data.frame. What is its structure? What are its dimensions?
 
-```{r eval = FALSE, error=FALSE}
+```{r eval = FALSE, error=FALSE, echo=params$show_code}
 
 # IMPORT RAW DATA FROM CSVs -------------
 
@@ -97,7 +115,7 @@ financial_data <- read.csv("financial_data.txt", sep = ":")
 
 ```
 
-```{r warning=FALSE, eval = TRUE}
+```{r warning=FALSE, eval = TRUE, output = FALSE, echo=params$show_code}
 # When using read.csv(), we notice the following warning:
 # "Error in type.convert.default(data[[i]], as.is = as.is[i], dec = dec,  : 
 # invalid multibyte string at '<f6>'"
@@ -123,7 +141,7 @@ financial_data <- read.csv("financial_data.txt",
 
 
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo=params$show_code, output = FALSE}
 # The data looks now like what I expect... except for the variable "Revenue", which
 # is a character. I remove the special ö character from the encoding issue and 
 # coerce 
@@ -142,7 +160,6 @@ financial_data[10, "Revenue"] <- 1933
 financial_data[, "Revenue"] <- as.numeric(financial_data[, "Revenue"])
 
 # The data is now ready. You are ready to compute the rest of the exercise.
-# END - for now
 ```
 
 
@@ -151,7 +168,7 @@ financial_data[, "Revenue"] <- as.numeric(financial_data[, "Revenue"])
 ## Summary statistics of your data
 Compute the summary statistics for each variable using the `summary()` command. What does this command give you? What do you notice? Make the necessary changes.
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 # Check summary again
 summary(financial_data)
 ```
@@ -163,7 +180,7 @@ summary(financial_data)
 
 Create a new variable "costs", which is the revenue - profit. [There are many ways to create a variable in a data frame. Here, use the `$` index.]
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, echo=params$show_code}
 financial_data$costs <- financial_data$Revenue - financial_data$Profit
 ```
 
@@ -173,7 +190,7 @@ financial_data$costs <- financial_data$Revenue - financial_data$Profit
 
 Which variable is (should be) a factor? Recode this variable as a factor. What are the levels? Should we have the variable `Firm` as a factor?
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, echo=params$show_code}
 financial_data$Category <- as.factor(financial_data$Category)
 
 levels(financial_data$Category)
@@ -181,20 +198,20 @@ levels(financial_data$Category)
 
 <br>
 
-## Nests - more difficult question... but still exam relevant 👻
+## Nests  👻
 Split your data using the factor variable into three data frames that are contained in a list. Compute the mean profit for each data frame. 
 
 - Hint: use the function `split`. 
 - Hint: use a `for-loop` over each list element to compute the mean
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, echo=params$show_code}
 list_financial_data <- split(financial_data, financial_data$Category)
 
 for (i in 1:length(list_financial_data)){
   print(mean(list_financial_data[[i]]$Profit))
 }
 
-# Or, using lapply (not exam relevant)
+# Or, using lapply 
 lapply(list_financial_data, function(x) mean(x$Profit))
 ```
 
@@ -205,7 +222,7 @@ lapply(list_financial_data, function(x) mean(x$Profit))
 
 Do the same as the exercise above using the `map` function. Install the packages `tidyr`, `dplyr`, and `purrr`.
 
-```{r message=FALSE, warning=FALSE,  eval = FALSE}
+```{r message=FALSE, warning=FALSE,  eval = FALSE, echo=params$show_code}
 # Or (advanced!) with a nested tibble and map 
 library(tidyr)
 library(dplyr)
