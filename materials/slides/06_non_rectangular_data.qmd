@@ -69,7 +69,7 @@ financial_data <- read_delim("financial_data.txt", delim = ":")
 - Error with `read.csv()`: "invalid multibyte string at <f6>".
 - No error with `read_delim()`: more robust to encoding issues!
 
-<br>
+## Recap: exercise
 
 With `iconv()`, we found the right encoding for `\xF6`. We could then import the data using
 
@@ -138,10 +138,10 @@ my_vector <- c(1, 0, 3, -1)
 as.numeric(my_vector > 0)
 ```
 
-- `c("TRUE", "FALSE", "TRUE", "FALSE")`
-- `c(TRUE, FALSE, TRUE, FALSE)`
-- `c(1,0,1,0)`
-- `c(0,1,0,1)`
+- `"TRUE" "FALSE" "TRUE" "FALSE"`
+- `TRUE FALSE TRUE FALSE`
+- `1 0 1 0`
+- `0 1 0 1`
 
 
 ## Data frames operations
@@ -163,6 +163,25 @@ Which of these statements are TRUE?
 - `dim(dataCHframe[dataCHframe$PartyLeft > 40 | dataCHframe$PartyLeft < 40, ])` returns `c(3,3)`
 - `dataCHframe` is a data.frame, which is a list consisting of one named character vector and two named integer vectors.
 
+<!-- The second question is about recycling of logical vectors... -->
+<!-- ```{r echo = TRUE} -->
+<!-- dataCHframe <- data.frame( -->
+<!--   "City" = c("St.Gallen", "Lausanne", "Zürich"), -->
+<!--   "PartyLeft" = c(35, 45, 55), -->
+<!--   "PartyRight" = c(40, 35, 30), -->
+<!--   "PartyCenter" = c(25, 20, 15) -->
+<!-- ) -->
+
+<!-- dim(dataCHframe[, dataCHframe$PartyLeft < 40]) -->
+<!-- dim(dataCHframe[, dataCHframe$PartyLeft == 45, drop = F]) -->
+<!-- dim(dataCHframe[, c(2,3)]) -->
+
+<!-- #If the index vector is shorter than the vector being indexed, the index vector is recycled -->
+<!-- x <- c(5,4,7,8) -->
+
+<!-- x[c(FALSE, TRUE)] -->
+<!-- #> [1] 4 8 -->
+<!-- ``` -->
 
 
 ## Working with csv files
@@ -187,6 +206,26 @@ Are these statements TRUE or FALSE?
 
 - `mean(df$a) == 2.5`
 - `typeof(as.matrix(df)[,1])` is `numeric` (or `double`)
+- `as_tibble(df)[1:2, 1]` contains the same information as `df[1:2, 1]` (FALSE, because tibbles do not simplify when subsetting. Not exam relevant.)
+
+
+<!-- ```{r, echo = TRUE} -->
+<!-- as.matrix(df)[,1] -->
+
+<!-- # Tibbles behave differently because they do not simplify when subsetting. -->
+<!-- tibble::as_tibble(df)[1:2, 1]  -->
+
+<!-- # The output will be a vector, not a data frame. This is because data frames simplify the result by default when you extract a single column. -->
+<!-- df[1:2, 1]  -->
+
+<!-- # If you want a data frame (or tibble) to behave like a tibble and avoid simplification when subsetting, you can use drop = FALSE in base R -->
+<!-- df[1:2, 1, drop = FALSE]  -->
+
+<!-- # If you want to extract a vector from a tibble, you can use double square brackets ([[]]) for extracting a single column: -->
+<!-- tibble::as_tibble(df)[[1]] -->
+<!-- ``` -->
+<!-- The difference in the output between tibble::as_tibble(df)[1:2, 1] and df[1:2, 1] is due to how tibbles and data frames handle subsetting. -->
+<!-- This behavior is called simplifying subsetting, where a data frame automatically simplifies to a vector if only a single column is extracted. This is not the case for tibbles, which always return a tibble when subsetting. -->
 
 
 ## {class="inverse"}
@@ -195,19 +234,19 @@ Today
 
 ## Goals of today's lecture
 
-- Understand non-rectangular data: xml, json, and html
-- Be familiar with the way we parse these data into R
-- Guest lecture: 
+- Understand non-rectangular data: xml, json, and html (exercises and next time)
+- Be familiar with the way we parse these data into R 
 
-  - learn about open time series, 
-  - experience what it is like to work as an Econ/Data Science right after your Bachelor's degree
+<br>
+- ["Non-Rectangular Data in Economic Research"]{style="color:#02934a;"} with Minna Heim
+
 
 
 ## Updates
 
-- Exam for exchange students: 19.12.2024 at 16:15 in room 01-207.
-- Mock exam available in the break
-- Reading list will be updated in the break
+- Exam for exchange students 🎁: **19.12.2024** at 16:15 in room 01-207.
+- The mock exam is available on Canvas
+- The reading list will be updated in the break
 
 
 
@@ -221,7 +260,7 @@ Today
 - Hierarchical data (xml, html, json)
   - <span style="color: gray">XML and JSON (useful for complex/high-dimensional data sets)</span>.
   - <span style="color: gray">HTML (a markup language to define the structure and layout of webpages)</span>.
-- Unstructed text data
+- Unstructured text data
 - Images/Pictures data 
 
 
@@ -245,7 +284,7 @@ David  Debbie  Dianne    12  female
 <br>
 
 <center>
-### What is the data about?
+### 👓 What is the data about?
 </center>
 
 
@@ -305,7 +344,7 @@ David  Debbie  Dianne    12  female
 ## XML - eXtensible Markup Language
 - Since 1998
 - Real life examples:
-  - Microsoft Office uses the XML-based file formats, such as .docx, .xlsx, and .pptx. See a XML representation of a Word document on https://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
+  - Microsoft Office uses the XML-based file formats, such as .docx, .xlsx, and .pptx. See a XML representation of a Word document on [the Wikipedia page on Microsoft Office XML format](https://en.wikipedia.org/wiki/Microsoft_Office_XML_formats).
   - Store application configuration data
   - Store geospatial data in Geographic Information Systems (GIS) 
   - ...
@@ -319,39 +358,50 @@ David  Debbie  Dianne    12  female
 
 
 ```{xml, echo = TRUE}
-<row>
-<unique_id>216498</unique_id>
-<indicator_id>386</indicator_id>
-<name>Ozone (O3)</name>
-<measure>Mean</measure>
-<measure_info>ppb</measure_info>
-<geo_type_name>CD</geo_type_name>
-<geo_join_id>313</geo_join_id>
-<geo_place_name>Coney Island (CD13)</geo_place_name>
-<time_period>Summer 2013</time_period>
-<start_date>2013-06-01T00:00:00</start_date>
-<data_value>34.64</data_value>
-</row>
-
-<unique_id>216499</unique_id>
-<indicator_id>386</indicator_id>
-...
-
-</row>
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <row>
+    <unique_id>216498</unique_id>
+    <indicator_id>386</indicator_id>
+    <name>Ozone (O3)</name>
+    <measure>Mean</measure>
+    <measure_info>ppb</measure_info>
+    <geo_type_name>CD</geo_type_name>
+    <geo_join_id>313</geo_join_id>
+    <geo_place_name>Coney Island (CD13)</geo_place_name>
+    <time_period>Summer 2013</time_period>
+    <start_date>2013-06-01T00:00:00</start_date>
+    <data_value>34.64</data_value>
+  </row>
+  
+  <row>
+    <unique_id>216499</unique_id>
+    <indicator_id>386</indicator_id>
+    ...
+  </row>
+</data>
 ```
 
 <!-- - A predefined set of special characters (here primarily `<`, `>`, and `/` ) give the data structure.  -->
 <!-- - So-called *XML-tags* are used to define variable names and encapsulate data values: `<variablename>value</variablename>`. -->
 <!-- - Tags can be nested, which allows for the definition of hierarchical structures. -->
 
+## XML declaration
+
+An XML document begins with some information about XML itself. For example, it might mention the XML version that it follows. This opening is called an XML declaration. 
+
+```{xml, echo = TRUE}
+<?xml version="1.0" encoding="UTF-8"?>
+```
+
 ## XML has a nested syntax
 
 The "row-content" is nested between the '`row`'-tags:
 
 ```{xml, echo = TRUE}
-  <row>
+<row>
 ...
-  </row>
+</row>
 ```
 
 
@@ -371,17 +421,20 @@ The "row-content" is nested between the '`row`'-tags:
 
 There are two principal ways to link variable names to values.
 ```{xml, echo = TRUE}
-    <variable>Monthly Surface Clear-sky Temperature (ISCCP) (Celsius)</variable>
-    <filename>ISCCPMonthly_avg.nc</filename>
-    <filepath>/usr/local/fer_data/data/</filepath>
-    <badflag>-1.E+34</badflag>
-    <subset>48 points (TIME)</subset>
-    <longitude>123.8W(-123.8)</longitude>
-    <latitude>48.8S</latitude>
-    <case date="16-JAN-1994" temperature="9.200012" />
-    <case date="16-FEB-1994" temperature="10.70001" />
-    <case date="16-MAR-1994" temperature="7.5" />
-    <case date="16-APR-1994" temperature="8.100006" />
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <variable>Monthly Surface Clear-sky Temperature (ISCCP) (Celsius)</variable>
+  <filename>ISCCPMonthly_avg.nc</filename>
+  <filepath>/usr/local/fer_data/data/</filepath<|meta_end|>filepath>
+  <badflag>-1.E+34</badflag>
+  <subset>48 points (TIME)</subset>
+  <longitude>123.8W(-123.8)</longitude>
+  <latitude>48.8S</latitude>
+  <case date="16-JAN-1994" temperature="9.200012" />
+  <case date="16-FEB-1994" temperature="10.70001" />
+  <case date="16-MAR-1994" temperature="7.5" />
+  <case date="16-APR-1994" temperature="8.100006" />
+</dataset>
 ```
 
 
@@ -395,10 +448,10 @@ There are two principal ways to link variable names to values.
 
 Attributes-based:
 ```{xml,echo = TRUE}
-    <case date="16-JAN-1994" temperature="9.200012" />
-    <case date="16-FEB-1994" temperature="10.70001" />
-    <case date="16-MAR-1994" temperature="7.5" />
-    <case date="16-APR-1994" temperature="8.100006" />
+  <case date="16-JAN-1994" temperature="9.200012" />
+  <case date="16-FEB-1994" temperature="10.70001" />
+  <case date="16-MAR-1994" temperature="7.5" />
+  <case date="16-APR-1994" temperature="8.100006" />
 ```
 
 
@@ -450,7 +503,7 @@ Potential drawback of XML: **inefficient storage**
 
 ## XML in R with *The Office*
 
-```{}
+```{xml, echo = TRUE}
 <?xml version="1.0" encoding="UTF-8"?>
 <company_dundermifflin>
   <person id="1">
@@ -495,7 +548,7 @@ Potential drawback of XML: **inefficient storage**
 library(xml2) # updated and faster than library `XML` 
 
 # parse XML, represent XML document as R object
-xml_doc <- read_xml("customers.xml")
+xml_doc <- read_xml("company_dundermifflin.xml")
 xml_doc
 ```
 
@@ -508,6 +561,7 @@ library(xml2)
 xml_doc <- read_xml("../../data/company_dundermifflin.xml")
 xml_doc
 ```
+
 ```{r echo=TRUE, warning=FALSE}
 # length of the html
 xml_length(xml_doc) 
@@ -523,8 +577,7 @@ xml_length(xml_doc)
 persons <- xml_children(xml_doc) # returns only elements
 persons
 
-orders <- xml_children(xml_children(xml_doc))
-orders
+xml_child(xml_children(xml_doc), 1)
 ```
 
 
@@ -540,11 +593,9 @@ xml_siblings(persons[1])
 ```{r, echo = TRUE}
 # navigate upwards (all the levels)
 xml_parents(persons)
-xml_parents(orders)
 
 # navigate upwards (one level)
 xml_parent(persons)
-xml_parent(orders)
 ```
 
 
@@ -556,8 +607,48 @@ sales <- xml_find_all(xml_doc, xpath = ".//sales")
 sales
 xml_text(sales) # extract the data as text
 
-customer_names <- xml_find_all(xml_doc, xpath = ".//name")
-customer_names
+position <- xml_find_all(xml_doc, xpath = ".//position")
+position
+```
+
+
+## Create a data frame with sales
+
+#### Try to extract the sales data from the xml file at home. What is the difference between // and / in the xpath?
+
+```{r, echo = TRUE}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Extract all <person> nodes with sales information
+# [orders] is a predicate that filters the <person> elements to only those that contain at least one <orders> child node.
+persons_with_sales <- xml_find_all(xml_doc, "//person[orders]")
+
+# Initialize an empty dataframe to store sales data
+sales_df_final <- data.frame(name = NA, units = NA, product = NA)
+
+for (i in 1:2) { # There are two persons with sales here. 
+  person <- persons_with_sales[i]
+  
+  # Extract person's name
+  name <- xml_text(xml_find_first(person, "./name"))
+  
+  # Extract sales nodes
+  sales <- xml_find_all(person, ".//sales")
+  units <- xml_text(xml_find_all(sales, "./units"))
+  product <- xml_text(xml_find_all(sales, "./product"))
+  
+  # Create a data frame for the person's sales
+  sales_person <- data.frame(
+    name = name,
+    units = as.numeric(units),
+    product = product
+  )
+  
+  sales_df_final <- rbind(sales_df_final, sales_person)
+}
+
+sales_df_final
 ```
 
 
@@ -566,8 +657,8 @@ customer_names
 
 ## JavaScript Object Notation (JSON)
 
-- text-based format used for representing structured and  ased on JavaScript object syntax.
-- used for data exchange between a server and a web application
+- Text-based format used for representing structured and  ased on JavaScript object syntax.
+- Used for data exchange between a server and a web application
 
 
 ## JSON syntax
@@ -726,98 +817,100 @@ json_doc$gender$type
 ```
 
 
-
-# HTML: Websites
-
-## HTML: Code to build webpages
-
-[HyperText Markup Language (HTML)](https://en.wikipedia.org/wiki/HTML), designed to be read by a web browser. 
-
-
-```{r echo=FALSE, fig.align="center", out.width="60%"}
-include_graphics("../../img/website_screen.jpg")
-```
-
-
-
-## HTML documents: code and data!
-
-HTML documents/webpages consist of *'semi-structured data'*: 
-  
-  - A webpage can contain a HTML-table (*structured data*)...
-  - ...but likely also contains just raw text (*unstructured data*).
-
-----
-
-```{html}
-     <!DOCTYPE html>
-
-     <html>
-         <head>
-             <title>hello, world</title>
-         </head>
-         <body>
-             <h2> hello, world </h2>
-         </body>
-     </html>
-```
-
-<center>
-#### Similarities to other formats?
-</center>
-
-
-
-
-## HTML document as a 'tree'
-
-```{r dom, echo=FALSE, fig.align="center", out.width="60%"}
-include_graphics("../../img/dom_tree_dark.jpg")
-```
-
-
-## Two ways to read a webpage into R
-
-In this example, we look at [Wikipedia's Economy of Switzerland page](https://en.wikipedia.org/wiki/Economy_of_Switzerland).
-
-```{r swiss, echo=FALSE, out.width = "50%", fig.align='center', fig.cap= "Source: https://en.wikipedia.org/wiki/Economy_of_Switzerland"}
-include_graphics("../../img/1_SwissGDP.png")
-```
-
-
-## Tutorial (advanced): Importing data from a HTML table 
-
--> Exercise session this afternoon!
-
-
-
-# Text as Data and Image Data
-
-## Text as Data and Image Data
-
- - Extract text from historical documents (scan, use OCR)
- - Use machine learning to label text (too costly to do manually)
- - Extract information from maps
-
-## Text as Data
-
-Text is unstructured data. Text analysis and feature extraction is the basis for new
-genAI models!
-
--> check the code example on Canvas.
-
-
-## Image Data
-
-- Check the code example on Canvas.
-- Good example on how arrays are used in `R`.
-
-
-
 ## Happy break!!!
 ```{r break, echo=FALSE, out.width = "100%", fig.align='center'}
 include_graphics("../../img/midjourney_break.png")
 ```
+
+
+<!-- # HTML: Websites -->
+
+<!-- ## HTML: Code to build webpages -->
+
+<!-- [HyperText Markup Language (HTML)](https://en.wikipedia.org/wiki/HTML), designed to be read by a web browser.  -->
+
+
+<!-- ```{r echo=FALSE, fig.align="center", out.width="60%"} -->
+<!-- include_graphics("../../img/website_screen.jpg") -->
+<!-- ``` -->
+
+
+
+<!-- ## HTML documents: code and data! -->
+
+<!-- HTML documents/webpages consist of *'semi-structured data'*:  -->
+
+<!--   - A webpage can contain a HTML-table (*structured data*)... -->
+<!--   - ...but likely also contains just raw text (*unstructured data*). -->
+
+<!-- ---- -->
+
+<!-- ```{html} -->
+<!--      <!DOCTYPE html> -->
+
+<!--      <html> -->
+<!--          <head> -->
+<!--              <title>hello, world</title> -->
+<!--          </head> -->
+<!--          <body> -->
+<!--              <h2> hello, world </h2> -->
+<!--          </body> -->
+<!--      </html> -->
+<!-- ``` -->
+
+<!-- <center> -->
+<!-- #### Similarities to other formats? -->
+<!-- </center> -->
+
+
+
+
+<!-- ## HTML document as a 'tree' -->
+
+<!-- ```{r dom, echo=FALSE, fig.align="center", out.width="60%"} -->
+<!-- include_graphics("../../img/dom_tree_dark.jpg") -->
+<!-- ``` -->
+
+
+<!-- ## Two ways to read a webpage into R -->
+
+<!-- In this example, we look at [Wikipedia's Economy of Switzerland page](https://en.wikipedia.org/wiki/Economy_of_Switzerland). -->
+
+<!-- ```{r swiss, echo=FALSE, out.width = "50%", fig.align='center', fig.cap= "Source: https://en.wikipedia.org/wiki/Economy_of_Switzerland"} -->
+<!-- include_graphics("../../img/1_SwissGDP.png") -->
+<!-- ``` -->
+
+
+<!-- ## Tutorial (advanced): Importing data from a HTML table  -->
+
+<!-- -> Exercise session this afternoon! -->
+
+
+
+<!-- # Text as Data and Image Data -->
+
+<!-- ## Text as Data and Image Data -->
+
+<!--  - Extract text from historical documents (scan, use OCR) -->
+<!--  - Use machine learning to label text (too costly to do manually) -->
+<!--  - Extract information from maps -->
+
+<!-- ## Text as Data -->
+
+<!-- Text is unstructured data. Text analysis and feature extraction is the basis for new -->
+<!-- genAI models! -->
+
+<!-- -> check the code example on Canvas. -->
+
+
+<!-- ## Image Data -->
+
+<!-- - Check the code example on Canvas. -->
+<!-- - Good example on how arrays are used in `R`. -->
+
+
+
+
 
 
 
