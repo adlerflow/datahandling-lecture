@@ -6,7 +6,7 @@
 # data frame). In the second part, the ideas of reshaping and stacking
 # are illustrated with an example.
 # 
-# A. Sallin, St. Gallen, 2023
+# A. Sallin, St. Gallen, 2024
 #######################################################################
 
 
@@ -31,7 +31,7 @@ messy_df <- data.frame(last_name = c("Wayne", "Trump", "Karl Marx"),
                        income = c("150,000", "250000", "10000"), stringsAsFactors = FALSE)
 
 messy_df
-
+str(messy_df)
 
 
 
@@ -59,7 +59,7 @@ levels(messy_df$gender)
 messy_df$gender[messy_df$gender == "Man"] <- "male"
 messy_df$gender
 
-# levels(messy_df$gender)[3] <- "male"
+levels(messy_df$gender)[3] <- "male"
 
 
 ## tidyverse approach
@@ -153,22 +153,23 @@ str(messy_df)
 # Reshaping datasets: introductory example/concept -----------------------------
 
 # load example data
-rawdata <- read.csv("data/treatments.csv")
-rawdata <- read.csv(paste0(INPUT_PATH, "/treatments.csv"))
+df <- data.frame(Student = c("1", "2", "3", "4"),
+                 Grade_2024 = c(5,6,4,2),
+                 Grade_2025 = c(6,6,5,3))
 
 # inspect data
-rawdata
+df
 
 
 # reshape from wide to long
-tidydata <- pivot_longer(data = rawdata, 
-                         cols = c("treatmenta", "treatmentb"),
-                         names_to = "treatment",
-                         names_prefix = "treatment",
-                         values_to = "result")
+tidydf <- pivot_longer(data = df, 
+                       cols = c("Grade_2024", "Grade_2025"),
+                       names_to = "Year",
+                       names_prefix = "Grade_",
+                       values_to = "Grade")
 
 # inspect result
-tidydata
+tidydf
 
 
 

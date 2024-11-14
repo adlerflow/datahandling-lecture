@@ -1,17 +1,21 @@
 ---
-title: "test"
-format: html
-editor: visual
+title: "Tutorial (advanced): Importing data from a HTML table (on a website)"
+subtitle: "Exercise to lecture 7"
+format:
+  html:
+    theme: ../../style/hsgtheme.scss
+    embed-resources: true
+    self-contained: true
+    self-contained-math: true
+highlight-style: dracula
 ---
-
-# Tutorial (advanced): Importing data from a HTML table (on a website)
 
 In the chapter on high-dimensional data, we discussed the *Hypertext Markup Language (HTML)* as code to define the structure/content of a website and HTML-documents as semi-structured data sources. The following tutorial revisits the basic steps in importing data from an HTML table into R.
 
-The aim of the tutorial is to generate a CSV file containing data on ['divided government'](https://en.wikipedia.org/wiki/Divided_government) in US politics. We use the following Wikipedia page as a data source: https://en.wikipedia.org/wiki/Divided_government_in_the_United_States. The page contains a table indicating the president's party, and the majority party in the US House and the US Senate per Congress (2-year periods). The first few rows of the cleaned data are supposed to look like this:
+The aim of the tutorial is to generate a CSV file containing data on ['divided government'](https://en.wikipedia.org/wiki/Divided_government) in US politics. We use the following Wikipedia page as a data source: [https://en.wikipedia.org/wiki/Divided_government_in_the_United_States](https://en.wikipedia.org/wiki/Divided_government_in_the_United_States). The page contains a table indicating the president's party, and the majority party in the US House and the US Senate per Congress (2-year periods). The first few rows of the cleaned data are supposed to look like this:
 
 ```{r echo=FALSE}
-dgov <- data.table::fread("data/divided_gov.csv")
+dgov <- data.table::fread("../../data/divided_gov.csv")
 head(dgov)
 ```
 
@@ -50,13 +54,13 @@ Now we write the part of the script that fetches the data from the Web. This par
 
 # fetch from web
 doc <- read_html(SOURCE_PATH)
-tab <- html_table(doc,fill=TRUE)[[2]]
+tab <- html_table(doc, fill=TRUE)[[2]]
 tab <- tab[-nrow(tab), ] # remove last row (not containing data)
 ```
 
 Now we clean the data to get a data set more suitable for data analysis. Note that the original table contains information per congress (2-year periods). However, as the sample above shows, we aim for a panel at the year level. The following code iterates through the rows of the data frame and generates for each row per congress several two rows (one for each year in the congress).[^1]
 
-[^1]: See `?strsplit`, `?unlist`, and [this introduction to regular expressions](https://www.oreilly.com/content/an-introduction-to-regular-expressions/) for the background of how this is done in the code example here.
+[^1]: See `?strsplit`, `?unlist`, `?str_split_1()` and [this introduction to regular expressions](https://www.oreilly.com/content/an-introduction-to-regular-expressions/) for the background of how this is done in the code example here.
 
 ```{r}
 # generate year-level data. frame
@@ -65,16 +69,30 @@ Now we clean the data to get a data set more suitable for data analysis. Note th
 all_years <- list() # the container
 n <- length(tab$Year) # number of cases to iterate through
 length(all_years) <- n
+
 # generate year-level observations. row by row.
 for (i in 1:n){
-      # select row
-      row <- tab[i,]
-      y <- row$Year
-      #
-      begin <- as.numeric(unlist(strsplit(x = y, split = "[\\–\\-]", perl = TRUE))[1])
-      end <- as.numeric(unlist(strsplit(x = y, split =  "[\\–\\-]"))[2])
-      tabnew <- data.frame(year=begin:(end-1), president=row$President, senate=row$Senate, house=row$House)
-      all_years[[i]] <- tabnew # store in container
+  
+  # select row
+  row <- tab[i,]
+  
+  # Select year range
+  y <- row$Year
+  
+  # Split the string into begin and end year
+  # The notation  "[\\–\\-]" is a regular expression that matches either a hyphen or an en dash
+  # The function str_split_l is a custom function that splits a string at a given pattern and returns a character vector of length 2 here 
+  begin <- as.numeric(str_split_1(y, pattern = "[\\–\\-]"))[1]
+  end <- as.numeric(str_split_1(y, pattern = "[\\–\\-]"))[2]
+  
+  # Create a table
+  tabnew <- data.frame(
+    year = begin:(end-1), 
+    president = row$President, 
+    senate = row$Senate, 
+    house = row$House)
+  
+  all_years[[i]] <- tabnew # store in container
 }
 
 # stack all rows together
@@ -83,7 +101,7 @@ allyears <- bind_rows(all_years)
 
 In a last step, we inspect the collected data and write it to a CSV file.
 
-```{r}
+```{r, echo = TRUE, eval = FALSE}
 # WRITE TO DISK --------------------------------------------------
 
 # inspect

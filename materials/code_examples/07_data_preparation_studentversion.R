@@ -6,7 +6,7 @@
 # data frame). In the second part, the ideas of reshaping and stacking
 # are illustrated with an example.
 # 
-# A. Sallin, St. Gallen, 2023
+# A. Sallin, St. Gallen, 2024
 #######################################################################
 
 
@@ -32,6 +32,12 @@ messy_df <- data.frame(last_name = c("Wayne", "Trump", "Karl Marx"),
 
 
 
+## define, clean categorical variables ------------------------------------------------------------------------
+
+
+## standardize categories ------------------------------------------------------------------------
+
+
 
 
 
@@ -45,14 +51,25 @@ messy_df <- data.frame(last_name = c("Wayne", "Trump", "Karl Marx"),
 
 # load example data
 
-# If you are on Nuvolos: the file is in the folder "data"
-rawdata <- read.csv("data/treatments.csv")
-
-# If you are on your own machine, insert your Input Path
-rawdata <- read.csv(paste0(YourPath, "/treatments.csv"))
+# load example data
+df <- data.frame(Student = c("1", "2", "3", "4"),
+                 Grade_2024 = c(5,6,4,2),
+                 Grade_2025 = c(6,6,5,3))
 
 # inspect data
-rawdata
+df
+
+
+# reshape from wide to long
+tidydf <- pivot_longer(data = df, 
+                       cols = ,
+                       names_to = ,
+                       names_prefix = ,
+                       values_to = )
+
+# inspect result
+tidydf
+
 
 
 

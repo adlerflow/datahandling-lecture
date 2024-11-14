@@ -440,23 +440,43 @@ There are two principal ways to link variable names to values.
 
 ## XML syntax
 
-1. Define opening and closing XML-tags with the variable name and surround the value with them, such as in `<filename>ISCCPMonthly_avg.nc</filename>`.
-2. Encapsulate the values within one tag by defining tag-attributes such as in `<case date="16-JAN-1994" temperature="9.200012" />`. 
+There are two principal ways to link variable names to values.
 
+:::: {.columns}
+
+::: {.column width="50%"}
+1. Define opening and closing XML-tags with the variable name and surround the value with them:
+
+```{xml, echo = TRUE}
+<filename>ISCCPMonthly_avg.nc</filename>
+```
+:::
+
+::: {.column width="50%"}
+2. Encapsulate the values within one tag by defining tag-attributes:
+
+```{xml, echo = TRUE}
+<case date="16-JAN-1994" temperature="9.200012" /> 
+```
+:::
+::::
 
 ## XML syntax
 
+:::: {.columns}
+
+::: {.column width="50%"}
 Attributes-based:
+
 ```{xml,echo = TRUE}
   <case date="16-JAN-1994" temperature="9.200012" />
   <case date="16-FEB-1994" temperature="10.70001" />
   <case date="16-MAR-1994" temperature="7.5" />
   <case date="16-APR-1994" temperature="8.100006" />
 ```
+:::
 
-
-## XML syntax
-
+::: {.column width="50%"}
 Tag-based:
 
 ```{xml, echo = TRUE}
@@ -479,6 +499,9 @@ Tag-based:
     <case/>
   <cases/>
 ```
+:::
+::::
+
 
 
 ## Insights: CSV vs. XML
@@ -657,7 +680,7 @@ sales_df_final
 
 ## JavaScript Object Notation (JSON)
 
-- Text-based format used for representing structured and  ased on JavaScript object syntax.
+- Text-based format used for representing structured and based on JavaScript object syntax.
 - Used for data exchange between a server and a web application
 
 

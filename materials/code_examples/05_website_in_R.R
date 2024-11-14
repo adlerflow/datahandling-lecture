@@ -32,13 +32,21 @@ swiss_econ_parsed <- read_html("https://en.wikipedia.org/wiki/Economy_of_Switzer
 swiss_econ_parsed
 
 # find the element containing the table
-tab_node <- html_element(swiss_econ_parsed,
-                      xpath = "//*[@id='mw-content-text']/div/table[2]")
+tab_node <- html_element(
+  swiss_econ_parsed,
+  xpath = "//*[@id='mw-content-text']/div/table[2]"
+  )
+
 # extract the table as data.frame
 tab <- html_table(tab_node)
 tab
 
 
 
+# Use Rvest ---------------------------------------------------------------
 
+tab <- html_table(swiss_econ_parsed)
+
+tab[[2]]
+tab[[3]]
 
