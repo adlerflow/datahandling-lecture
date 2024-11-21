@@ -50,8 +50,6 @@ messy_df <- data.frame(last_name = c("Wayne", "Trump", "Karl Marx"),
 # Reshaping datasets: introductory example/concept -----------------------------
 
 # load example data
-
-# load example data
 df <- data.frame(Student = c("1", "2", "3", "4"),
                  Grade_2024 = c(5,6,4,2),
                  Grade_2025 = c(6,6,5,3))
@@ -75,16 +73,6 @@ tidydf
 
 # Reshape: wide to long ---------------------------------------------------
 
-# reshape from wide to long
-tidydata <- pivot_longer(data = rawdata, 
-                         cols = c("treatmenta", "treatmentb"),
-                         names_to = "treatment",
-                         names_prefix = "treatment",
-                         values_to = "result")
-
-# inspect result
-tidydata
-
 ## initialize and inspect a wide example data-frame
 wide_df <- data.frame(last_name = c("Wayne", "Trump", "Marx"),
                       first_name = c("John", "Melania", "Karl"),
@@ -93,12 +81,12 @@ wide_df <- data.frame(last_name = c("Wayne", "Trump", "Marx"),
                       income.2017 = c( "140000", "230000", "15000"),stringsAsFactors = FALSE)
 wide_df
 
+
+
 # transform from wide to long
-long_df <- pivot_longer(wide_df, 
-                        c(income.2018, income.2017),
-                        names_to = "year",
-                        names_prefix = "income.",
-                        values_to = "income")
+long_df <- pivot_longer()
+
+
 # inspect the result
 long_df
 
@@ -131,9 +119,7 @@ weird_df
 
 
 # transform from long to wide
-tidy_df <- pivot_wider(weird_df,
-                       names_from = "variable",
-                       values_from = "value")
+tidy_df <- pivot_wider()
 
 # inspect result
 tidy_df

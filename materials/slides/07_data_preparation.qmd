@@ -28,6 +28,99 @@ library(tidyr)
 library(stringr)
 ```
 
+# Warm-up
+## JSON files: open-ended question
+
+Be the JSON file
+
+```{json, echo = TRUE}
+{
+  "students": [
+    {
+      "id": 19091,
+      "firstName": "Peter",
+      "lastName": "Mueller",
+      "grades": {
+          "micro": 5,
+          "macro": 4.5,
+          "data handling": 5.5
+          }
+    },
+    {
+      "id": 19092,
+      "firstName": "Anna",
+      "lastName": "Schmid",
+      "grades": {
+          "micro": 5.25,
+          "macro": 4,
+          "data handling": 5.75
+          }
+    },
+    {
+      "id": 19093,
+      "firstName": "Noah",
+      "lastName": "Trevor",
+      "grades": {
+          "micro": 4,
+          "macro": 4.5,
+          "data handling": 5
+          }
+    }
+  ]
+}
+```
+
+Write an R code to extract a table with, as a first column, a vector of first names, and as a second column, the average grade per student. The table can be a data frame or a tibble.
+
+
+## XML
+
+```{xml, echo = TRUE}
+<students>
+  <student>
+    <id>19091</id>
+    <firstName>Peter</firstName>
+    <lastName>Mueller</lastName>
+    <grades>
+      <micro>5</micro>
+      <macro>4.5</macro>
+      <dataHandling>5.5</dataHandling>
+    </grades>
+  </student>
+  <student>
+    <id>19092</id>
+    <firstName>Anna</firstName>
+    <lastName>Schmid</lastName>
+    <grades>
+      <micro>5.25</micro>
+      <macro>4</macro>
+      <dataHandling>5.75</dataHandling>
+    </grades>
+  </student>
+  <student>
+    <id>19093</id>
+    <firstName>Noah</firstName>
+    <lastName>Trevor</lastName>
+    <grades>
+      <micro>4</micro>
+      <macro>4.5</macro>
+      <dataHandling>5</dataHandling>
+    </grades>
+  </student>
+</students>
+```
+
+- 'students' is the root-node, 'grades' are its children
+- The siblings of Trevor Noah are Anna Schmid and Peter Mueller
+- The code below would be an alternative, equivalent notation for the third student in the xml file above.
+```{xml, echo = TRUE}
+<student id="19093" firstName="Noah" lastName="Trevor">
+      <grades micro="4" macro="4.5" dataHandling="5" />
+</student>
+```
+
+
+
 
 # Part II: Data preparation, analysis, and visualization
 
@@ -330,6 +423,12 @@ include_graphics("../../img/longvswide.png")
 👉 We'll use `tidyverse::pivot_wider()`.
 
 
+## Reshaping: implementation in `R` with `tidyverse()`
+
+```{r longvswideCode, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE, fig.cap="Long and wide data with code. Source: [Hugo Tavares](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/09-reshaping/index.html)"}
+include_graphics("../../img/longvswideCode.png")
+```
+
 
 # Stack and row-bind
 
@@ -355,21 +454,45 @@ include_graphics("../../img/rowbinding_dark.png")
 
 *For these reasons (+ performance, handling or row names, and handling of factors), `dplyr::bind_rows()` is preferred in most applications.*
 
+## Stack/row-bind: code example
 
-# Summary
+```{r, echo=TRUE}
+# Create three dfs
+subset1 <- data.frame(ID = c(1,2),
+                      X = c("a", "b"),
+                      Y = c(50,10))
 
-## Reshaping: summary
+subset2 <- data.frame(ID = c(3,4),
+                      Z = c("M", "O"))
 
-```{r longvswide, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE, fig.cap="Long and wide data. Source: [Hugo Tavares](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/09-reshaping/index.html)"}
-include_graphics("../../img/longvswide.png")
+subset3 <- data.frame(ID = c(5),
+                      X = c("c"),
+                      Z = "P")
+
+# Inspect
+subset1
+subset2
+subset3
 ```
 
 
-## Reshaping: summary
+## Stack/row-bind: code example
+```{r, error=TRUE, echo = TRUE, eval=TRUE}
+# Stack data frames
+combined_df_bind_rows <- bind_rows(subset1, subset2, subset3)
+combined_df_rbind     <- rbind(subset1, subset2, subset3) 
 
-```{r longvswideCode, echo=FALSE, out.width = "80%", fig.align='center', purl=FALSE, fig.cap="Long and wide data with code. Source: [Hugo Tavares](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/09-reshaping/index.html)"}
-include_graphics("../../img/longvswideCode.png")
+# What are the following objects?
+combined_df_bind_rows
+combined_df_rbind
 ```
+
+
+
+::: aside
+The errors are due to the requirements of `rbind()`.
+:::
+
 
 
 
