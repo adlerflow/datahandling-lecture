@@ -1,6 +1,6 @@
 ---
 title: 'Data Handling: Import, Cleaning and Visualisation'
-subtitle: 'Lecture 8:<br>Basic Data Analysis with R'
+subtitle: 'Lecture 8:<br>Basic Data Manipulation with R'
 author: "Dr. Aurélien Sallin"
 date: "2024-11-21"
 echo: false
@@ -415,7 +415,6 @@ include_graphics("../../img/dplyr_blocks.png")
 
 ## Prepare your data in a `pipe`line
 
-- Using the `piping` `%>%` operator is to chain one function after another without the need to assign intermediate variables. 
 - The operator has been now replaced with `|>`.
 
 
@@ -479,140 +478,6 @@ mydf <- mydf["Examination"]
 - `stringr` to deal with strings and regular expressions.
 
 
-
-# Exploratory Data Analysis and Descriptive Statistics
-
-## {class="inverse" background-image="../../img/terraincognita.jpg" background-size="100%" background-repeat="cover"}
-
-
-## Exploratory Data Analysis is the first step of data analysis
-
-- 🔎 Get a first understanding of your dataset.
-- Show key aspects of data by modelling, transforming, and visualizing your data. 
-  - Investigate the quality and reliability of your data.
-  - Inform your own statistical analysis.
-  - Inform audience (helps understand advanced analytics parts).
-- ... which in turns generates new questions about your dataset (creative process 🎨).
-
-
-## One piece of advice and two questions will guide you in exploring your data
-
-#### Know your data
-
-- *"To not mislead others and not embarrass yourself, know your data".* 
-- Understand the **number of observations**, the **units**, the **quality** of data, the **definitions** of variables, what to do with **missing values**.
-
-#### What type of variation occurs within my variables?
-
-- **Typical values**: mean, mode, range, standard deviation.
-- **Surprising values**: outliers, rare values, unusual patterns.
-
-#### What type of covariation occurs between my variables?
-- **Covariation** and **Patterns**.
-
-<br>
-
-::: {style="font-size: 60%;"}
-Source: [R4DS](https://r4ds.hadley.nz/eda), "Statistics for Public Policy" by Jeremy G. Weber, 2024.
-:::
-
-## Exploratory Data Analysis: first steps in `R`
-
-- *Quick overview*: `summary()`
-- *Cross-tabulation*: `table()`
-- *Summarizing tools*: `skimr`, `summarytools`, `janitor` (also cleaning)
-
-
-## Descriptive/aggregate statistics
-
-- Overview of key characteristics of main variables used in analysis.
-- Key characteristics:
-  - Mean
-  - Standard deviation
-  - No. of observations
-  - etc.
-
-
-## Aggregate statistics in R
-
-1. Functions to compute statistics (e.g., `mean()`).
-2. Functions to *apply* the statistics function to one or several columns in a tidy dataset.
-  - Including all values in a column.
-  - By group (observation categories, e.g. by location, year, etc.)
-
-:::: aside
-`summary()` in `base`; `summarise()` in `tidyverse`; `group_by()` in `tidyverse`; `sapply()`, `apply()`, `lapply()`, etc. in `base`; `skimr` package; etc.
-::::
-
-## Exploratory Data Analysis: an example with the `swiss` data
-
-<details> <summary>Show code</summary>
-```{r, echo = TRUE}
-# Load the built-in 'swiss' dataset
-data("swiss")
-
-
-swiss <- rownames_to_column(swiss, var = "municipality")
-
-# Add an outlier in Lausanne
-swiss[swiss$municipality == "Lausanne", "Infant.Mortality"] <- 100
-
-# Add a NA for Agriculture in Gruyere
-swiss[swiss$municipality == "Gruyere", "Agriculture"] <- NA
-```
-</details> 
-```{r}
-swiss
-```
-
-
-## Exploratory Data Analysis: an example with the `swiss` data
-
-```{r}
-summary(swiss)
-```
-
-## Exploratory Data Analysis: an example with the `swiss` data
-
-```{r, results='asis'}
-skimr::skim(swiss)
-```
-
-
-## Exploratory Data Analysis: an example with the `swiss` data
-```{r, echo = TRUE}
-swiss |> 
-  group_by(Catholic > 50) |> 
-  summarize(mean(Fertility))
-
-swiss |> 
-  group_by(Catholic > 50) |> 
-  summarize(across(.cols = c(Fertility, Education),
-                   .fns = list("min" = min, "mean" = mean, "max" = max))) 
-```
-
-
-# Some practice 
-
-## Summarizing categorical variables: challenge
-
-Use what we just saw in the lecture to solve the following problem. You have the following dataset:
-
-```{r, eval = FALSE}
-df_p <- data.frame(id = 1:5,
-                   first_name = c("Anna", "John", "Claire", "Evan", "Brigitte"),
-                   profession = c("Economist", "Data Scientist", 
-                                  "Data Scientist", "Economist", "Economist"),
-                   salaryK = c("100 ", 120, 90, 110, 105),
-                   experienceY = c(10, 10, 10, 10, 10))
-
-df_p
-```
-
-  1. Clean the data
-  2. Summarize the data. 
-  3. Give summary statistics on the categorical variable "profession". What can you show, and how can you code it?
-  3. You are interested in quantifying the gender pay gap. Prepare the data accordingly and give an estimate of the gender pay gap.
 
 
 <!-- # A primer in linear regression/OLS (if time) -->

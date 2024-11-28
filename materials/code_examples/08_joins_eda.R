@@ -63,6 +63,13 @@ cross_join(df_p, df_c)
 # Check the many-to-manyand the one-to-many behavior -----------------------------------------
 
 # MTM
+
+df_c <- data.frame(id = c(1:3,1:3,5),
+                   money_spent= c(1000, 2000, 6000, 1500, 3000, 5500,3000),
+                   currency = c("CHF", "CHF", "USD", "EUR", "CHF", "USD", "CAD"),
+                   year=c(2017,2017,2017,2018,2018,2018,2018))
+df_c
+
 df_mtm <- data.frame(
   id = rep(1:3, 2),
   year = rep(c(2017,2017,2017,2018,2018,2018), 2),
@@ -73,8 +80,8 @@ df_mtm <- data.frame(
 
 df_mtm
 
-lj <- left_join(df_p, df_c, by = "id")
-lj <- left_join(df_p, df_c, by = c("id", "year"))
+lj <- left_join(df_mtm, df_c, by = "id")
+lj <- left_join(df_mtm, df_c, by = c("id", "year"))
 
 
 # OTM
@@ -188,6 +195,13 @@ df_mutated |>
 # Use skimr
 library(skimr) # install if needed
 skim(df_mutated)
+
+
+# use summarytools
+summarytools::descr(df_mutated)
+summarytools::freq(df_mutated)
+summarytools::dfSummary(df_mutated)
+
 
 
 # apply-type functions for data summaries
