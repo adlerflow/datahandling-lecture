@@ -1,0 +1,130 @@
+---
+title: "Forecast Example - kofdata"
+author: "Minna Heim"
+date: today
+---
+
+This is an example of what you can do with the `kofdata` package, using time series vintages - aka different versions (or revisions) of the time series 
+
+### Set up
+```{r, setup, message = FALSE, warning = FALSE}
+# install packages if needed!
+library(zoo)
+library(kofdata)
+library(tidyverse)
+library(forecast)
+library(ggplot2)
+library(fpp3)
+```
+
+### Import & Inspect Data
+We import two different versions of the global KOF Barometer, one version from January 2020 and another from October 2020, to see how the COVID crisis changes the economic revisions.
+
+```{r, import}
+# read_open_ts(series, date, remote_archive)
+baro_vint <- get_collection("globalbaro_vintages")
+baro_20201 <- baro_vint$`globalbaro_leading_2020-01`
+baro_20210 <- baro_vint$`globalbaro_leading_2020-10`
+head(baro_20201)
+head(baro_20210)
+```
+
+### Check differences in Versions
+```{r, check differences}
+# check how many values are different, in 2020-01 vs. 2020-10
+diff <- baro_20201 - baro_20210
+head(diff)
+```
+
+By looking at the variable `diff`, we can see that the values have changed significantly between the two versions, which is expected due to the COVID-19 crisis.
+
+### Visualize Data
+```{r, visualize}
+# visualize the 2020-01 version vs. 2020-10 version
+plot_both <- ts.plot(
+  baro_20210, baro_20201,
+  col = c("cornflowerblue", "firebrick1"),
+  gpars = list(
+    xlab = "Year",
+    ylab = "Value",
+    main = "Global Barometer Leading Index - 2020-01 vs. 2020-10"
+  )
+)
+legend("topleft",
+  bty = "n",
+  lty = c(1, 2),
+  col = c("cornflowerblue", "firebrick1"),
+  legend = c("2020-10 Version", "2020-01 Version")
+)
+
+plot_three <- ts.plot(
+  baro_20210, baro_20201, diff,
+  col = c("cornflowerblue", "firebrick1", "black"),
+  gpars = list(
+    xlab = "Year",
+    ylab = "Value",
+    main = "Global Barometer Leading Index - 2020-01 vs. 2020-10 vs. Difference"
+  )
+)
+legend("topleft",
+  bty = "n",
+  lty = c(1, 2, 3),
+  col = c("cornflowerblue", "firebrick1", "black"),
+  legend = c("2020-10 Version", "2020-01 Version", "Difference between both Versions")
+)
+```
+
+Plotting the time series shows some sort of (linear) trend, and no visible seasonality.
+
+### Forecast with 2020-01 version
+```{r}
+# decompose time series to remove linear trend
+baro_20201 <- diff(baro_20201)
+plot(baro_20201)
+
+# looks like there might still be seasonality
+seasonality <- tbats(baro_20201)
+seasonality
+plot(seasonality)
+plot(seasonality$errors)
+acf(seasonality$errors)
+
+acf(baro_20201) # ACF shows MA(1)
+pacf(baro_20201) # PACF indicates AR(3)
+
+
+# fit arma(1,1) to model?
+arma <- arima(baro_20201, order = c(3, 0, 1))
+arma # high SE
+arma_2 <- arima(baro_20201, order = c(1, 0, 1))
+arma_2
+arma_4 <- arima(baro_20201, order = c(2, 0, 1))
+arma_4
+
+fit <- baro_20201 - residuals(arma)
+# fit_2 <- baro_20201 - residuals(arma_2)
+# fit_4 <- baro_20201 - residuals(arma_4)
+
+# check residuals
+checkresiduals(fit) # residuals clearly arent iid
+
+# still seasonalty in my estimation, let's try to see what the automated arima shows:nt
+aa <- auto.arima(fit)
+aa
+checkresiduals(aa)
+```
+
+using the automated arima shows that the cpi can be best fitted using a MA(1) model, and the forecast window is smaller, still given few datapoints, not more can be done here.
+ 
+### Forecast with 2020-10 version
+```{r}
+# decompose time series to remove linear trend
+baro_20210 <- diff(baro_20210)
+plot(baro_20210)
+
+aa <- auto.arima(baro_20210)
+aa
+checkresiduals(aa)
+```
+
+Interesting is that with the revised data from 2024-08-16, the the optimal model used is already quite different -> 202001: ARIMA(1,0,2)(2,0,0) 202010: ARIMA(3,0,1)(2,0,1).

@@ -1,0 +1,319 @@
+---
+title: "Guest Lecture"
+subtitle: "Non-Rectangular Data in Economic Research"
+format:
+  revealjs:
+    slide-number: true
+    logo: images/rseed-pos.png
+    css: styles/logo.css
+  # html:
+  #   embed-resources: true # self contained
+---
+
+## Intro {visibility="hidden"}
+```{r, hide=TRUE}
+install.packages("kofdata", repo = "https://stat.ethz.ch/CRAN/")
+```
+
+<!-- Today I will be trying to give you some more practical insighs on non-rectangular data, and its usage inspecifically economic research.-->
+
+## About me 
+- I took this course 3 years ago!
+- Just finished my Bachelor in Economics at HSG 20 days ago 
+- Doing a Master in Data Science with a minor in Economics
+- Working at RSEED at KOF-ETH
+
+## About the institute and my work
+
+<!-- currently I work at KOF which is the Swiss Economic Institute at ETH, where we conduct research about the swiss and global economy. We research all kinds of fields, ranging from the state of the labour market to the swiss innovation capability. To do this, we work with all kinds of data: Data we collect and analyse and publish ourselves, like business tendency surveys, for example. --> 
+
+<!-- I work at the RSEED section, where we build tools, such as software packages to help economic researchers and teach people how to work with data to improve their research. -->
+
+<!-- Among those things is hacking 4 science, which we teach at RSEED, It is a course which teaches non-computer science PhD students to use the open source ecosystem for their research -->
+
+
+<!-- As you can imagine, we use a lot of data and also work with people who use and process a lot of data. In particular, we use time series data. I am 100% sure that each of you, have if not have used time series data, at least seen it - e.g. stock prices!!-->
+
+
+:::: {.columns}
+::: {.column width="40%"}
+![](images/ETH_Fremdmedienlogo_KOF_horizontal_pos.png)
+![](images/rseed-pos.png)
+![](images/h4sci-logo-web.svg){width="50%"}
+:::
+
+::: {.column width="60%"}
+- From surveys to innovation to forecasting
+- Supporting researchers with research software
+- Teaching doctoral students to work with data & co. 
+:::
+::::
+
+
+## Monitoring the Swiss Economy {.smaller}
+::: {.panel-tabset}
+
+<!-- this is what time series look like when plotted. Conceptually, you can imagine it as rectangular data, so tabular, with values at different points in time. -->
+
+<!-- Here we are looking at a very specific time series, which is the global barometer: which is a KOF created system of indicators that enables a timely analysis of global economic development. To creating this barometer, aka measure global economic development researchers need to take a lot of other data into consideration, which is 1000s of other time series data -->
+
+### Graph 
+```{r, echo=FALSE,results='hide',fig.keep='all'}
+library(kofdata)
+library(stats)
+baro_vint <- get_collection("globalbaro_vintages")
+baro_20210 <- baro_vint$`globalbaro_leading_2020-10`
+
+plot_both <- stats::ts.plot(
+  baro_20210,
+  gpars = list(
+    xlab = "Year",
+    ylab = "Value",
+    main = "Global Barometer of 2020-10"
+  )
+)
+
+plot_both 
+```
+
+### Code 
+
+<!-- if the data is readily available, easy to import and cleaned, then it can be and visualized in 13 lines of code like here: But since I am here to give you a more practical perspective of data handling, I can tell you that this is usually not the case -->
+
+```r
+library(kofdata)
+library(stats)
+baro_vint <- get_collection("globalbaro_vintages")
+baro_20210 <- baro_vint$`globalbaro_leading_2020-10`
+
+plot_both <- ts.plot(
+  baro_20210,
+  gpars = list(
+    xlab = "Year",
+    ylab = "Value",
+    main = "Global Barometer of 2020-10"
+  )
+)
+```
+:::
+
+<!-- Most researchers prefer working with csv data - as you've already learnt. This is what csv data looks like, and on the next tab, is what csv data looks like when it is imported and visualited in R, as you probably know-->
+
+## Ideal for Research: CSV
+
+::: {.panel-tabset}
+
+## Raw CSV
+```csv
+"","ch.kof.barometer"
+"1",91.603983195147
+"2",79.6110546651818
+"3",89.5461510457633
+"4",94.726562227573
+"5",95.2760107540196
+"6",91.6999806524614
+"7",94.7603265991512
+"8",98.9374845836479
+"9",99.250530216109
+"10",100.695954080549
+"11",95.1439024740007
+"12",93.829329862478
+"13",99.6345882016597
+"14",101.39972459498
+"15",103.383161629919
+"16",96.4129787522254
+"17",95.50120124585
+"18",94.9646448181194
+"19",91.233122719892
+"20",93.1004146432815
+"21",98.0752849285184
+"22",94.236093793915
+"23",94.2859219912958
+"24",97.7390410371803
+"25",103.278993334549
+"26",107.114063330872
+"27",101.53317250345
+"28",100.205407508852
+"29",101.480860647209
+"30",105.76018993057
+"31",105.579338137316
+"32",104.85132143875
+"33",114.405048633553
+"34",113.763660642047
+"35",116.46694315049
+"36",114.548720319861
+"37",107.583745768171
+"38",114.277680917615
+"39",112.077984311711
+"40",107.257185992024
+"41",106.197941190568
+"42",106.98878933386
+"43",105.924221966025
+"44",109.038824304608
+"45",104.775554689306
+```
+
+## in R
+```{r}
+library(kofdata)
+baro <- get_time_series("ch.kof.barometer")
+print(baro)
+```
+
+:::
+
+
+## Ideal for Research: Metadata
+<!-- And since economic researchers usually do not only work with few time series, but potentially 100s, there also needs to be available information which describes the variables, the units it is represented in and the source, which is what meta data is for. -->
+
+<!-- Since this data is often in text format, it is represented in nested format, such as json (as you've learnt) or yaml, which is a similar format for nested data, but without brackets, which you see in json data -->
+
+::: {.panel-tabset}
+
+## Raw Yaml
+```yaml
+ch.kof.barometer:
+  url: https://kof.ethz.ch/en/forecasts-and-indicators/indicators/kof-economic-barometer.html
+  source: KOF Swiss Economic Institute
+  country: Switzerland
+  dataset: KOF Economic Barometer
+  variable: KOF Economic Barometer
+```
+
+## Yaml in R
+```{r}
+library(kofdata)
+meta <- get_metadata("ch.kof.barometer")
+head(meta)
+```
+
+:::
+## Reality: Public Data Providers {.smaller}
+<!-- In reality, however, the data we use and get isnt perfect or this tidy. -->
+
+<!-- IMPORTANT: excel spreadsheets are fundamentally designed for human viewing, but not ideal to extract data when coding, thus, but bad if you want to use it in your research! -->
+
+<!--  this data, as opposed to the data shown before, includes both descriptions and time series data-->
+
+<!-- NOT IDEAL FOR CODING: these excel sheets, although visually appealing and readable, lack consistency and machine readability (?).  Think about it, the patterns and techniques used to clean one spreadsheet are very different for the next -->
+
+
+
+::: {.panel-tabset}
+## Nominal Income 
+![](images/nominal_einkommen.png)
+
+## CPI
+![](images/cpi.png)
+
+## Import 
+![](images/import.png)
+:::
+
+<!-- and that is the crux of the issue that we want to target with our initiative at RSEED. We realise that researchers spend way too much time importing and cleaning public data, and thus have less time to research. We as programmers and data scientists have the capabilities to solve this, so we want to create a good so-called seperation of concerns -->
+
+## Separation of Concerns
+<!-- so what we are doing in at our work is taking the data published by public data providers like the swiss national bank, or the federal statistical office, and transform this mixed-format data into tidy data where each information type has its appropriate format, as shown before. rectangular data (aka time series) into csv files and non-rectangular data aka descriptions into non-rectangular formats, like yaml or json. which is researcher-friendly  -->
+
+![](images/combined_ill.jpeg)
+
+<!-- Most of this initiative is still in development, and is 1. not publicly usable yet, and 2. quite complex, since the heterogeneity of public data means that there aren't one-fix-all functions, unfortunately. -->
+
+<!-- So, I will talk to you about a closely related project under the same hood, which also improves the  availability of public data and the seperation of rectangular and non-rectangular data, and moreover, this project you can access and use yourself -->
+
+<!-- to go through this example, I want you to imagine that you are an economic researcher or better yet, you might be in future, when you start working on your bachelor's thesis. Like many economic researchers, you will want to work with data. --> 
+
+<!-- Another reality of working with data is not only the ugly formats that you will encounter but API's.API's are a very common tool in a data scientist's toolbox, but also in a reseachers toolbox, since working with data is made a lot easier! -->
+
+## Reality: API's
+
+<!-- API's - application programming interfaces are software interemediaries that allow for communication between two applications - which allow you to get data from one place smoothly into your coding environment without needing to actually go onto a website to check if the data exists and download it. -->
+
+<!-- IMPORTANT: API's are fundamentally not meant for humans, but for sharing data between computers, and thus represented in nested form (json)  -->
+
+<!-- but why am I talking about APIs now. Well, as you will see in a quick demonstration, data fetched through an API is almost always in json data. So knowing how to work with json and other non-rectangular data is essential in working with data from APIs -->
+
+<!-- create a quick demonstration: go to arc/brave browser (where you can pretty print) and put in: http://datenservice.kof.ethz.ch/api/v1/public/ts?keys=ch.kof.barometer
+
+1. show data
+2. pretty print it 
+3. explain that this is what the data looks like that we get from apis
+-->
+
+
+::: {.panel-tabset}
+
+## Code
+```r
+library(httr)
+library(jsonlite)
+keys <- "ch.kof.barometer"
+
+url <- "https://datenservice.kof.ethz.ch/api/v1/public/ts"
+query <- list(keys = keys, df = "Y-m-d")
+
+response <- GET(url, query = query)
+data <- fromJSON(content(response, as = "text"))
+head(data)
+```
+## Execution
+
+```{r}
+library(httr)
+library(jsonlite)
+keys <- "ch.kof.barometer"
+
+url <- "https://datenservice.kof.ethz.ch/api/v1/public/ts"
+query <- list(keys = keys, df = "Y-m-d")
+
+response <- GET(url, query = query)
+data <- fromJSON(content(response, as = "text"))
+head(data)
+```
+:::
+
+
+## R Package API Wrapper: kofdata 
+
+<!-- this code snippet shows how to handle data that comes from an Application Programming Interface, designed for machine to machine communication, this data is in a very digestable format for machines -->
+
+::: {.panel-tabset}
+
+## Code 
+
+```r
+library(kofdata)
+ts <- get_time_series("ch.kof.barometer")
+meta <- get_metadata("ch.kof.barometer")
+# search for more keys of publicly available data
+# https://ts-explorer.kof.ethz.ch/guest/2c579efb-e75e-46de-9f68-014f8cb603f6
+```
+
+## Time Series Data
+```{r}
+library(kofdata)
+ts <- get_time_series("ch.kof.barometer")
+head(ts)
+```
+
+## Metadata
+```{r}
+library(kofdata)
+meta <- get_metadata("ch.kof.barometer")
+head(meta)
+```
+
+
+:::
+
+
+## Thank you for your attention! 
+If you are interested in working with us or if you have any questions: 
+
+- source code: [https://github.com/minnaheim/dh_guest_lecture](https://github.com/minnaheim/dh_guest_lecture)
+- slides: [https://minnaheim.github.io/dh_guest_lecture/lecture.html](https://minnaheim.github.io/dh_guest_lecture/lecture.html)
+- find us at [rseed.ch](https://rseed.ch)
+- contact me: [heim@kof.ethz.ch](mailto:heim@kof.ethz.ch)
+
+
+<!-- go through slides and script example -->

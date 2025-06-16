@@ -1,0 +1,287 @@
+title:
+  en: Secondary Sector Production, Orders and Turnover Statistics - quarterly series
+  de: Produktions-, Auftrags- und Umsatzstatistik im sekundären Sektor - vierteljährliche
+    Zeitreihen
+  fr: Statistique de la production, des commandes et des chiffres d'affaires secteur
+    secondaire - séries trimestrielles
+  it: Statistica della produzione, delle ordinazioni e delle cifre d'affari del settore
+    secondario - serie trimestrale
+source.name:
+  en: FSO
+  de: BFS
+  fr: OFS
+  it: UST
+source.url:
+- https://www.fso.admin.ch
+units:
+  all:
+    en: Indices (2010=100), percent
+    de: Index 2010=100, Prozent
+    fr: Indice (2010=100), pourcent
+    it: Indici (2010=100), percentuale
+aggregate:
+  all: sum
+dim.order:
+- trans
+- variable
+- section
+- adjustment
+hierarchy:
+  adjustment:
+    brut: ~
+    sa: ~
+    ca: ~
+  trans:
+    ind: ~
+    var: ~
+  variable:
+    ptot: ~
+    utot: ~
+  section:
+    sect2:
+      ind:
+        b: ~
+      c:
+        ca: ~
+        cb: ~
+        cc: ~
+        cdce: ~
+        cf: ~
+        cg: ~
+        ch: ~
+        ci: ~
+        cj: ~
+        ck: ~
+        cl: ~
+        cm: ~
+      d: ~
+      e: ~
+      f: ~
+    '41': ~
+    '42': ~
+    '43': ~
+    migig: ~
+    migcg:
+      migcd: ~
+      migcn: ~
+    migen: ~
+labels:
+  dimnames:
+    adjustment:
+      en: Adjustment
+      de: Bereinigung
+      fr: Ajustement
+      it: Correzione
+    section:
+      en: Branch
+      de: Branche
+      fr: Branche
+      it: Attività
+    trans:
+      en: Indices...Changes
+      de: Indizes...Veränderungen
+      fr: Indices...Variations
+      it: Indici...Variazioni
+    variable:
+      en: Variable
+      de: Variable
+      fr: Variable
+      it: Variabile
+  trans:
+    ind:
+      en: Indices
+      de: Indizes
+      fr: Indices
+      it: Indici
+    var:
+      en: Changes
+      de: Veränderungen
+      fr: Variations
+      it: Variazioni
+  variable:
+    ptot:
+      en: Production
+      de: Produktion
+      fr: Production
+      it: Produzione
+    utot:
+      en: Turnover Total
+      de: Umsatz Total
+      fr: Chiffre d'affaires total
+      it: Cifre d'affari totali
+  section:
+    '41':
+      en: 41 Building construction
+      de: 41 Hochbau
+      fr: 41 Bâtiment
+      it: 41 Edilizia
+    '42':
+      en: 42 Civil engineering
+      de: 42 Tiefbau
+      fr: 42 Génie civil
+      it: 42 Genio civile
+    '43':
+      en: 43 Specialised construction activities
+      de: 43 Vorbereitende Baustellenarbeiten, Bauinstallationen und sonstiges Ausbaugewerbe
+      fr: 43 Travaux de construction spécialisés
+      it: 43 Lavori di costruzione specializzata
+    b:
+      en: B Mining and quarrying
+      de: B Bergbau und Gewinnung von Steinen und Erden
+      fr: B Industries extractives
+      it: B Attività estrattive
+    c:
+      en: C Manufacturing
+      de: C Verarbeitendes Gewerbe/Herstellung von Waren
+      fr: C Industrie manufacturière
+      it: C Attività manifatturiere
+    ca:
+      en: CA Manufacture of food and tobacco products
+      de: CA Herstellung von Nahrungsmitteln und Tabakerzeugnissen
+      fr: CA Industries alimentaires et du tabac
+      it: CA Industrie alimentari e del tabacco
+    cb:
+      en: CB Manufacture of textiles and apparel
+      de: CB Herstellung von Textilien und Bekleidung
+      fr: CB Industries du textile et de l'habillement
+      it: CB Fabbricazione di tessili e abbigliamento
+    cc:
+      en: CC Manufacture of wood and paper products, and printing
+      de: CC Herstellung von Holzwaren, Papier und Druckerzeugnissen
+      fr: CC Industries du bois et du papier; imprimerie
+      it: CC Industria del legno, industria della carta e stampa
+    cdce:
+      en: CD-CE Manufacture of coke, chemicals and chemical products
+      de: CD+CE Kokerei, Mineralölverarbeitung und Herstellung von chemischen Erzeugnissen
+      fr: CD-CE Cokéfaction, raffinage et industrie chimique
+      it: CD-CE Fabbricazione di coke e industria chimica
+    cf:
+      en: CF Manufacture of pharmaceutical products
+      de: CF Herstellung von pharmazeutischen Erzeugnissen
+      fr: CF Industrie pharmaceutique
+      it: CF Industria farmaceutica
+    cg:
+      en: CG Manufacture of rubber and plastics products
+      de: CG Herstellung von Gummi- und Kunststoffwaren
+      fr: CG Industries du caoutchouc et du plastique
+      it: CG Industria d'articoli in gomma e in materie plastiche
+    ch:
+      en: CH Manufacture of metal products
+      de: CH Herstellung von Metallerzeugnissen
+      fr: CH Fabrication de produits métalliques
+      it: CH Fabbricazione di prodotti in metallo
+    ci:
+      en: CI Manufacture of electronic products; watches and clocks
+      de: CI Herstellung von Datenverarbeitungsgeräten und Uhren
+      fr: CI Fabrication de produits électroniques; horlogerie
+      it: CI Fabbricazione di prodotti di elettronica; orologi
+    cj:
+      en: CJ Manufacture of electrical equipment
+      de: CJ Herstellung von elektrischen Ausrüstungen
+      fr: CJ Fabrication d'équipements électriques
+      it: CJ Fabbricazione di apparecchi elettrici
+    ck:
+      en: CK Manufacture of machinery and equipment
+      de: CK Maschinenbau
+      fr: CK Fabrication de machines
+      it: CK Fabbricazione di macchinari
+    cl:
+      en: CL Manufacture of transport equipment
+      de: CL Fahrzeugbau
+      fr: CL Fabrication de matériels de transport
+      it: CL Fabbricazione di mezzi di trasporto
+    cm:
+      en: CM Other manufacturing, and repair and installation
+      de: CM Sonstige Herstellung von Waren, Reparatur und Installation
+      fr: CM Autres industries manufacturières; réparation et installation
+      it: CM Altre attività manifatturiere, riparazione e installatione
+    d:
+      en: D Electricity supply
+      de: D Energieversorgung
+      fr: D Production et distribution d'énergie
+      it: D Fornitura di energia elettrica
+    e:
+      en: E Water supply, waste management
+      de: E Wasserversorgung, Beseitigung von Umweltverschmutzungen
+      fr: E Production et distribution d'eau; gestion des déchets
+      it: E Fornitura di acqua, trattamento dei rifiuti
+    f:
+      en: F Construction
+      de: F Baugewerbe
+      fr: F Construction
+      it: F Costruzioni
+    ind:
+      en: B-E Industry
+      de: B-E Industrie
+      fr: B-E Industrie
+      it: B-E Industria
+    migcd:
+      en: Consumer durables
+      de: Gebrauchsgüter
+      fr: Biens de consommation durables
+      it: Beni di consumo durevoli
+    migcg:
+      en: Capital goods
+      de: Investitionsgüter
+      fr: Biens d'investissement
+      it: Beni strumentali
+    migcn:
+      en: Consumer non-durables
+      de: Verbrauchsgüter
+      fr: Biens de consommation non durables
+      it: Beni di consumo non durevoli
+    migen:
+      en: Energy
+      de: Energie
+      fr: Energie
+      it: Energia
+    migig:
+      en: Intermediate goods
+      de: Vorleistungsgüter
+      fr: Biens intermédiaires
+      it: Prodotti intermedi
+    sect2:
+      en: B-F Secondary sector
+      de: B-F Sekundärer Sektor
+      fr: B-F Secteur secondaire
+      it: B-F Settore secondario
+  adjustment:
+    brut:
+      en: Unadjusted
+      de: Unbereinigt
+      fr: Brut
+      it: Grezzo
+    ca:
+      en: Adjusted for calendar effects
+      de: Kalenderbereinigt
+      fr: Corrigé des effets calendaires
+      it: Corretto per gli effetti di calendario
+    sa:
+      en: Seasonally adjusted
+      de: Saisonbereinigt
+      fr: Désaisonnalisé
+      it: Destagionalizzato
+details:
+  en: |-
+    Indices: annual average 2015=100
+    Changes: year-on-year change in %; seasonally adjusted: month-on-month (quarter-on-quarter) change in %.
+    The provisional results are published 1 month and the final results 5 months after the end of each survey period.
+    Please note that auxiliary variables have been used to calculate results between April 2005 and September 2009 with regard to petrol stations (473).
+  de: |-
+    Indizes: Jahresdurchschnitt 2015=100
+    Veränderungen: zum Vorjahr in %; saisonbereinigt: zur Vorperiode in %.
+    Die provisorischen Ergebnisse werden 1 Monat und die definitiven Ergebnisse 5 Monate nach Ende jeder Erhebungsperiode publiziert.
+    Bezüglich der Tankstellen (473) wird darauf hingewiesen, dass die Resultate zwischen April 2005 und September 2009 mittels Hilfsvariabeln berechnet wurden.
+  fr: |-
+    Indices: moyenne annuelle 2015=100
+    Variations: par rapport à l'année précédente; désaisonnalisées: par rapport à la période précédente.
+    Les résultats provisoires sont publiés 1 mois après la fin de chaque période d'enquête et les résultats définitifs après 5 mois.
+    En ce qui concerne le commerce de détail de carburants (473), nous signalons que les résultats entre avril 2005 et septembre 2009 ont été calculés à l'aide de variables auxiliaires.
+  it: |-
+    Indici: media annua 2015=100
+    Variazioni: rispetto all'anno precedente in %; destagionalizzati: rispetto al periodo precedente in %
+    I risultati provvisori sono pubblicati un mese dopo la fine del periodo di rilevazione, i risultati definitivi cinque mesi dopo.
+    Per quel che riguarda il commercio al dettaglio di carburante (473), segnaliamo che i risultati compresi fra aprile 2005 e settembre 2009 sono stati calcolati utilizzando delle variabili ausiliarie.
+utc.updated: 2024-06-06 08:17:27
+sha1: z6H8gom462xJ27+bgxfbr5QPAXo=
+

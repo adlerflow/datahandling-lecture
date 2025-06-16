@@ -1,0 +1,72 @@
+title:
+  en: Adecco Swiss Job Market Index
+  de: Adecco Swiss Job Market Index
+  fr: Adecco Swiss Job Market Index
+  it: Adecco Swiss Job Market Index
+source.name:
+  en: University of Zürich
+  de: Universität Zürich
+  fr: Université de Zurich
+  it: Università di Zurigo
+source.url:
+- http://www.stellenmarktmonitor.uzh.ch/en/indices/asjmi.html
+units:
+  all:
+    en: Index, Base Q1 2008=100
+    de: Index, Basis Q1 2008=100
+    fr: Indice, Base Q1 2008=100
+    it: Indice, Base Q1 2008=100
+aggregate:
+  all: mean
+dim.order: idx_type
+hierarchy:
+  idx_type:
+    sch:
+      pzua: ~
+      ins: ~
+      unw: ~
+    scs: ~
+labels:
+  dimnames:
+    idx_type:
+      en: Index
+      de: Index
+      fr: Indice
+      it: Indice
+  idx_type:
+    ins:
+      en: ~
+      de: Internet-Stellenportale
+      fr: ~
+      it: ~
+    pzua:
+      en: ~
+      de: Presse (Zeitungen und Anzeiger)
+      fr: ~
+      it: ~
+    sch:
+      en: ~
+      de: Schweiz
+      fr: ~
+      it: ~
+    scs:
+      en: ~
+      de: Schweiz (saisonbereinigt)
+      fr: ~
+      it: ~
+    unw:
+      en: ~
+      de: Unternehmens-Webseiten
+      fr: ~
+      it: ~
+details:
+  en: ~
+  de: |-
+    Der Swiss Job Market Index (ASJMI) bildet die Entwicklung des Stellenangebots  −
+                die Zahl der öffentlich ausgeschriebenen Stellen − in der Schweiz ab.
+          Der Index setzt sich aus drei Teil-Indices zusammen, die über die Veränderung des Stellenangebots in der Presse, auf Unternehmens-Webseiten und auf Internet-Stellenportalen Aufschluss geben.
+  fr: ~
+  it: ~
+utc.updated: 2024-10-09 11:41:25
+sha1: zqq7zLlFl2RsfSKEA1bIHXyJ92g=
+

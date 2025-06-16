@@ -1,0 +1,6 @@
+ch.kof.barometer:
+  url: https://kof.ethz.ch/en/forecasts-and-indicators/indicators/kof-economic-barometer.html
+  source: KOF Swiss Economic Institute
+  country: Switzerland
+  dataset: KOF Economic Barometer
+  variable: KOF Economic Barometer
