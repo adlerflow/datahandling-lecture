@@ -141,3 +141,28 @@
    - More hands-on examples and challenges
    - Git/GitHub integration for course materials
 4. **Team and guest speakers**: Updated to reflect current instructors and industry connections
+
+## New Visual Materials Added in 2024
+
+### Key new images and visual aids:
+- **QR_APP_2024.png**: Interactive survey QR code for introduction
+- **break-picture.png**: Custom break slide imagery
+- **dplyr_blocks.png**: Visual representation of dplyr functions
+- **functionals.png**: New visualization for functional programming
+- **tidyverse_pipeline.png**: Data pipeline visualization
+- **data_structure_R.png**: R data structures visualization
+- **chart_decision_tree.png/webp**: Decision tree for chart selection
+- **datainkratio_final.webp**: Tufte's data-ink ratio concept
+- **dubois_challenge.jpg/png**: W.E.B. Du Bois visualization examples
+- **economist_example.png**: New visualization example
+- **readxl.png** and **openxlsx.png**: Package visuals
+- **midjourney_** series: AI-generated warm-up and break images
+- **meme2.png**, **meme_floating.webp**, **meme_old_code.jpg**: New programming memes
+- **fede.jpg**, **federica_small.jpg**: New team member photos
+- **swica-logo-e.svg**: Updated employer branding
+
+### Thematic additions:
+- More emphasis on data visualization principles (Tufte, Du Bois)
+- AI-generated imagery for engagement (Midjourney)
+- Enhanced package-specific visuals
+- More memes and humorous content for student engagement
